@@ -5,24 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MU AGENTS — Email Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <style>
     /* ===== CSS Variables & Reset ===== */
     :root {
       --bg: #0B0F17;
-      --bg-panel: rgba(20, 26, 38, 0.85);
-      --bg-input: rgba(11, 15, 23, 0.85);
-      --border: #232D3F;
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
+      --surface: #121826;
+      --surface-2: #161D2C;
+      --border: #232B3D;
+      --text: #E7EAF0;
+      --muted: #8B93A7;
+      --text-muted: #8B93A7;
       --text-faint: #4B5563;
-      --accent: #F59E0B;
-      --accent-soft: rgba(245, 158, 11, 0.15);
-      --accent-hover: #D97706;
+      --accent-lead: #F5A623;
+      --accent-lead-soft: rgba(245,166,35,0.12);
+      --accent-email: #5EEAD4;
+      --accent-email-soft: rgba(94,234,212,0.12);
+
+      --accent: #5EEAD4;
+      --accent-soft: rgba(94,234,212,0.12);
+      --accent-hover: #2DD4BF;
+      --bg-panel: #121826;
+      --bg-input: #161D2C;
+
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      
+      --font-sig: 'Caveat', cursive;
+
       --success: #10B981;
       --success-soft: rgba(16, 185, 129, 0.15);
       --danger: #EF4444;
@@ -36,7 +46,11 @@
     }
     
     body {
-      background-color: var(--bg);
+      margin: 0;
+      background:
+        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245,166,35,0.07), transparent),
+        radial-gradient(ellipse 900px 500px at 85% 0%, rgba(94,234,212,0.06), transparent),
+        var(--bg);
       color: var(--text);
       font-family: var(--font-body);
       min-height: 100vh;
@@ -60,59 +74,30 @@
       );
     }
     
-    /* ===== Header ===== */
-    .header-bar {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px 40px;
-      border-bottom: 1px solid var(--border);
-      z-index: 10;
-      background: rgba(11, 15, 23, 0.7);
-      backdrop-filter: blur(10px);
-    }
-    
-    .brand-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 0.15em;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .brand-mark {
-      width: 10px;
-      height: 10px;
-      background-color: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent);
-      display: inline-block;
-    }
+    /* ---- Top brand row ---- */
+    .brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; color: var(--text); }
+    .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-lead); box-shadow: 0 0 10px var(--accent-lead); }
+    .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
 
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      border-radius: 6px;
-      padding: 6px 14px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s ease;
+    /* ---- Agent switcher ---- */
+    .switcher {
+      display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 5px; margin-bottom: 26px; width: fit-content;
     }
-    
-    .btn-back:hover {
-      border-color: var(--accent);
-      color: var(--text);
+    .switch-tab {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
+      padding: 9px 16px; border-radius: 8px; cursor: pointer;
+      color: var(--muted); border: 1px solid transparent; text-decoration: none;
+      transition: all .18s ease; user-select: none;
     }
+    .switch-tab .ic { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
+    .switch-tab:hover { color: var(--text); }
+    .switch-tab.active[data-agent="lead"] { background: var(--accent-lead-soft); color: var(--accent-lead); border-color: rgba(245,166,35,0.35); }
+    .switch-tab.active[data-agent="lead"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-lead); }
+    .switch-tab.active[data-agent="email"] { background: var(--accent-email-soft); color: var(--accent-email); border-color: rgba(94,234,212,0.35); }
+    .switch-tab.active[data-agent="email"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-email); }
     
     /* ===== Main Container ===== */
     .container {
@@ -125,13 +110,12 @@
     }
     
     .panel {
-      background: var(--bg-panel);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      backdrop-filter: blur(12px);
-      padding: 32px;
+      border-radius: 16px;
+      padding: 26px;
       margin-bottom: 24px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px -25px rgba(0,0,0,0.6);
     }
     
     .panel-header {
@@ -141,7 +125,7 @@
     .eyebrow {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--accent);
+      color: var(--accent-email);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin-bottom: 6px;
@@ -149,15 +133,16 @@
 
     .panel-title {
       font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 600;
       color: var(--text);
     }
 
     .panel-sub {
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 13.5px;
+      color: var(--muted);
       margin-top: 6px;
+      line-height: 1.5;
     }
 
     /* Form Fields */
@@ -173,7 +158,7 @@
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -182,11 +167,11 @@
     .email-count-badge {
       font-family: var(--font-mono);
       font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 5px 11px;
+      border-radius: 20px;
+      background: var(--accent-email-soft);
+      color: var(--accent-email);
+      border: 1px solid rgba(94,234,212,0.4);
     }
 
     select, input[type="text"], textarea {
@@ -249,22 +234,22 @@
     .send-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #0B0F17;
-      border: none;
+      gap: 7px;
+      background: var(--accent-email-soft);
+      border: 1px solid rgba(94,234,212,.4);
+      color: var(--accent-email);
       border-radius: 8px;
-      padding: 12px 24px;
-      font-family: var(--font-display);
+      padding: 10px 20px;
+      font-family: var(--font-mono);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .send-btn:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+      background: var(--accent-email);
+      color: #0B0F17;
     }
 
     .send-btn:disabled {
@@ -286,12 +271,13 @@
     }
 
     .results-card {
-      background: var(--bg-panel);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 16px;
+      padding: 26px;
       display: none;
       animation: fadeIn 0.4s ease;
+      box-shadow: 0 20px 40px -25px rgba(0,0,0,0.6);
     }
 
     @keyframes fadeIn {
@@ -464,27 +450,40 @@
     .history-details.open {
       display: block;
     }
+
+    /* Signature mark */
+    .signature {
+      position: fixed; bottom: 18px; right: 22px;
+      font-family: var(--font-sig); font-size: 22px; color: var(--muted);
+      opacity: .55; display: flex; align-items: center; gap: 6px; pointer-events: none;
+      transform: rotate(-3deg); z-index: 1000;
+    }
+    .signature .spark { font-size: 13px; color: var(--accent-lead); opacity: .9; }
   </style>
 </head>
 <body>
 
-  <!-- Top Header -->
-  <header class="header-bar">
-    <div class="brand-title">
-      <span class="brand-mark"></span>
-      <span>MU AGENTS</span>
+  <!-- Top Header / Agent Switcher -->
+  <div style="max-width: 1080px; margin: 0 auto; padding: 28px 24px 0; width: 100%;">
+    <div class="brand-row">
+      <div class="brand"><span class="dot"></span>MU AGENTS</div>
+      <span class="eyebrow">Intelligence Studio</span>
     </div>
-    <a href="/" class="btn-back">⬅ Back to Lead Finder</a>
-  </header>
+
+    <div class="switcher">
+      <a href="/" class="switch-tab" data-agent="lead"><span class="ic"></span>Lead Finder</a>
+      <a href="/email-agent" class="switch-tab active" data-agent="email"><span class="ic"></span>Email Agent</a>
+    </div>
+  </div>
 
   <!-- Main Container -->
   <main class="container">
 
     <div class="panel">
       <div class="panel-header">
-        <div class="eyebrow">Email Outreach Agent</div>
-        <h1 class="panel-title">Send Email Campaigns</h1>
-        <p class="panel-sub">Select an output report file, compose your message, and dispatch individual emails to scraped business leads.</p>
+        <div class="eyebrow">Outreach Dispatcher</div>
+        <h1 class="panel-title">Send Email Campaign</h1>
+        <p class="panel-sub">Pick a scan report, write once, and it reaches every lead the scan surfaced.</p>
       </div>
 
       <div class="error-card" id="error-card"></div>
@@ -573,5 +572,6 @@
   </main>
 
   <script src="/static/email_agent.js"></script>
+  <div class="signature"><span class="spark">✦</span> crafted by Bushra</div>
 </body>
 </html>

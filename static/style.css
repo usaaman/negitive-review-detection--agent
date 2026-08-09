@@ -1,21 +1,28 @@
 /* ===== Tokens ===== */
 :root {
-  --bg: #12161C;
-  --bg-panel: #171C24;
-  --bg-panel-2: #1D232C;
-  --border: #2A313C;
-  --text: #EDEEF0;
-  --text-muted: #8B94A3;
-  --text-faint: #5B6472;
-  --accent: #FFB020;
-  --accent-soft: rgba(255, 176, 32, 0.14);
-  --teal: #3AAFA9;
-  --danger: #E4572E;
-  --danger-soft: rgba(228, 87, 46, 0.16);
+  --bg: #0B0F17;
+  --surface: #121826;
+  --surface-2: #161D2C;
+  --border: #232B3D;
+  --text: #E7EAF0;
+  --muted: #8B93A7;
+  --text-muted: #8B93A7;
+  --text-faint: #4B5563;
+  --accent-lead: #F5A623;
+  --accent-lead-soft: rgba(245,166,35,0.12);
+  --accent-email: #5EEAD4;
+  --accent-email-soft: rgba(94,234,212,0.12);
+
+  --accent: #F5A623;
+  --accent-soft: rgba(245,166,35,0.12);
+  --teal: #5EEAD4;
+  --danger: #EF4444;
+  --danger-soft: rgba(239, 68, 68, 0.16);
 
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-sig: 'Caveat', cursive;
 }
 
 * { box-sizing: border-box; }
@@ -23,7 +30,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245,166,35,0.07), transparent),
+    radial-gradient(ellipse 900px 500px at 85% 0%, rgba(94,234,212,0.06), transparent),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   min-height: 100vh;
