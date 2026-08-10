@@ -21,6 +21,8 @@
       --accent-lead-soft: rgba(245,166,35,0.12);
       --accent-email: #5EEAD4;
       --accent-email-soft: rgba(94,234,212,0.12);
+      --accent-whatsapp: #25D366;
+      --accent-whatsapp-soft: rgba(37,211,102,0.12);
 
       --accent: #F5A623;
       --accent-soft: rgba(245,166,35,0.12);
@@ -99,6 +101,8 @@
     .switch-tab.active[data-agent="lead"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-lead); }
     .switch-tab.active[data-agent="email"] { background: var(--accent-email-soft); color: var(--accent-email); border-color: rgba(94,234,212,0.35); }
     .switch-tab.active[data-agent="email"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-email); }
+    .switch-tab.active[data-agent="whatsapp"] { background: var(--accent-whatsapp-soft); color: var(--accent-whatsapp); border-color: rgba(37,211,102,0.35); }
+    .switch-tab.active[data-agent="whatsapp"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-whatsapp); }
     
     /* ===== Main Output Canvas ===== */
     .canvas-container {
@@ -627,6 +631,7 @@
     <div class="switcher">
       <a href="/" class="switch-tab active" data-agent="lead"><span class="ic"></span>Lead Finder</a>
       <a href="/email-agent" class="switch-tab" data-agent="email"><span class="ic"></span>Email Agent</a>
+      <a href="/whatsapp-agent" class="switch-tab" data-agent="whatsapp"><span class="ic"></span>WhatsApp Agent</a>
     </div>
   </div>
 

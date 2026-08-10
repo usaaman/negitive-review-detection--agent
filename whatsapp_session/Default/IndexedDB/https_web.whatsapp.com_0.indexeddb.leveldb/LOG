@@ -1,0 +1,16 @@
+2026/08/10-07:02:07.092 2e38 Creating DB C:\Users\Admin\Documents\Project\negitive-review-detection--agent\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/08/10-07:02:07.107 2e38 Reusing MANIFEST C:\Users\Admin\Documents\Project\negitive-review-detection--agent\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/10-07:02:47.119 3418 Level-0 table #5: started
+2026/08/10-07:02:47.385 3418 Level-0 table #5: 1040559 bytes OK
+2026/08/10-07:02:47.391 3418 Delete type=0 #3
+2026/08/10-07:02:50.666 21a0 Level-0 table #7: started
+2026/08/10-07:02:50.776 21a0 Level-0 table #7: 524531 bytes OK
+2026/08/10-07:02:50.781 21a0 Delete type=0 #4
+2026/08/10-07:02:50.783 2e38 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/08/10-07:02:50.783 2e38 Manual compaction at level-1 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0f\x00\x00\xc8\x09\x00F\x00I\x00L\x00E\x00_\x00D\x00A\x00T\x00A' @ 61554 : 1
+2026/08/10-07:02:50.783 2e38 Compacting 1@1 + 1@2 files
+2026/08/10-07:02:50.857 2e38 Generated table #8@1: 15702 keys, 647609 bytes
+2026/08/10-07:02:50.857 2e38 Compacted 1@1 + 1@2 files => 647609 bytes
+2026/08/10-07:02:50.864 2e38 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/08/10-07:02:50.864 2e38 Delete type=2 #7
+2026/08/10-07:02:50.865 2e38 Manual compaction at level-1 from '\x00\x0f\x00\x00\xc8\x09\x00F\x00I\x00L\x00E\x00_\x00D\x00A\x00T\x00A' @ 61554 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
