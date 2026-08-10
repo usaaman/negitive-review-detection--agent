@@ -21,6 +21,8 @@
       --accent-lead-soft: rgba(245,166,35,0.12);
       --accent-email: #5EEAD4;
       --accent-email-soft: rgba(94,234,212,0.12);
+      --accent-whatsapp: #25D366;
+      --accent-whatsapp-soft: rgba(37,211,102,0.12);
 
       --accent: #5EEAD4;
       --accent-soft: rgba(94,234,212,0.12);
@@ -98,6 +100,31 @@
     .switch-tab.active[data-agent="lead"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-lead); }
     .switch-tab.active[data-agent="email"] { background: var(--accent-email-soft); color: var(--accent-email); border-color: rgba(94,234,212,0.35); }
     .switch-tab.active[data-agent="email"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-email); }
+    .switch-tab.active[data-agent="whatsapp"] { background: var(--accent-whatsapp-soft); color: var(--accent-whatsapp); border-color: rgba(37,211,102,0.35); }
+    .switch-tab.active[data-agent="whatsapp"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-whatsapp); }
+
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-email-soft);
+      border: 1px solid rgba(94,234,212,.4);
+      color: var(--accent-email);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .export-btn:hover {
+      background: var(--accent-email);
+      color: #0B0F17;
+    }
     
     /* ===== Main Container ===== */
     .container {
@@ -624,6 +651,7 @@
     <div class="switcher">
       <a href="/" class="switch-tab" data-agent="lead"><span class="ic"></span>Lead Finder</a>
       <a href="/email-agent" class="switch-tab active" data-agent="email"><span class="ic"></span>Email Agent</a>
+      <a href="/whatsapp-agent" class="switch-tab" data-agent="whatsapp"><span class="ic"></span>WhatsApp Agent</a>
     </div>
   </div>
 
@@ -821,10 +849,18 @@
 
     <!-- History Panel -->
     <div class="panel" style="margin-top: 24px;">
-      <div class="panel-header" style="margin-bottom: 20px;">
-        <div class="eyebrow">Audit Log</div>
-        <h2 class="panel-title" style="font-size: 22px;">Campaign Sent History</h2>
-        <p class="panel-sub" style="font-size: 13.5px;">Permanent record of all previous email dispatches saved in outputs/sent_log.json.</p>
+      <div class="panel-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div class="eyebrow">Audit Log</div>
+          <h2 class="panel-title" style="font-size: 22px;">Campaign Sent History</h2>
+          <p class="panel-sub" style="font-size: 13.5px;">Permanent record of all previous email dispatches saved in outputs/sent_log.json.</p>
+        </div>
+        <a href="/outreach-report/download" class="export-btn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+            <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+          </svg>
+          <span>Combined Report</span>
+        </a>
       </div>
 
       <div id="history-container">

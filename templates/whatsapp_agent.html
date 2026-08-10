@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MU AGENTS — WhatsApp Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS Variables & Reset ===== */
+    :root {
+      --bg: #0B0F17;
+      --surface: #121826;
+      --surface-2: #161D2C;
+      --border: #232B3D;
+      --text: #E7EAF0;
+      --muted: #8B93A7;
+      --text-muted: #8B93A7;
+      --text-faint: #4B5563;
+      --accent-lead: #F5A623;
+      --accent-lead-soft: rgba(245,166,35,0.12);
+      --accent-email: #5EEAD4;
+      --accent-email-soft: rgba(94,234,212,0.12);
+      --accent-whatsapp: #25D366;
+      --accent-whatsapp-soft: rgba(37,211,102,0.12);
+
+      --accent: #25D366;
+      --accent-soft: rgba(37,211,102,0.12);
+      --accent-hover: #20BD5A;
+      --bg-panel: #121826;
+      --bg-input: #161D2C;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sig: 'Caveat', cursive;
+
+      --success: #10B981;
+      --success-soft: rgba(16, 185, 129, 0.15);
+      --danger: #EF4444;
+      --danger-soft: rgba(239, 68, 68, 0.15);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(37,211,102,0.07), transparent),
+        radial-gradient(ellipse 900px 500px at 85% 0%, rgba(94,234,212,0.06), transparent),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.006) 0px,
+        rgba(255, 255, 255, 0.006) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    }
+    
+    /* ---- Top brand row ---- */
+    .brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; color: var(--text); }
+    .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-lead); box-shadow: 0 0 10px var(--accent-lead); }
+    .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+
+    /* ---- Agent switcher ---- */
+    .switcher {
+      display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 5px; margin-bottom: 26px; width: fit-content;
+    }
+    .switch-tab {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
+      padding: 9px 16px; border-radius: 8px; cursor: pointer;
+      color: var(--muted); border: 1px solid transparent; text-decoration: none;
+      transition: all .18s ease; user-select: none;
+    }
+    .switch-tab .ic { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
+    .switch-tab:hover { color: var(--text); }
+    .switch-tab.active[data-agent="lead"] { background: var(--accent-lead-soft); color: var(--accent-lead); border-color: rgba(245,166,35,0.35); }
+    .switch-tab.active[data-agent="lead"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-lead); }
+    .switch-tab.active[data-agent="email"] { background: var(--accent-email-soft); color: var(--accent-email); border-color: rgba(94,234,212,0.35); }
+    .switch-tab.active[data-agent="email"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-email); }
+    .switch-tab.active[data-agent="whatsapp"] { background: var(--accent-whatsapp-soft); color: var(--accent-whatsapp); border-color: rgba(37,211,102,0.35); }
+    .switch-tab.active[data-agent="whatsapp"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-whatsapp); }
+    
+    /* ===== Main Container ===== */
+    .container {
+      flex: 1;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      z-index: 1;
+    }
+    
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 40px -25px rgba(0,0,0,0.6);
+    }
+    
+    .panel-header {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-whatsapp);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .panel-sub {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* Form Fields */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .phone-count-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      background: var(--accent-whatsapp-soft);
+      color: var(--accent-whatsapp);
+      border: 1px solid rgba(37,211,102,0.4);
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    textarea {
+      resize: vertical;
+      line-height: 1.5;
+      font-family: var(--font-body);
+    }
+
+    /* Information Notice Box */
+    .info-notice {
+      background: var(--accent-whatsapp-soft);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      color: #D1FAE5;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Submit Button & Loader */
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--accent);
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--accent-soft);
+      border-top: 2px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .send-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-whatsapp-soft);
+      border: 1px solid rgba(37,211,102,.4);
+      color: var(--accent-whatsapp);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .send-btn:hover {
+      background: var(--accent-whatsapp);
+      color: #0B0F17;
+    }
+
+    .send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-whatsapp-soft);
+      border: 1px solid rgba(37,211,102,.4);
+      color: var(--accent-whatsapp);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .export-btn:hover {
+      background: var(--accent-whatsapp);
+      color: #0B0F17;
+    }
+
+    /* Errors & Results */
+    .error-card {
+      background: var(--danger-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FEE2E2;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .results-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      display: none;
+      animation: fadeIn 0.4s ease;
+      box-shadow: 0 20px 40px -25px rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: rgba(11, 15, 23, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stat-val.sent { color: var(--success); }
+    .stat-val.failed { color: var(--danger); }
+    .stat-val.total { color: var(--accent); }
+
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    /* Status Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: rgba(20, 26, 38, 0.95);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .badge-status {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-status.sent {
+      background: var(--success-soft);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-status.failed {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* History Panel Styles */
+    .history-card {
+      background: rgba(11, 15, 23, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .history-card:hover {
+      border-color: rgba(37, 211, 102, 0.4);
+    }
+
+    .history-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(20, 26, 38, 0.4);
+    }
+
+    .history-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .history-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .history-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .history-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .history-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .history-badge.sent {
+      background: var(--success-soft);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .history-badge.failed {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .history-details {
+      display: none;
+      padding: 18px 20px;
+      border-top: 1px solid var(--border);
+      background: rgba(11, 15, 23, 0.85);
+    }
+
+    .history-details.open {
+      display: block;
+    }
+
+    /* Tags Helper */
+    .tags-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tags-helper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .tag-badge:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Skeleton Loader */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Signature mark */
+    .signature {
+      position: fixed; bottom: 18px; right: 22px;
+      font-family: var(--font-sig); font-size: 22px; color: var(--muted);
+      opacity: .55; display: flex; align-items: center; gap: 6px; pointer-events: none;
+      transform: rotate(-3deg); z-index: 1000;
+    }
+    .signature .spark { font-size: 13px; color: var(--accent-whatsapp); opacity: .9; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header / Agent Switcher -->
+  <div style="max-width: 1080px; margin: 0 auto; padding: 28px 24px 0; width: 100%;">
+    <div class="brand-row">
+      <div class="brand"><span class="dot"></span>MU AGENTS</div>
+      <span class="eyebrow">Intelligence Studio</span>
+    </div>
+
+    <div class="switcher">
+      <a href="/" class="switch-tab" data-agent="lead"><span class="ic"></span>Lead Finder</a>
+      <a href="/email-agent" class="switch-tab" data-agent="email"><span class="ic"></span>Email Agent</a>
+      <a href="/whatsapp-agent" class="switch-tab active" data-agent="whatsapp"><span class="ic"></span>WhatsApp Agent</a>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="eyebrow">WhatsApp Dispatcher</div>
+        <h1 class="panel-title">Send WhatsApp Campaign</h1>
+        <p class="panel-sub">Select an output report file, compose your message, and dispatch via WhatsApp Web Selenium automation with randomized delays.</p>
+      </div>
+
+      <div class="error-card" id="error-card"></div>
+
+      <div class="info-notice">
+        ℹ️ <strong>Selenium Session Notice:</strong> Running a campaign opens a Chrome browser window controlled by Selenium. On the first run, scan the WhatsApp Web QR code within 60 seconds. Login state will be saved in <code>whatsapp_session/</code> for future runs.
+      </div>
+
+      <form id="whatsapp-form">
+        <!-- Output Report File Selector -->
+        <div class="form-group">
+          <label for="file-select">
+            <span>Select Output Report File</span>
+            <span class="phone-count-badge" id="phone-count-badge">0 valid numbers</span>
+          </label>
+          <select id="file-select" required>
+            <option value="" disabled selected>Loading available report files...</option>
+          </select>
+        </div>
+
+        <!-- Message Body + Clickable tags -->
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="message-input">Message Template</label>
+          <textarea id="message-input" rows="7" placeholder="e.g. Hello {business_name}, we noticed some recent negative feedback on Google Maps..." required></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <div class="tags-label">💡 Click tag to insert placeholder</div>
+          <div class="tags-helper">
+            <button type="button" class="tag-badge" data-tag="{business_name}">{business_name}</button>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <div class="status-indicator" id="status-indicator">
+            <div class="spinner"></div>
+            <span id="status-text">Dispatching WhatsApp messages...</span>
+          </div>
+
+          <button type="submit" class="send-btn" id="send-btn">
+            <span>💬 Send Campaign</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="results-card" id="results-card">
+      <h3 style="font-family: var(--font-display); font-size: 18px; margin-bottom: 16px;">WhatsApp Campaign Results</h3>
+      
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-val total" id="stat-total">0</div>
+          <div class="stat-lbl">Recipients</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val sent" id="stat-sent">0</div>
+          <div class="stat-lbl">Sent Successfully</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val failed" id="stat-failed">0</div>
+          <div class="stat-lbl">Failed</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phone Number</th>
+              <th>Business Name</th>
+              <th>Status</th>
+              <th>Details / Error</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Campaign History Audit Log Panel -->
+    <div class="panel" style="margin-top: 24px;">
+      <div class="panel-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div class="eyebrow">Audit Log</div>
+          <h2 class="panel-title" style="font-size: 22px;">Campaign Sent History</h2>
+          <p class="panel-sub" style="font-size: 13.5px;">Permanent record of all previous WhatsApp dispatches saved in outputs/whatsapp_log.json.</p>
+        </div>
+        <a href="/outreach-report/download" class="export-btn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+            <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+          </svg>
+          <span>Combined Report</span>
+        </a>
+      </div>
+
+      <div id="history-container">
+        <!-- Skeleton Loading Cards -->
+        <div class="history-card" style="border-color: var(--border); opacity: 0.7;">
+          <div class="history-header" style="cursor: default;">
+            <div>
+              <div class="skeleton" style="width: 180px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton" style="width: 260px; height: 12px;"></div>
+            </div>
+            <div class="history-badges">
+              <div class="skeleton" style="width: 60px; height: 20px; border-radius: 4px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/whatsapp_agent.js?v=1"></script>
+  <div class="signature"><span class="spark">✦</span> crafted by Bushra</div>
+</body>
+</html>

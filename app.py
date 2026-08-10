@@ -8,6 +8,7 @@ ko call karta hai jab user "Run Scan" dabaye.
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import agent_logic
 import email_agent
+import whatsapp_agent
 import ai_helper
 import traceback
 
@@ -244,6 +245,66 @@ def email_agent_history():
     try:
         history = email_agent.get_campaign_history()
         return jsonify(history)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+# ---------- WhatsApp Agent Routes ----------
+
+@app.route("/whatsapp-agent")
+def whatsapp_agent_home():
+    return render_template("whatsapp_agent.html")
+
+
+@app.route("/whatsapp-agent/files")
+def whatsapp_agent_files():
+    try:
+        files = whatsapp_agent.get_available_files()
+        return jsonify(files)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/whatsapp-agent/send", methods=["POST"])
+def whatsapp_agent_send():
+    data = request.get_json() or {}
+    file_name = data.get("file_name", "").strip()
+    message_template = data.get("message_template", "").strip()
+
+    if not file_name:
+        return jsonify({"success": False, "error": "Output report file select karna zaroori hai."}), 400
+
+    if not message_template:
+        return jsonify({"success": False, "error": "Message template cannot be empty."}), 400
+
+    try:
+        result = whatsapp_agent.send_whatsapp_campaign(file_name, message_template)
+        return jsonify({"success": True, "result": result})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/whatsapp-agent/history")
+def whatsapp_agent_history():
+    try:
+        history = whatsapp_agent.get_campaign_history()
+        return jsonify(history)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+# ---------- Combined Outreach Report Route ----------
+
+@app.route("/outreach-report/download")
+def download_combined_outreach_report():
+    try:
+        import outreach_report
+        filename = outreach_report.export_combined_report_to_excel()
+        return send_from_directory(agent_logic.OUTPUT_DIR, filename, as_attachment=True)
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
