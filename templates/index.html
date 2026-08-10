@@ -593,6 +593,26 @@
       transform: rotate(-3deg); z-index: 1000;
     }
     .signature .spark { font-size: 13px; color: var(--accent-lead); opacity: .9; }
+
+    /* ---- Skeleton Loader ---- */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-text {
+      height: 12px;
+      width: 100%;
+    }
+    .skeleton-row td {
+      padding: 16px;
+    }
   </style>
 </head>
 <body>
@@ -792,6 +812,134 @@
         .replace(/>/g, "&gt;");
     }
     
+    // Render skeleton rows during scanning
+    function renderSkeletonRows(count = 5) {
+      let html = "";
+      for (let i = 0; i < count; i++) {
+        html += `
+          <tr class="skeleton-row">
+            <td><div class="skeleton skeleton-text" style="width: 120px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 180px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 85px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 100px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 80px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 45px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 90px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 45px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 60px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 60px; height: 14px;"></div></td>
+          </tr>
+        `;
+      }
+      resultsBody.innerHTML = html;
+    }
+
+    let scanPollIntervalId = null;
+
+    function startScanPolling(scanId) {
+      if (scanPollIntervalId) clearInterval(scanPollIntervalId);
+      
+      scanPollIntervalId = setInterval(async () => {
+        try {
+          const res = await fetch(`/scan/status/${scanId}`);
+          if (!res.ok) throw new Error("Failed to check scan status.");
+          
+          const data = await res.json();
+          
+          if (data.message) {
+            scanStatusText.textContent = data.message;
+          }
+          
+          if (data.status === "completed") {
+            clearInterval(scanPollIntervalId);
+            scanPollIntervalId = null;
+            
+            stopStatusCycles();
+            scanSubmitBtn.disabled = false;
+            scanBtnLabel.textContent = "Run scan";
+            
+            // Hide welcome and display result canvas
+            welcomeStudio.style.display = "none";
+            resultsPanel.style.display = "block";
+            
+            if (!data.results || data.results.length === 0) {
+              resultsSummary.textContent = `${data.total_scanned} businesses scanned · 0 flagged below threshold.`;
+              resultsBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">No reviews fell below rating threshold.</td></tr>`;
+              latestScanData = [];
+              latestFilename = null;
+              return;
+            }
+            
+            latestScanData = data.results;
+            latestFilename = data.filename;
+            
+            let summary = `${data.total_scanned} businesses scanned · ${data.flagged_count} flagged below rating threshold`;
+            if (data.dropped_no_contact) {
+              summary += ` · ${data.dropped_no_contact} dropped (no email or phone)`;
+            }
+            resultsSummary.textContent = summary + ".";
+            
+            // Render raw review rows
+            resultsBody.innerHTML = data.results.map(row => {
+              const ratingVal = (row["Business Rating"] !== null && row["Business Rating"] !== "N/A") ? `${row["Business Rating"]} ★` : "—";
+              const starsVal = (row["Review Stars"] !== null && row["Review Stars"] !== "N/A") ? `${row["Review Stars"]} ★` : "—";
+              
+              const reviewUrl = row["Review Link"];
+              const mapsUrl = row["Business Maps Link"];
+              const email = row["Email"];
+              const website = row["Website"];
+              
+              const reviewBtn = (reviewUrl && reviewUrl !== "N/A" && reviewUrl.startsWith("http"))
+                ? `<a class="open-link-btn" href="${escapeHtml(reviewUrl)}" target="_blank" rel="noopener">Open link</a>`
+                : `<span class="open-link-btn disabled">Open link</span>`;
+                
+              const mapsBtn = (mapsUrl && mapsUrl !== "N/A" && mapsUrl.startsWith("http"))
+                ? `<a class="open-link-btn" href="${escapeHtml(mapsUrl)}" target="_blank" rel="noopener">Open link</a>`
+                : `<span class="open-link-btn disabled">Open link</span>`;
+    
+              const emailHtml = (email && email !== "N/A")
+                ? `<a class="open-link-btn" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`
+                : `<span class="open-link-btn disabled">—</span>`;
+    
+              const websiteHtml = (website && website !== "N/A")
+                ? `<a class="open-link-btn" href="${escapeHtml(website)}" target="_blank" rel="noopener">visit →</a>`
+                : `<span class="open-link-btn disabled">—</span>`;
+                
+              return `
+                <tr>
+                  <td style="font-weight: 600;">${escapeHtml(row["Business Name"])}</td>
+                  <td style="color: var(--text-muted); max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(row["Address"])}</td>
+                  <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${escapeHtml(row["Phone"])}</td>
+                  <td>${emailHtml}</td>
+                  <td>${websiteHtml}</td>
+                  <td style="font-family: var(--font-mono); color: var(--accent);">${ratingVal}</td>
+                  <td>${escapeHtml(row["Reviewer Name"])}</td>
+                  <td style="font-family: var(--font-mono); color: var(--danger); font-weight: 600;">${starsVal}</td>
+                  <td style="text-align: center;">${reviewBtn}</td>
+                  <td style="text-align: center;">${mapsBtn}</td>
+                </tr>
+              `;
+            }).join("");
+          } else if (data.status === "failed") {
+            clearInterval(scanPollIntervalId);
+            scanPollIntervalId = null;
+            
+            stopStatusCycles();
+            scanSubmitBtn.disabled = false;
+            scanBtnLabel.textContent = "Run scan";
+            
+            errorCard.textContent = "Scan error: " + (data.error || "Unknown server error.");
+            errorCard.style.display = "block";
+            welcomeStudio.style.display = "block";
+            resultsPanel.style.display = "none";
+            bottomDock.classList.remove("collapsed");
+          }
+        } catch (err) {
+          console.error("Scanning poll error:", err);
+        }
+      }, 1500);
+    }
+    
     // 2. Scan Form Submission
     scanForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -803,7 +951,14 @@
       
       // Auto-collapse dock when starting scan for visual focus on the canvas
       bottomDock.classList.add("collapsed");
-      startStatusCycles();
+      scanStatusText.textContent = "Initializing scanner...";
+      scanStatusIndicator.style.visibility = "visible";
+      
+      // Show skeleton table immediately to give feedback
+      welcomeStudio.style.display = "none";
+      resultsPanel.style.display = "block";
+      resultsSummary.textContent = "Running map grid scan, please wait...";
+      renderSkeletonRows(5);
       
       const payload = {
         location: document.getElementById("location").value,
@@ -823,82 +978,20 @@
         
         const data = await res.json();
         
-        stopStatusCycles();
-        scanSubmitBtn.disabled = false;
-        scanBtnLabel.textContent = "Run scan";
-        
         if (!res.ok || data.error) {
+          stopStatusCycles();
+          scanSubmitBtn.disabled = false;
+          scanBtnLabel.textContent = "Run scan";
           errorCard.textContent = "Scan error: " + (data.error || "Unknown server error.");
           errorCard.style.display = "block";
           welcomeStudio.style.display = "block";
           resultsPanel.style.display = "none";
-          // Re-expand dock to edit parameters
           bottomDock.classList.remove("collapsed");
           return;
         }
         
-        // Hide welcome and display result canvas
-        welcomeStudio.style.display = "none";
-        resultsPanel.style.display = "block";
-        
-        if (!data.results || data.results.length === 0) {
-          resultsSummary.textContent = `${data.total_scanned} businesses scanned · 0 flagged below threshold.`;
-          resultsBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">No reviews fell below rating threshold.</td></tr>`;
-          latestScanData = [];
-          latestFilename = null;
-          return;
-        }
-        
-        latestScanData = data.results;
-        latestFilename = data.filename;
-        
-        let summary = `${data.total_scanned} businesses scanned · ${data.flagged_count} flagged below rating threshold`;
-        if (data.dropped_no_contact) {
-          summary += ` · ${data.dropped_no_contact} dropped (no email or phone)`;
-        }
-        resultsSummary.textContent = summary + ".";
-        
-        // Render raw review rows
-        resultsBody.innerHTML = data.results.map(row => {
-          const ratingVal = (row["Business Rating"] !== null && row["Business Rating"] !== "N/A") ? `${row["Business Rating"]} ★` : "—";
-          const starsVal = (row["Review Stars"] !== null && row["Review Stars"] !== "N/A") ? `${row["Review Stars"]} ★` : "—";
-          
-          const reviewUrl = row["Review Link"];
-          const mapsUrl = row["Business Maps Link"];
-          const email = row["Email"];
-          const website = row["Website"];
-          
-          const reviewBtn = (reviewUrl && reviewUrl !== "N/A" && reviewUrl.startsWith("http"))
-            ? `<a class="open-link-btn" href="${escapeHtml(reviewUrl)}" target="_blank" rel="noopener">Open link</a>`
-            : `<span class="open-link-btn disabled">Open link</span>`;
-            
-          const mapsBtn = (mapsUrl && mapsUrl !== "N/A" && mapsUrl.startsWith("http"))
-            ? `<a class="open-link-btn" href="${escapeHtml(mapsUrl)}" target="_blank" rel="noopener">Open link</a>`
-            : `<span class="open-link-btn disabled">Open link</span>`;
-
-          const emailHtml = (email && email !== "N/A")
-            ? `<a class="open-link-btn" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`
-            : `<span class="open-link-btn disabled">—</span>`;
-
-          const websiteHtml = (website && website !== "N/A")
-            ? `<a class="open-link-btn" href="${escapeHtml(website)}" target="_blank" rel="noopener">visit →</a>`
-            : `<span class="open-link-btn disabled">—</span>`;
-            
-          return `
-            <tr>
-              <td style="font-weight: 600;">${escapeHtml(row["Business Name"])}</td>
-              <td style="color: var(--text-muted); max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(row["Address"])}</td>
-              <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${escapeHtml(row["Phone"])}</td>
-              <td>${emailHtml}</td>
-              <td>${websiteHtml}</td>
-              <td style="font-family: var(--font-mono); color: var(--accent);">${ratingVal}</td>
-              <td>${escapeHtml(row["Reviewer Name"])}</td>
-              <td style="font-family: var(--font-mono); color: var(--danger); font-weight: 600;">${starsVal}</td>
-              <td style="text-align: center;">${reviewBtn}</td>
-              <td style="text-align: center;">${mapsBtn}</td>
-            </tr>
-          `;
-        }).join("");
+        // Start polling the scan status
+        startScanPolling(data.scan_id);
         
       } catch (err) {
         stopStatusCycles();

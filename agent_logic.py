@@ -183,6 +183,7 @@ def build_review_rows(businesses, negative_star_max):
         address = biz.get("address", "N/A")
         phone = biz.get("phone") or "N/A"
         email = biz.get("_resolved_email", "N/A")
+        website = biz.get("website") or "N/A"
         rating = biz.get("totalScore")
         biz_url = biz.get("url", "N/A")
         reviews = biz.get("reviews", []) or []
@@ -200,6 +201,7 @@ def build_review_rows(businesses, negative_star_max):
                 "Address": address,
                 "Phone": phone,
                 "Email": email,
+                "Website": website,
                 "Business Rating": rating,
                 "Reviewer Name": rev.get("name", "N/A"),
                 "Review Stars": stars,
@@ -215,6 +217,7 @@ def build_review_rows(businesses, negative_star_max):
                 "Address": address,
                 "Phone": phone,
                 "Email": email,
+                "Website": website,
                 "Business Rating": rating,
                 "Reviewer Name": "N/A",
                 "Review Stars": "N/A",
@@ -307,7 +310,7 @@ def export_to_excel(results, filename):
     # Columns to center-align
     center_cols = {"Business Rating", "Review Stars", "Review Date", "Review Link", "Business Maps Link"}
     # Hyperlink columns mapping to anchor texts
-    link_cols = {"Review Link": "View Link", "Business Maps Link": "Open Map"}
+    link_cols = {"Review Link": "View Link", "Business Maps Link": "Open Map", "Website": "Visit Website"}
 
     max_lens = [len(str(h)) for h in headers]
 
@@ -351,7 +354,7 @@ def export_to_excel(results, filename):
             max_lens[c_idx] = max(max_lens[c_idx], len(display_val))
 
     # ---- Merge business-level columns (remove redundancy) ----
-    business_level_cols = ["Business Name", "Address", "Phone", "Email", "Business Rating", "Business Maps Link"]
+    business_level_cols = ["Business Name", "Address", "Phone", "Email", "Website", "Business Rating", "Business Maps Link"]
     if "Business Name" in headers:
         name_col_idx = headers.index("Business Name")
         max_row = len(df)
@@ -377,14 +380,19 @@ def export_to_excel(results, filename):
                         # Format to apply
                         if col_name == "Business Rating":
                             fmt = center_format
-                        elif col_name == "Business Maps Link":
+                        elif col_name == "Business Maps Link" or col_name == "Website":
                             fmt = hyperlink_format
                         else:
                             fmt = left_wrap_format
 
-                        # Write as formula if Business Maps Link
+                        # Write as formula if Hyperlink
                         if col_name == "Business Maps Link" and top_val and isinstance(top_val, str) and top_val.startswith("http"):
                             anchor_text = "Open Map"
+                            clean_url = top_val.replace('"', '%22')
+                            formula = f'=HYPERLINK("{clean_url}", "{anchor_text}")'
+                            worksheet.merge_range(start, col_idx, end, col_idx, formula, fmt)
+                        elif col_name == "Website" and top_val and isinstance(top_val, str) and top_val.startswith("http"):
+                            anchor_text = "Visit Website"
                             clean_url = top_val.replace('"', '%22')
                             formula = f'=HYPERLINK("{clean_url}", "{anchor_text}")'
                             worksheet.merge_range(start, col_idx, end, col_idx, formula, fmt)
@@ -399,6 +407,81 @@ def export_to_excel(results, filename):
 
     workbook.close()
     return filepath
+
+
+active_scans = {}
+
+
+def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):
+    scan_entry = active_scans[scan_id]
+    try:
+        scan_entry["message"] = "Starting Google Places search..."
+        businesses = fetch_businesses_basic(location, category, max_businesses)
+        scan_entry["total_scanned"] = len(businesses)
+        
+        scan_entry["message"] = f"Filtering ratings below {rating_threshold}..."
+        rating_filtered = filter_by_rating(businesses, rating_threshold)
+        
+        if not rating_filtered:
+            scan_entry["status"] = "completed"
+            scan_entry["message"] = "Finished. No businesses met the rating threshold."
+            return
+            
+        scan_entry["message"] = f"Scraping reviews for {len(rating_filtered)} flagged businesses..."
+        with_reviews = fetch_reviews_for_businesses(rating_filtered, max_reviews)
+        
+        scan_entry["message"] = "Searching websites for email addresses..."
+        kept_businesses, dropped_count = attach_contact_info(with_reviews)
+        scan_entry["dropped_no_contact"] = dropped_count
+        
+        scan_entry["message"] = "Processing negative reviews and mapping templates..."
+        results = build_review_rows(kept_businesses, negative_star_max)
+        scan_entry["flagged_count"] = len(set(r["Business Name"] for r in results))
+        
+        filename = None
+        if results:
+            scan_entry["message"] = "Generating Excel report..."
+            filename = build_filename(location, category)
+            export_to_excel(results, filename)
+            
+        scan_entry["results"] = results
+        scan_entry["filename"] = filename
+        scan_entry["status"] = "completed"
+        scan_entry["message"] = "Scan completed successfully!"
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        scan_entry["status"] = "failed"
+        scan_entry["error"] = str(e)
+        scan_entry["message"] = f"Scan failed: {str(e)}"
+
+
+def start_scan_job(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):
+    import uuid
+    import threading
+    scan_id = str(uuid.uuid4())
+    active_scans[scan_id] = {
+        "status": "running",
+        "message": "Initializing scanner...",
+        "total_scanned": 0,
+        "flagged_count": 0,
+        "dropped_no_contact": 0,
+        "results": [],
+        "filename": None,
+        "error": None
+    }
+    
+    thread = threading.Thread(
+        target=run_agent_worker,
+        args=(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max)
+    )
+    thread.daemon = True
+    thread.start()
+    return scan_id
+
+
+def get_scan_status(scan_id):
+    return active_scans.get(scan_id)
 
 
 def run_agent(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):

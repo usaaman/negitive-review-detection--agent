@@ -459,6 +459,157 @@
       transform: rotate(-3deg); z-index: 1000;
     }
     .signature .spark { font-size: 13px; color: var(--accent-lead); opacity: .9; }
+
+    /* ---- Tab Switching ---- */
+    .tab-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .tab-btn.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: rgba(94, 234, 212, 0.3);
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ---- Upload Zone ---- */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      background: rgba(20, 26, 38, 0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(94, 234, 212, 0.03);
+    }
+    .upload-zone p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .upload-zone span {
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+    .upload-input-hidden {
+      display: none;
+    }
+
+    /* ---- Tags Helper ---- */
+    .tags-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tags-helper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+    .tag-badge:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ---- Progress Bar ---- */
+    .progress-wrapper {
+      margin-top: 20px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .progress-bar-container {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* ---- Reuse Campaign Button ---- */
+    .reuse-btn {
+      background: transparent;
+      border: 1px solid rgba(94, 234, 212, 0.3);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .reuse-btn:hover {
+      background: var(--accent);
+      color: #0B0F17;
+    }
   </style>
 </head>
 <body>
@@ -489,24 +640,94 @@
       <div class="error-card" id="error-card"></div>
 
       <form id="email-form">
-        <div class="form-group">
-          <label for="file-select">
-            <span>Select Output Report File</span>
-            <span class="email-count-badge" id="email-count-badge">0 valid emails</span>
-          </label>
-          <select id="file-select" required>
-            <option value="" disabled selected>Loading available report files...</option>
-          </select>
+        <!-- Tabs -->
+        <div class="tab-container">
+          <button type="button" class="tab-btn active" id="tab-report" data-tab="report-mode">Scan Report (Excel)</button>
+          <button type="button" class="tab-btn" id="tab-manual" data-tab="manual-mode">Manual Email List</button>
         </div>
 
+        <input type="hidden" id="sending-mode" value="report-mode">
+
+        <!-- Tab 1: Scan Report Selection & Upload -->
+        <div class="tab-content active" id="report-mode">
+          <div class="form-group">
+            <label for="file-select">
+              <span>Select Output Report File</span>
+              <span class="email-count-badge" id="email-count-badge">0 valid emails</span>
+            </label>
+            <select id="file-select">
+              <option value="" disabled selected>Loading available report files...</option>
+            </select>
+            <button type="button" class="send-btn" id="generate-ai-btn" style="margin-top: 12px; background: rgba(94, 234, 212, 0.08); border-color: rgba(94, 234, 212, 0.3); color: var(--accent-email); width: 100%; justify-content: center;" disabled>
+              <span>✨ Auto-Generate Custom Emails with Gemini AI</span>
+            </button>
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 24px;">
+            <div class="upload-zone" id="upload-zone">
+              <p>📂 Drag & Drop custom Excel file here or <strong>browse files</strong></p>
+              <span>Must contain an "Email" column (.xlsx)</span>
+              <input type="file" id="file-upload" class="upload-input-hidden" accept=".xlsx">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Manual Email List -->
+        <div class="tab-content" id="manual-mode">
+          <div class="form-group">
+            <label for="manual-emails">
+              <span>Enter Recipient Email Addresses</span>
+              <span class="email-count-badge" id="manual-count-badge">0 emails</span>
+            </label>
+            <textarea id="manual-emails" rows="4" placeholder="Enter emails separated by commas, spaces or newlines..."></textarea>
+          </div>
+        </div>
+
+        <!-- Sender Display Name -->
+        <div class="form-group">
+          <label for="sender-name">Sender Display Name (Optional)</label>
+          <input type="text" id="sender-name" placeholder="e.g. Ali from ABC Agency" autocomplete="off">
+        </div>
+
+        <!-- Subject Line -->
         <div class="form-group">
           <label for="subject-input">Subject Line</label>
-          <input type="text" id="subject-input" placeholder="e.g. Special offer for your business" required autocomplete="off">
+          <input type="text" id="subject-input" placeholder="e.g. Action required regarding your reviews" required autocomplete="off">
         </div>
 
-        <div class="form-group">
+        <!-- Message Body + Clickable tags -->
+        <div class="form-group" style="margin-bottom: 12px;">
           <label for="message-input">Message Body</label>
           <textarea id="message-input" rows="8" placeholder="Enter your email message here..." required></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <div class="tags-label">💡 Click tag to insert at cursor (Excel report mode only)</div>
+          <div class="tags-helper">
+            <button type="button" class="tag-badge" data-tag="{business_name}">{business_name}</button>
+            <button type="button" class="tag-badge" data-tag="{website}">{website}</button>
+            <button type="button" class="tag-badge" data-tag="{reviewer_name}">{reviewer_name}</button>
+            <button type="button" class="tag-badge" data-tag="{review_stars}">{review_stars}</button>
+            <button type="button" class="tag-badge" data-tag="{review_text}">{review_text}</button>
+            <button type="button" class="tag-badge" data-tag="{review_date}">{review_date}</button>
+            <button type="button" class="tag-badge" data-tag="{review_link}">{review_link}</button>
+            <button type="button" class="tag-badge" data-tag="{business_maps_link}">{business_maps_link}</button>
+          </div>
+        </div>
+
+        <!-- Real-time Progress Bar Panel -->
+        <div class="progress-wrapper" id="progress-wrapper">
+          <div class="progress-info">
+            <span id="progress-label" style="font-weight: 600;">Sending Campaign...</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 10px; font-family: var(--font-mono);">
+            <span id="progress-stats">Sent: 0 | Failed: 0</span>
+            <span id="progress-time-estimate">Processing...</span>
+          </div>
         </div>
 
         <div class="action-row">
@@ -520,6 +741,48 @@
           </button>
         </div>
       </form>
+    </div>
+
+    <!-- Skeleton loader for AI drafts -->
+    <div class="panel" id="ai-drafts-skeleton" style="display: none; flex-direction: column; gap: 20px;">
+      <div class="panel-header">
+        <div class="eyebrow" style="color: var(--accent-email);">Gemini AI Composer</div>
+        <h2 class="panel-title">Writing Custom AI Outreaches...</h2>
+        <p class="panel-sub">Gemini is analyzing negative reviews and drafting tailored email pitches for each business.</p>
+      </div>
+      <div class="history-card" style="border-color: var(--border); opacity: 0.7;">
+        <div class="history-header" style="cursor: default;">
+          <div>
+            <div class="skeleton" style="width: 140px; height: 16px; margin-bottom: 8px;"></div>
+            <div class="skeleton" style="width: 200px; height: 12px;"></div>
+          </div>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 12px; background: rgba(11, 15, 23, 0.4);">
+          <div class="skeleton" style="width: 100%; height: 35px; border-radius: 6px;"></div>
+          <div class="skeleton" style="width: 100%; height: 120px; border-radius: 6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Drafts Editor Section -->
+    <div class="panel" id="ai-drafts-wrapper" style="display: none; animation: fadeIn 0.4s ease;">
+      <div class="panel-header">
+        <div class="eyebrow" style="color: var(--accent-email);">Gemini AI Composer</div>
+        <h2 class="panel-title">Review & Edit Generated Emails</h2>
+        <p class="panel-sub">Gemini has analyzed the reviews and written custom pitches for each lead. Review or edit them before sending.</p>
+      </div>
+      
+      <!-- List of drafts -->
+      <div id="ai-drafts-list" style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+        <!-- Dynamic draft editor cards will render here -->
+      </div>
+      
+      <div class="action-row" style="margin-top: 0; padding-top: 20px;">
+        <button type="button" class="tab-btn" id="ai-discard-btn" style="border: 1px solid var(--border);">❌ Discard Drafts</button>
+        <button type="button" class="send-btn" id="ai-send-btn" style="background: var(--accent-email); color: #0B0F17;">
+          <span>🚀 Send AI Campaign</span>
+        </button>
+      </div>
     </div>
 
     <!-- Results Panel -->
@@ -565,13 +828,35 @@
       </div>
 
       <div id="history-container">
-        <p style="font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); padding: 12px 0;">Loading sent history...</p>
+        <!-- Skeleton Loading Cards -->
+        <div class="history-card" style="border-color: var(--border); opacity: 0.7;">
+          <div class="history-header" style="cursor: default;">
+            <div>
+              <div class="skeleton" style="width: 180px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton" style="width: 260px; height: 12px;"></div>
+            </div>
+            <div class="history-badges">
+              <div class="skeleton" style="width: 60px; height: 20px; border-radius: 4px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="history-card" style="border-color: var(--border); opacity: 0.5;">
+          <div class="history-header" style="cursor: default;">
+            <div>
+              <div class="skeleton" style="width: 220px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton" style="width: 210px; height: 12px;"></div>
+            </div>
+            <div class="history-badges">
+              <div class="skeleton" style="width: 60px; height: 20px; border-radius: 4px;"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
   </main>
 
-  <script src="/static/email_agent.js"></script>
+  <script src="/static/email_agent.js?v=2"></script>
   <div class="signature"><span class="spark">✦</span> crafted by Bushra</div>
 </body>
 </html>
