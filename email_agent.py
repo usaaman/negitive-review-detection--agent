@@ -17,6 +17,7 @@ from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
+from email.utils import make_msgid
 import pandas as pd
 from dotenv import load_dotenv
 
@@ -54,9 +55,8 @@ def is_valid_email(email_str):
 
 def extract_leads_from_excel(filename):
     """
-    Reads all metadata columns from a given .xlsx file in outputs/ folder.
-    Uses forward-fill (ffill) to propagate values across merged cells.
-    Deduplicates by Email, keeping the first row (corresponding to the worst review due to lowestRanking sort).
+    Reads complete lead rows so reply tracking can preserve
+    business context, while maintaining snake_case keys for template interpolation.
     """
     filepath = os.path.join(OUTPUT_DIR, filename)
     if not os.path.exists(filepath):
@@ -82,18 +82,29 @@ def extract_leads_from_excel(filename):
                 if lower_email not in seen:
                     seen.add(lower_email)
                     
-                    # Extract metadata for template interpolation
-                    lead = {
-                        "email": email_str,
-                        "business_name": str(row.get("Business Name", "")).strip() if not pd.isna(row.get("Business Name")) else "N/A",
-                        "website": str(row.get("Website", "")).strip() if not pd.isna(row.get("Website")) else "N/A",
-                        "reviewer_name": str(row.get("Reviewer Name", "")).strip() if not pd.isna(row.get("Reviewer Name")) else "N/A",
-                        "review_stars": str(row.get("Review Stars", "")).strip() if not pd.isna(row.get("Review Stars")) else "N/A",
-                        "review_text": str(row.get("Review Text", "")).strip() if not pd.isna(row.get("Review Text")) else "",
-                        "review_date": str(row.get("Review Date", "")).strip() if not pd.isna(row.get("Review Date")) else "N/A",
-                        "review_link": str(row.get("Review Link", "")).strip() if not pd.isna(row.get("Review Link")) else "N/A",
-                        "business_maps_link": str(row.get("Business Maps Link", "")).strip() if not pd.isna(row.get("Business Maps Link")) else "N/A"
-                    }
+                    lead = {}
+                    # Preserve all raw columns as strings
+                    for column in df.columns:
+                        value = row.get(column)
+                        val_str = str(value).strip() if not pd.isna(value) else ""
+                        col_str = str(column)
+                        lead[col_str] = val_str
+                        # Support snake_case keys for backward compatibility
+                        col_clean = col_str.strip().lower().replace(" ", "_")
+                        lead[col_clean] = val_str
+
+                    # Ensure essential fields exist even if columns are missing
+                    lead.setdefault("email", email_str)
+                    if "business_name" not in lead or lead["business_name"] == "":
+                        lead["business_name"] = lead.get("Business Name") or lead.get("Business") or lead.get("Name") or "N/A"
+                    lead.setdefault("website", "N/A")
+                    lead.setdefault("reviewer_name", "N/A")
+                    lead.setdefault("review_stars", "N/A")
+                    lead.setdefault("review_text", "")
+                    lead.setdefault("review_date", "N/A")
+                    lead.setdefault("review_link", "N/A")
+                    lead.setdefault("business_maps_link", "N/A")
+
                     leads.append(lead)
 
         return leads
@@ -235,9 +246,10 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
             personalized_subject = lead.get("subject") or replace_placeholders(subject, lead)
             personalized_message = lead.get("body") or replace_placeholders(message, lead)
 
-
             msg = MIMEMultipart()
             
+            message_id = make_msgid()
+
             # Format display name if provided
             if sender_name:
                 msg["From"] = f"{Header(sender_name, 'utf-8').encode()} <{sender_email}>"
@@ -246,6 +258,8 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
                 
             msg["To"] = recipient
             msg["Subject"] = personalized_subject
+            msg["Message-ID"] = message_id
+            
             msg.attach(MIMEText(personalized_message, "plain", "utf-8"))
 
             server.sendmail(sender_email, recipient, msg.as_string())
@@ -254,14 +268,20 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
             status_entry["details"].append({
                 "email": recipient,
                 "status": "sent",
-                "error": None
+                "error": None,
+                "message_id": message_id,
+                "business_name": lead.get("business_name") or lead.get("Business Name") or lead.get("Business") or lead.get("Name") or "",
+                "lead_data": lead
             })
         except Exception as e:
             status_entry["failed"] += 1
             status_entry["details"].append({
                 "email": recipient,
                 "status": "failed",
-                "error": str(e)
+                "error": str(e),
+                "message_id": None,
+                "business_name": lead.get("business_name") or lead.get("Business Name") or lead.get("Business") or lead.get("Name") or "",
+                "lead_data": lead
             })
 
         # Update in-memory status periodically

@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 import agent_logic
 import email_agent
 import whatsapp_agent
+import reply_agent
 import ai_helper
 import traceback
 
@@ -308,6 +309,155 @@ def download_combined_outreach_report():
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
+
+
+# ============================================================
+# Reply Assistant Routes
+# ============================================================
+
+@app.route("/email-agent/replies")
+def email_agent_replies():
+    try:
+        replies = reply_agent.get_replies()
+        return jsonify(replies)
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({
+            "error": str(e)
+        }), 500
+
+
+@app.route("/email-agent/replies/check", methods=["POST"])
+def email_agent_check_replies():
+    try:
+        result = reply_agent.check_for_replies()
+
+        if not result.get("success"):
+            return jsonify(result), 400
+
+        # Automatically generate Gemini drafts for newly
+        # detected replies.
+        analyzed = []
+
+        for reply in result.get("replies", []):
+
+            try:
+                updated = reply_agent.analyze_reply_with_gemini(
+                    reply
+                )
+
+                if updated:
+                    analyzed.append(updated)
+
+            except Exception as ai_error:
+
+                reply_agent.update_reply(
+                    reply["id"],
+                    {
+                        "status": "New",
+                        "ai_error": str(ai_error)
+                    }
+                )
+
+                analyzed.append(reply)
+
+        return jsonify({
+            "success": True,
+            "new_replies": len(analyzed),
+            "replies": analyzed
+        })
+
+    except Exception as e:
+        traceback.print_exc()
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+@app.route("/email-agent/replies/<reply_id>")
+def email_agent_reply_detail(reply_id):
+    try:
+        reply = reply_agent.find_reply(reply_id)
+
+        if not reply:
+            return jsonify({
+                "success": False,
+                "error": "Reply not found."
+            }), 404
+
+        return jsonify({
+            "success": True,
+            "reply": reply
+        })
+
+    except Exception as e:
+        traceback.print_exc()
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+@app.route("/email-agent/replies/<reply_id>/analyze", methods=["POST"])
+def email_agent_analyze_reply(reply_id):
+    try:
+        reply = reply_agent.find_reply(reply_id)
+
+        if not reply:
+            return jsonify({
+                "success": False,
+                "error": "Reply not found."
+            }), 404
+
+        updated = reply_agent.analyze_reply_with_gemini(
+            reply
+        )
+
+        return jsonify({
+            "success": True,
+            "reply": updated
+        })
+
+    except Exception as e:
+        traceback.print_exc()
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+@app.route("/email-agent/replies/<reply_id>/send", methods=["POST"])
+def email_agent_send_reply(reply_id):
+    try:
+        data = request.get_json() or {}
+
+        response_text = (
+            data.get("response", "")
+            .strip()
+        )
+
+        result = reply_agent.send_reply(
+            reply_id,
+            response_text
+        )
+
+        if not result.get("success"):
+            return jsonify(result), 400
+
+        return jsonify(result)
+
+    except Exception as e:
+        traceback.print_exc()
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
 
 
 if __name__ == "__main__":

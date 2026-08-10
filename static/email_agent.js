@@ -55,6 +55,43 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/>/g, "&gt;");
   }
 
+  // --- 0. Section Tab Switching ---
+  const subTabs = document.querySelectorAll(".sub-tab");
+  const campaignSection = document.getElementById("campaign-section");
+  const repliesSection = document.getElementById("replies-section");
+  const historySection = document.getElementById("history-section");
+
+  window.showSection = function(sectionName) {
+    subTabs.forEach(tab => {
+      if (tab.getAttribute("data-section") === sectionName) {
+        tab.classList.add("active");
+      } else {
+        tab.classList.remove("active");
+      }
+    });
+
+    if (sectionName === "campaign") {
+      if (campaignSection) campaignSection.style.display = "block";
+      if (repliesSection) repliesSection.style.display = "none";
+      if (historySection) historySection.style.display = "none";
+    } else if (sectionName === "replies") {
+      if (campaignSection) campaignSection.style.display = "none";
+      if (repliesSection) repliesSection.style.display = "block";
+      if (historySection) historySection.style.display = "none";
+    } else if (sectionName === "history") {
+      if (campaignSection) campaignSection.style.display = "none";
+      if (repliesSection) repliesSection.style.display = "none";
+      if (historySection) historySection.style.display = "block";
+    }
+  };
+
+  subTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const sectionName = tab.getAttribute("data-section");
+      window.showSection(sectionName);
+    });
+  });
+
   // --- 1. Tab Switching ---
   function switchTab(mode) {
     sendingModeInput.value = mode;
@@ -658,6 +695,436 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initial loads
-  loadFiles();
   loadHistory();
+});
+
+// ============================================================
+// REPLY ASSISTANT
+// ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  let replyMonitoring = false;
+  let replyMonitorTimer = null;
+  let currentReplyId = null;
+  let allReplies = [];
+  let activeReplyTab = "new";
+
+  const monitorBtn =
+    document.getElementById("reply-monitor-btn");
+
+  const checkRepliesBtn =
+    document.getElementById("check-replies-btn");
+
+  const monitorStatus =
+    document.getElementById("monitor-status");
+
+  const replyNotification =
+    document.getElementById("reply-notification");
+
+  const replyNotificationText =
+    document.getElementById("reply-notification-text");
+
+  const repliesContainer =
+    document.getElementById("replies-container");
+
+  const replyModal =
+    document.getElementById("reply-modal");
+
+  const closeReplyModal =
+    document.getElementById("close-reply-modal");
+
+  const aiResponseInput =
+    document.getElementById("ai-response-input");
+
+  const sendReplyBtn =
+    document.getElementById("send-reply-btn");
+
+  const regenerateReplyBtn =
+    document.getElementById("regenerate-reply-btn");
+
+  const replyModalBusiness =
+    document.getElementById("reply-modal-business");
+
+  const replyModalEmail =
+    document.getElementById("reply-modal-email");
+
+  const originalEmailContent =
+    document.getElementById("original-email-content");
+
+  const customerReplyContent =
+    document.getElementById("customer-reply-content");
+
+  const aiReason =
+    document.getElementById("ai-reason");
+
+  const newRepliesCount =
+    document.getElementById("new-replies-count");
+
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  async function loadReplies() {
+    if (!repliesContainer) return;
+
+    try {
+      const res = await fetch("/email-agent/replies");
+      if (!res.ok) {
+        throw new Error("Failed to load replies.");
+      }
+      allReplies = await res.json();
+      renderReplies();
+    } catch (err) {
+      repliesContainer.innerHTML = `
+        <p class="empty-replies">
+          ${escapeHtml(err.message)}
+        </p>
+      `;
+    }
+  }
+
+  function renderReplies() {
+    const replies = Array.isArray(allReplies) ? allReplies : [];
+
+    const needsAttention = replies.filter(
+      r => r.status !== "Replied"
+    ).length;
+
+    const positiveHistory = replies.filter(
+      r => r.status === "Replied" && r.positive_lead === true
+    ).length;
+
+    const historyRepliesCountEl = document.getElementById("history-replies-count");
+
+    if (newRepliesCount) {
+      newRepliesCount.textContent = needsAttention;
+    }
+
+    if (historyRepliesCountEl) {
+      historyRepliesCountEl.textContent = positiveHistory;
+    }
+
+    let filtered = [];
+
+    if (activeReplyTab === "new") {
+      filtered = replies.filter(
+        r => r.status !== "Replied"
+      );
+    } else if (activeReplyTab === "history") {
+      filtered = replies.filter(
+        r => r.status === "Replied" && r.positive_lead === true
+      );
+    }
+
+    if (!filtered.length) {
+      repliesContainer.innerHTML = `
+        <p class="empty-replies">
+          No replies in this category.
+        </p>
+      `;
+      return;
+    }
+
+    repliesContainer.innerHTML = filtered.map(reply => {
+      const date = reply.received_at
+        ? new Date(reply.received_at).toLocaleString()
+        : "Unknown date";
+
+      let statusClass = "";
+
+      if (reply.positive_lead) {
+        statusClass = "positive";
+      } else if (reply.status === "Replied") {
+        statusClass = "replied";
+      } else if (
+        reply.intent === "negative" ||
+        reply.intent === "unsubscribe"
+      ) {
+        statusClass = "negative";
+      } else {
+        statusClass = "new";
+      }
+
+      return `
+        <div
+          class="reply-card"
+          onclick="openReply('${escapeHtml(reply.id)}')"
+        >
+          <div class="reply-card-top">
+            <div>
+              <div class="reply-business">
+                ${escapeHtml(
+                  reply.business_name ||
+                  reply.sender_name ||
+                  "Unknown Business"
+                )}
+              </div>
+              <div class="reply-email">
+                ${escapeHtml(reply.sender_email || "")}
+              </div>
+            </div>
+            <span class="reply-status ${statusClass}">
+              ${escapeHtml(
+                reply.positive_lead
+                  ? "Positive Lead"
+                  : reply.status || "New"
+              )}
+            </span>
+          </div>
+          <div class="reply-snippet">
+            ${escapeHtml((reply.reply_body || "").slice(0, 240))}
+            ${(reply.reply_body || "").length > 240 ? "..." : ""}
+          </div>
+          <div class="reply-meta">
+            ${date} · ${escapeHtml(reply.intent || "unclassified")}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  async function checkReplies(showMessage = true) {
+    if (checkRepliesBtn) {
+      checkRepliesBtn.disabled = true;
+      checkRepliesBtn.textContent = "Checking...";
+    }
+
+    try {
+      const res = await fetch("/email-agent/replies/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to check replies.");
+      }
+
+      if (showMessage) {
+        alert(`Check complete. Found ${data.new_replies} new replies.`);
+      }
+
+      if (data.new_replies > 0) {
+        showNotification(data.new_replies);
+      }
+
+      await loadReplies();
+    } catch (err) {
+      console.error("Check replies error:", err);
+      if (showMessage) {
+        alert("Error checking replies: " + err.message);
+      }
+    } finally {
+      if (checkRepliesBtn) {
+        checkRepliesBtn.disabled = false;
+        checkRepliesBtn.textContent = "Check Replies Now";
+      }
+    }
+  }
+
+  function showNotification(count) {
+    if (replyNotification) {
+      replyNotification.style.display = "inline-flex";
+      if (replyNotificationText) {
+        replyNotificationText.textContent = `${count} new reply${count > 1 ? 's' : ''}`;
+      }
+    }
+  }
+
+  window.openReply = async function(replyId) {
+    currentReplyId = replyId;
+    
+    if (replyModal) {
+      replyModal.style.display = "block";
+    }
+
+    if (replyModalBusiness) replyModalBusiness.textContent = "Loading...";
+    if (replyModalEmail) replyModalEmail.textContent = "";
+    if (originalEmailContent) originalEmailContent.textContent = "";
+    if (customerReplyContent) customerReplyContent.textContent = "";
+    if (aiResponseInput) aiResponseInput.value = "";
+    if (aiReason) aiReason.textContent = "";
+
+    try {
+      const res = await fetch(`/email-agent/replies/${replyId}`);
+      if (!res.ok) throw new Error("Failed to load reply details.");
+      
+      const data = await res.json();
+      if (!data.success || !data.reply) throw new Error(data.error || "Failed to load reply.");
+
+      const r = data.reply;
+      if (replyModalBusiness) {
+        replyModalBusiness.textContent = r.business_name || r.sender_name || "Unknown Business";
+      }
+      if (replyModalEmail) {
+        replyModalEmail.textContent = r.sender_email;
+      }
+      if (originalEmailContent) {
+        originalEmailContent.textContent = r.original_message || "(Original email content missing)";
+      }
+      if (customerReplyContent) {
+        customerReplyContent.textContent = r.reply_body || "(Empty body)";
+      }
+      if (aiResponseInput) {
+        aiResponseInput.value = r.ai_draft || "";
+      }
+      if (aiReason) {
+        aiReason.textContent = r.ai_reason ? "Reason: " + r.ai_reason : "";
+      }
+    } catch (err) {
+      if (replyModalBusiness) replyModalBusiness.textContent = "Error";
+      if (originalEmailContent) originalEmailContent.textContent = "Error loading details: " + err.message;
+    }
+  };
+
+  if (closeReplyModal) {
+    closeReplyModal.addEventListener("click", () => {
+      if (replyModal) replyModal.style.display = "none";
+    });
+  }
+
+  // Backdrop click to close
+  const backdrop = document.querySelector(".reply-modal-backdrop");
+  if (backdrop) {
+    backdrop.addEventListener("click", () => {
+      if (replyModal) replyModal.style.display = "none";
+    });
+  }
+
+  if (sendReplyBtn) {
+    sendReplyBtn.addEventListener("click", async () => {
+      if (!currentReplyId) return;
+
+      const responseText = aiResponseInput ? aiResponseInput.value.trim() : "";
+      if (!responseText) {
+        alert("Response cannot be empty.");
+        return;
+      }
+
+      sendReplyBtn.disabled = true;
+      sendReplyBtn.textContent = "Sending...";
+
+      try {
+        const res = await fetch(`/email-agent/replies/${currentReplyId}/send`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ response: responseText })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Failed to send response.");
+        }
+
+        alert("Reply sent successfully! 🎉");
+        if (replyModal) replyModal.style.display = "none";
+        await loadReplies();
+      } catch (err) {
+        alert("Error sending reply: " + err.message);
+      } finally {
+        sendReplyBtn.disabled = false;
+        sendReplyBtn.textContent = "Done & Send";
+      }
+    });
+  }
+
+  if (regenerateReplyBtn) {
+    regenerateReplyBtn.addEventListener("click", async () => {
+      if (!currentReplyId) return;
+
+      regenerateReplyBtn.disabled = true;
+      regenerateReplyBtn.textContent = "Regenerating...";
+
+      try {
+        const res = await fetch(`/email-agent/replies/${currentReplyId}/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Failed to regenerate draft.");
+        }
+
+        const r = data.reply;
+        if (aiResponseInput) {
+          aiResponseInput.value = r.ai_draft || "";
+        }
+        if (aiReason) {
+          aiReason.textContent = r.ai_reason ? "Reason: " + r.ai_reason : "";
+        }
+        alert("AI response regenerated! ✨");
+      } catch (err) {
+        alert("Error regenerating: " + err.message);
+      } finally {
+        regenerateReplyBtn.disabled = false;
+        regenerateReplyBtn.textContent = "Regenerate";
+      }
+    });
+  }
+
+  if (monitorBtn) {
+    monitorBtn.addEventListener("click", () => {
+      if (replyMonitoring) {
+        clearInterval(replyMonitorTimer);
+        replyMonitorTimer = null;
+        replyMonitoring = false;
+        monitorBtn.textContent = "Start Monitoring";
+        monitorBtn.classList.remove("active");
+        if (monitorStatus) {
+          monitorStatus.textContent = "OFF · Not monitoring";
+          monitorStatus.classList.remove("active");
+        }
+      } else {
+        replyMonitoring = true;
+        monitorBtn.textContent = "Stop Monitoring";
+        monitorBtn.classList.add("active");
+        if (monitorStatus) {
+          monitorStatus.textContent = "Active · Checking every 10m";
+          monitorStatus.classList.add("active");
+        }
+
+        checkReplies(false);
+
+        replyMonitorTimer = setInterval(() => {
+          checkReplies(false);
+        }, 10 * 60 * 1000);
+      }
+    });
+  }
+
+  if (replyNotification) {
+    replyNotification.addEventListener("click", () => {
+      replyNotification.style.display = "none";
+      if (typeof window.showSection === "function") {
+        window.showSection("replies");
+      }
+      const needsAttentionTab = document.querySelector('[data-reply-tab="new"]');
+      if (needsAttentionTab) {
+        needsAttentionTab.click();
+      }
+    });
+  }
+
+  if (checkRepliesBtn) {
+    checkRepliesBtn.addEventListener("click", () => {
+      checkReplies(true);
+    });
+  }
+
+  const replyTabs = document.querySelectorAll(".reply-tab");
+  replyTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      replyTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeReplyTab = tab.getAttribute("data-reply-tab");
+      renderReplies();
+    });
+  });
+
+  // Initial load
+  loadReplies();
 });

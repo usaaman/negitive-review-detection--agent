@@ -637,6 +637,378 @@
       background: var(--accent);
       color: #0B0F17;
     }
+
+    /* ============================================================
+       REPLY ASSISTANT
+    ============================================================ */
+
+    .reply-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .reply-monitor {
+      flex: 1;
+      min-width: 280px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      padding: 12px 16px;
+
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .monitor-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .monitor-status {
+      margin-top: 3px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .monitor-status.active {
+      color: var(--success);
+    }
+
+    .monitor-btn,
+    .secondary-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .monitor-btn:hover,
+    .secondary-btn:hover {
+      border-color: var(--accent-email);
+      color: var(--accent-email);
+    }
+
+    .monitor-btn.active {
+      border-color: rgba(16,185,129,.4);
+      color: var(--success);
+      background: var(--success-soft);
+    }
+
+    .reply-notification {
+      border: 1px solid rgba(245,166,35,.4);
+      background: rgba(245,166,35,.1);
+      color: #F5A623;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .reply-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .reply-tab {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .reply-tab:hover {
+      color: var(--text);
+    }
+
+    .reply-tab.active {
+      color: var(--accent-email);
+      background: var(--accent-email-soft);
+      border-color: rgba(94,234,212,.25);
+    }
+
+    .reply-tab span {
+      margin-left: 5px;
+      opacity: .7;
+    }
+
+    .reply-card {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .reply-card:hover {
+      border-color: rgba(94,234,212,.4);
+      transform: translateY(-1px);
+    }
+
+    .reply-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .reply-business {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .reply-email {
+      margin-top: 3px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .reply-snippet {
+      margin-top: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .reply-meta {
+      margin-top: 12px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .reply-status {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      border: 1px solid var(--border);
+    }
+
+    .reply-status.positive {
+      color: var(--success);
+      background: var(--success-soft);
+      border-color: rgba(16,185,129,.3);
+    }
+
+    .reply-status.new {
+      color: #F5A623;
+      background: rgba(245,166,35,.1);
+    }
+
+    .reply-status.replied {
+      color: var(--accent-email);
+      background: var(--accent-email-soft);
+    }
+
+    .reply-status.negative {
+      color: var(--danger);
+      background: var(--danger-soft);
+    }
+
+    .empty-replies {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 20px 0;
+    }
+
+    .reply-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+    }
+
+    .reply-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(5px);
+    }
+
+    .reply-modal-card {
+      position: relative;
+      z-index: 2;
+      width: min(850px, calc(100% - 32px));
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+
+      margin: 20px auto;
+
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    }
+
+    .reply-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .reply-modal-header h2 {
+      font-family: var(--font-display);
+      font-size: 21px;
+      margin-top: 3px;
+    }
+
+    #reply-modal-email {
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .conversation-section {
+      margin-bottom: 20px;
+    }
+
+    .conversation-label {
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+
+    .conversation-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .conversation-box.customer {
+      border-color: rgba(94,234,212,.2);
+      color: var(--text);
+    }
+
+    .reply-response-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--accent-email);
+      border-radius: 8px;
+      padding: 14px;
+      color: var(--text);
+      resize: vertical;
+      font-family: var(--font-body);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .reply-response-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--accent-email-soft);
+    }
+
+    .ai-reason {
+      margin-top: 8px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .reply-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 650px) {
+      .reply-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .reply-monitor {
+        min-width: 0;
+      }
+
+      .reply-tabs {
+        overflow-x: auto;
+      }
+
+      .reply-modal-actions {
+        flex-direction: column;
+      }
+    }
+
+    .sub-switcher {
+      display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 5px; margin-bottom: 24px; width: fit-content;
+    }
+    .sub-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 8px;
+      transition: all .18s ease;
+    }
+    .sub-tab:hover {
+      color: var(--text);
+    }
+    .sub-tab.active {
+      background: var(--accent-email-soft);
+      color: var(--accent-email);
+      border-color: rgba(94,234,212,0.35);
+    }
   </style>
 </head>
 <body>
@@ -653,12 +1025,35 @@
       <a href="/email-agent" class="switch-tab active" data-agent="email"><span class="ic"></span>Email Agent</a>
       <a href="/whatsapp-agent" class="switch-tab" data-agent="whatsapp"><span class="ic"></span>WhatsApp Agent</a>
     </div>
+
+    <!-- Sub-switcher for Email Agent sections -->
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 26px;">
+      <div class="sub-switcher" style="margin-bottom: 0;">
+        <button type="button" class="sub-tab active" data-section="campaign">📧 Send Campaign</button>
+        <button type="button" class="sub-tab" data-section="replies">🤖 Reply Intelligence</button>
+        <button type="button" class="sub-tab" data-section="history">📜 Sent History</button>
+      </div>
+
+      <button
+        type="button"
+        id="reply-notification"
+        class="reply-notification"
+        style="display:none;"
+      >
+        <span>●</span>
+        <span id="reply-notification-text">
+          New reply
+        </span>
+      </button>
+    </div>
   </div>
 
   <!-- Main Container -->
   <main class="container">
 
-    <div class="panel">
+    <!-- Campaign Section -->
+    <div id="campaign-section" style="width: 100%;">
+      <div class="panel">
       <div class="panel-header">
         <div class="eyebrow">Outreach Dispatcher</div>
         <h1 class="panel-title">Send Email Campaign</h1>
@@ -846,9 +1241,79 @@
         </table>
       </div>
     </div>
+    </div> <!-- /campaign-section -->
 
-    <!-- History Panel -->
-    <div class="panel" style="margin-top: 24px;">
+    <!-- ============================================================
+         REPLY ASSISTANT
+         ============================================================ -->
+
+    <div id="replies-section" style="display: none; width: 100%;">
+      <!-- Reply Toolbar (Monitoring + Check Now) -->
+      <div class="reply-toolbar" style="margin-bottom: 20px;">
+        <div class="reply-monitor">
+          <div>
+            <div class="monitor-title">Reply Monitoring</div>
+            <div class="monitor-status" id="monitor-status">OFF · Not monitoring</div>
+          </div>
+          <button type="button" id="reply-monitor-btn" class="monitor-btn">Start Monitoring</button>
+        </div>
+        <button type="button" id="check-replies-btn" class="secondary-btn">Check Replies Now</button>
+      </div>
+
+      <div class="panel reply-panel">
+
+      <div class="panel-header">
+
+        <div class="eyebrow">
+          Reply Intelligence
+        </div>
+
+        <h2 class="panel-title">
+          Replies
+        </h2>
+
+        <p class="panel-sub">
+          Review replies, inspect Gemini's suggested response,
+          and approve replies before sending.
+        </p>
+
+      </div>
+
+      <div class="reply-tabs">
+
+        <button
+          type="button"
+          class="reply-tab active"
+          data-reply-tab="new"
+        >
+          Needs Attention
+          <span id="new-replies-count">0</span>
+        </button>
+
+        <button
+          type="button"
+          class="reply-tab"
+          data-reply-tab="history"
+        >
+          Positive History
+          <span id="history-replies-count">0</span>
+        </button>
+
+      </div>
+
+      <div id="replies-container">
+
+        <p class="empty-replies">
+          No replies detected yet.
+        </p>
+
+      </div>
+
+    </div>
+    </div> <!-- /replies-section -->
+
+    <div id="history-section" style="display: none; width: 100%;">
+      <div class="panel" style="margin-top: 24px;">
       <div class="panel-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
           <div class="eyebrow">Audit Log</div>
@@ -888,6 +1353,116 @@
           </div>
         </div>
       </div>
+    </div>
+    </div> <!-- /history-section -->
+
+    <!-- ============================================================
+         REPLY DETAIL MODAL
+    ============================================================ -->
+
+    <div
+      id="reply-modal"
+      class="reply-modal"
+      style="display:none;"
+    >
+
+      <div class="reply-modal-backdrop"></div>
+
+      <div class="reply-modal-card">
+
+        <div class="reply-modal-header">
+
+          <div>
+            <div class="eyebrow">
+              Reply Assistant
+            </div>
+
+            <h2 id="reply-modal-business">
+              Business
+            </h2>
+
+            <div id="reply-modal-email">
+              email@example.com
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="close-reply-modal"
+            class="modal-close"
+          >
+            ×
+          </button>
+
+        </div>
+
+        <div class="conversation-section">
+
+          <div class="conversation-label">
+            YOUR ORIGINAL EMAIL
+          </div>
+
+          <div
+            id="original-email-content"
+            class="conversation-box"
+          ></div>
+
+        </div>
+
+        <div class="conversation-section">
+
+          <div class="conversation-label">
+            THEIR REPLY
+          </div>
+
+          <div
+            id="customer-reply-content"
+            class="conversation-box customer"
+          ></div>
+
+        </div>
+
+        <div class="conversation-section">
+
+          <div class="conversation-label">
+            GEMINI SUGGESTED RESPONSE
+          </div>
+
+          <textarea
+            id="ai-response-input"
+            class="reply-response-input"
+            rows="8"
+          ></textarea>
+
+          <div
+            id="ai-reason"
+            class="ai-reason"
+          ></div>
+
+        </div>
+
+        <div class="reply-modal-actions">
+
+          <button
+            type="button"
+            id="regenerate-reply-btn"
+            class="secondary-btn"
+          >
+            Regenerate
+          </button>
+
+          <button
+            type="button"
+            id="send-reply-btn"
+            class="send-btn"
+          >
+            Done & Send
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
   </main>
