@@ -1,25 +1,4 @@
-# Virtual environment
-venv/
-env/
-ENV/
-.venv/
-
-# Secrets and configuration
-.env
-
-# Output Excel workbooks
-outputs/
-*.xlsx
-~$*.xlsx
-
-# Python caching
+whatsapp_session/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-
-# IDE configs
-.idea/
-.vscode/
-.project
-.pydevproject
+.env
