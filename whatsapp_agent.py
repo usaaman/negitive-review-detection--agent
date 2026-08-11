@@ -40,15 +40,13 @@ active_campaigns = {}
 def bring_window_to_front(driver):
     """
     Forces the Selenium Chrome window into the foreground / front of screen.
-    Uses native Selenium window management and Windows User32 API if available.
+    Only targets the specific native HWND for the Selenium-controlled Chrome process.
+    Does NOT touch, minimize, or restore any other open browser windows.
     """
     if not driver:
         return
 
     try:
-        driver.switch_to.window(driver.current_window_handle)
-        driver.minimize_window()
-        driver.maximize_window()
         driver.execute_script("window.focus();")
     except Exception:
         pass
@@ -56,22 +54,70 @@ def bring_window_to_front(driver):
     if sys.platform.startswith("win") or os.name == "nt":
         try:
             import ctypes
+            from ctypes import wintypes
+
+            kernel32 = ctypes.windll.kernel32
             user32 = ctypes.windll.user32
+
+            chromedriver_pid = None
+            try:
+                if hasattr(driver, "service") and hasattr(driver.service, "process") and driver.service.process:
+                    chromedriver_pid = driver.service.process.pid
+            except Exception:
+                pass
+
+            target_pids = set()
+            if chromedriver_pid:
+                target_pids.add(chromedriver_pid)
+                h_snap = kernel32.CreateToolhelp32Snapshot(0x00000002, 0)
+                if h_snap != -1 and h_snap != 0:
+                    class PROCESSENTRY32(ctypes.Structure):
+                        _fields_ = [
+                            ("dwSize", wintypes.DWORD),
+                            ("cntUsage", wintypes.DWORD),
+                            ("th32ProcessID", wintypes.DWORD),
+                            ("th32DefaultHeapID", ctypes.POINTER(ctypes.c_ulong)),
+                            ("th32ModuleID", wintypes.DWORD),
+                            ("cntThreads", wintypes.DWORD),
+                            ("th32ParentProcessID", wintypes.DWORD),
+                            ("pcPriClassBase", wintypes.LONG),
+                            ("dwFlags", wintypes.DWORD),
+                            ("szExeFile", ctypes.c_char * 260)
+                        ]
+                    pe = PROCESSENTRY32()
+                    pe.dwSize = ctypes.sizeof(PROCESSENTRY32)
+                    if kernel32.Process32First(h_snap, ctypes.byref(pe)):
+                        while True:
+                            if pe.th32ParentProcessID in target_pids:
+                                target_pids.add(pe.th32ProcessID)
+                            if not kernel32.Process32Next(h_snap, ctypes.byref(pe)):
+                                break
+                    kernel32.CloseHandle(h_snap)
+
+            target_hwnd = []
 
             def enum_windows_proc(hwnd, extra):
                 if user32.IsWindowVisible(hwnd):
-                    length = user32.GetWindowTextLengthW(hwnd)
-                    if length > 0:
-                        buff = ctypes.create_unicode_buffer(length + 1)
-                        user32.GetWindowTextW(hwnd, buff, length + 1)
-                        title = buff.value
-                        if "WhatsApp" in title or "Chrome" in title:
-                            user32.ShowWindow(hwnd, 9)  # SW_RESTORE / SW_SHOWNORMAL
-                            user32.SetForegroundWindow(hwnd)
+                    pid = wintypes.DWORD()
+                    user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+                    if target_pids and pid.value in target_pids:
+                        length = user32.GetWindowTextLengthW(hwnd)
+                        if length > 0:
+                            buff = ctypes.create_unicode_buffer(length + 1)
+                            user32.GetWindowTextW(hwnd, buff, length + 1)
+                            title = buff.value
+                            if title and ("WhatsApp" in title or "Chrome" in title):
+                                target_hwnd.append(hwnd)
+                                return False
                 return True
 
             WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
             user32.EnumWindows(WNDENUMPROC(enum_windows_proc), 0)
+
+            if target_hwnd:
+                hwnd = target_hwnd[0]
+                user32.ShowWindow(hwnd, 9)  # SW_RESTORE
+                user32.SetForegroundWindow(hwnd)
         except Exception:
             pass
 
@@ -746,7 +792,7 @@ def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max
                 pass
 
 
-def start_campaign_send(file_name, message_template, min_delay=20, max_delay=40, daily_limit_enabled=False, daily_limit=150, drafts=None):
+def start_campaign_send(file_name, message_template, min_delay=2, max_delay=4, daily_limit_enabled=False, daily_limit=150, drafts=None):
     """
     Reads leads from file, initializes campaign status, and starts a background worker thread.
     """

@@ -291,8 +291,8 @@ document.addEventListener("DOMContentLoaded", () => {
         progressPercentage.textContent = `${percent}%`;
         progressStats.textContent = `Sent: ${sent} | Failed: ${failed} | Skipped: ${skipped}`;
 
-        const minDelay = data.min_delay || 20;
-        const maxDelay = data.max_delay || 40;
+        const minDelay = data.min_delay || 2;
+        const maxDelay = data.max_delay || 4;
         const avgDelay = (minDelay + maxDelay) / 2;
         const remaining = total - processed;
         const secondsLeft = Math.round(remaining * avgDelay);
