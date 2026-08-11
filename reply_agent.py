@@ -118,11 +118,14 @@ def get_all_sent_recipients():
 # Reply log
 # ============================================================
 
-def get_replies():
+def get_replies(user_id=None):
     data = _load_json(REPLIES_LOG_FILE, [])
 
     if not isinstance(data, list):
         return []
+
+    if user_id is not None:
+        data = [r for r in data if r.get("user_id") == user_id]
 
     return list(reversed(data))
 
@@ -311,13 +314,13 @@ def clean_reply_text(text):
 # Gmail IMAP
 # ============================================================
 
-def connect_imap():
-    email_address = os.getenv("EMAIL_ADDRESS", "").strip()
-    password = os.getenv("EMAIL_APP_PASSWORD", "").strip()
+def connect_imap(email_address=None, password=None):
+    email_address = email_address or os.getenv("EMAIL_ADDRESS", "").strip()
+    password = password or os.getenv("EMAIL_APP_PASSWORD", "").strip()
 
     if not email_address or not password:
         raise RuntimeError(
-            "EMAIL_ADDRESS and EMAIL_APP_PASSWORD are required in .env"
+            "EMAIL_ADDRESS and EMAIL_APP_PASSWORD are required."
         )
 
     mail = imaplib.IMAP4_SSL("imap.gmail.com", 993)
@@ -412,7 +415,7 @@ def _header_matches_sent(msg, sent_records):
     return None
 
 
-def check_for_replies():
+def check_for_replies(email_address=None, password=None, user_id=None):
     """
     Checks Gmail inbox for recent emails and matches them
     against previously sent emails.
@@ -449,7 +452,7 @@ def check_for_replies():
     new_replies = []
 
     try:
-        mail = connect_imap()
+        mail = connect_imap(email_address, password)
 
         # Search recent/unread messages.
         # We deliberately don't depend only on UNSEEN because
@@ -507,10 +510,7 @@ def check_for_replies():
             )[1].strip().lower()
 
             # Ignore emails from ourselves.
-            my_email = os.getenv(
-                "EMAIL_ADDRESS",
-                ""
-            ).strip().lower()
+            my_email = (email_address or os.getenv("EMAIL_ADDRESS", "")).strip().lower()
 
             if from_email == my_email:
                 continue
@@ -551,6 +551,7 @@ def check_for_replies():
                 "id": make_msgid(),
                 "email_message_id": incoming_message_id,
                 "received_at": datetime.now().isoformat(),
+                "user_id": user_id,
 
                 "sender_email": from_email,
                 "sender_name": parseaddr(
@@ -660,6 +661,7 @@ IMPORTANT:
 - Keep the suggested response professional and concise.
 - If the sender asks a question, answer only using information available in context.
 - If information is missing, suggest asking the human user to provide it.
+- Sign off the response using the name 'Muhammad usman' and the company 'US agents'. Do NOT use any placeholders like '[Your Name]', '[Your Agency]', or '[Company Name]'.
 
 BUSINESS:
 {reply.get("business_name") or "Unknown"}
@@ -781,7 +783,7 @@ a meeting, or next steps.
 # Reply sending
 # ============================================================
 
-def send_reply(reply_id, response_text):
+def send_reply(reply_id, response_text, sender_email=None, sender_password=None):
     """
     Sends an approved response as a new email in the
     same logical conversation.
@@ -805,12 +807,12 @@ def send_reply(reply_id, response_text):
             "error": "Reply record not found."
         }
 
-    sender_email = os.getenv(
+    sender_email = sender_email or os.getenv(
         "EMAIL_ADDRESS",
         ""
     ).strip()
 
-    sender_password = os.getenv(
+    sender_password = sender_password or os.getenv(
         "EMAIL_APP_PASSWORD",
         ""
     ).strip()

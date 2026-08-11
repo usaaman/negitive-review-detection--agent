@@ -44,7 +44,7 @@ def generate_email_pitch(business_name, stars, review_text, reviewer_name, websi
     4. Offer a helpful solution, such as replying to reviews professionally, resolving issues to request rating updates, or setting up a review generation funnel to bury negative reviews.
     5. End with a soft call-to-action (CTA) inviting them to reply or schedule a brief chat.
     6. Ensure the tone is consultative and helpful, NOT pushy, salesy, or spammy. Do NOT sound like an automated template.
-    7. Use placeholder sign-off (e.g., "[Your Name]", "[Your Agency]") so it can be signed off.
+    7. Sign off as 'Muhammad usman' from 'US agents'. Do NOT use any placeholder, bracketed text, or empty values like '[Your Name]', '[Your Agency]', or '[Company Name]'.
     
     Return the response ONLY as a JSON object matching this schema:
     {{
@@ -69,7 +69,7 @@ def generate_email_pitch(business_name, stars, review_text, reviewer_name, websi
         # Fallback draft
         return {
             "subject": f"Quick question regarding reviews for {business_name}",
-            "body": f"Hi Team at {business_name},\n\nWe noticed a recent negative review left by {reviewer_name} rating you {stars} stars. Negative feedback can affect your business online. We help local businesses manage their Google reviews and reputation. Let us know if you'd like to discuss this.\n\nBest regards,\n[Your Name]"
+            "body": f"Hi Team at {business_name},\n\nWe noticed a recent negative review left by {reviewer_name} rating you {stars} stars. Negative feedback can affect your business online. We help local businesses manage their Google reviews and reputation. Let us know if you'd like to discuss this.\n\nBest regards,\nMuhammad usman\nUS agents"
         }
 
 

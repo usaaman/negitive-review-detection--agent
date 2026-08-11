@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — MU AGENTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0F17;
+      --surface: #121826;
+      --surface-2: #161D2C;
+      --border: #232B3D;
+      --text: #E7EAF0;
+      --muted: #8B93A7;
+      --accent: #F5A623;
+      --accent-soft: rgba(245, 166, 35, 0.12);
+      --accent-hover: #D97706;
+      --danger: #EF4444;
+      --danger-soft: rgba(239, 68, 68, 0.15);
+      --success: #10B981;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .split-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .form-half {
+      flex: 1;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px min(80px, 8%);
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .graphic-half {
+      flex: 1.2;
+      background: linear-gradient(135deg, #121826 0%, #0B0F17 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .split-container {
+        flex-direction: column;
+      }
+      .graphic-half {
+        display: none;
+      }
+      .form-half {
+        padding: 40px 24px;
+        min-height: 100vh;
+      }
+    }
+
+    .graphic-half::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
+      top: -10%;
+      right: -10%;
+    }
+    .graphic-half::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(94, 234, 212, 0.06) 0%, transparent 70%);
+      bottom: -15%;
+      left: -10%;
+    }
+
+    .promo-box {
+      z-index: 2;
+      text-align: center;
+      max-width: 480px;
+      padding: 20px;
+    }
+
+    .promo-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(245, 166, 35, 0.1);
+    }
+    .promo-circle .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .tagline-container {
+      height: 50px;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tagline {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 20px;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: -0.02em;
+    }
+
+    .tagline.active {
+      opacity: 1;
+      top: 0;
+    }
+
+    .tagline.exit {
+      opacity: 0;
+      top: -20px;
+    }
+
+    .promo-box p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 60px;
+    }
+    .brand-logo .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .header-text {
+      margin-bottom: 32px;
+    }
+    .header-text h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .header-text p {
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 15px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft);
+    }
+
+    .error-box {
+      background: var(--danger-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FEE2E2;
+      font-size: 13.5px;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .success-box {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #D1FAE5;
+      font-size: 13.5px;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0B0F17;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    .footer-link {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .footer-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="split-container">
+    <!-- Left Half: Form -->
+    <div class="form-half">
+      <a href="/" class="brand-logo">
+        <span class="dot"></span>MU AGENTS
+      </a>
+
+      <div class="header-text">
+        <h1>Log In</h1>
+        <p>Welcome back! Enter your login email and password to continue.</p>
+      </div>
+
+      {% if error %}
+        <div class="error-box">
+          ⚠️ {{ error }}
+        </div>
+      {% endif %}
+
+      {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="success-box">
+              ✅ {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form id="login-form" method="POST" action="/login">
+        <div class="form-group">
+          <label for="email">Login Email</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email" required placeholder="name@company.com" value="{{ email or '' }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" name="password" required placeholder="••••••••">
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          Access Intelligence Studio
+        </button>
+      </form>
+
+      <div class="footer-link">
+        Don't have an account yet? <a href="/signup">Sign up here</a>
+      </div>
+    </div>
+
+    <!-- Right Half: Promos -->
+    <div class="graphic-half">
+      <div class="promo-box">
+        <div class="promo-circle">
+          <div class="dot"></div>
+        </div>
+        <div class="tagline-container">
+          <div class="tagline active">Automate your outreach</div>
+          <div class="tagline">Reach every hot lead</div>
+          <div class="tagline">Scan negative reviews</div>
+          <div class="tagline">AI-generated reply drafts</div>
+          <div class="tagline">Scale via WhatsApp Web</div>
+        </div>
+        <p>Access reputation intelligence. Instantly extract businesses with bad ratings, find contact emails, and launch AI-personalized outreach campaigns to turn reviews into revenue.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Rotating taglines
+    const taglines = document.querySelectorAll('.tagline');
+    let currentIdx = 0;
+
+    setInterval(() => {
+      const activeTag = taglines[currentIdx];
+      activeTag.classList.remove('active');
+      activeTag.classList.add('exit');
+
+      currentIdx = (currentIdx + 1) % taglines.length;
+
+      const nextTag = taglines[currentIdx];
+      nextTag.classList.remove('exit');
+      nextTag.classList.add('active');
+    }, 3000);
+  </script>
+</body>
+</html>

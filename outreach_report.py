@@ -17,7 +17,7 @@ EMAIL_LOG_FILE = os.path.join(OUTPUT_DIR, "sent_log.json")
 WHATSAPP_LOG_FILE = os.path.join(OUTPUT_DIR, "whatsapp_log.json")
 
 
-def scan_output_excel_mappings():
+def scan_output_excel_mappings(user_id=None):
     """
     Scans all .xlsx report files in outputs/ to build lookup mappings for:
     - email -> business_name, phone
@@ -31,7 +31,15 @@ def scan_output_excel_mappings():
     if not os.path.exists(OUTPUT_DIR):
         return email_to_biz, phone_to_biz, biz_to_info
 
-    excel_files = [f for f in os.listdir(OUTPUT_DIR) if f.endswith(".xlsx") and f != "combined_outreach_report.xlsx"]
+    # Exclude combined outreach reports (for any user)
+    excel_files = [
+        f for f in os.listdir(OUTPUT_DIR) 
+        if f.endswith(".xlsx") and not f.endswith("combined_outreach_report.xlsx")
+    ]
+    if user_id is not None:
+        excel_files = [f for f in excel_files if f.startswith(f"user_{user_id}_")]
+    else:
+        excel_files = [f for f in excel_files if not f.startswith("user_")]
 
     for fname in excel_files:
         filepath = os.path.join(OUTPUT_DIR, fname)
@@ -75,7 +83,7 @@ def scan_output_excel_mappings():
     return email_to_biz, phone_to_biz, biz_to_info
 
 
-def build_combined_report():
+def build_combined_report(user_id=None):
     """
     Reads sent_log.json and whatsapp_log.json, builds a combined list of rows,
     one per unique business/contact:
@@ -87,6 +95,8 @@ def build_combined_report():
         try:
             with open(EMAIL_LOG_FILE, "r", encoding="utf-8") as f:
                 email_logs = json.load(f)
+                if isinstance(email_logs, list) and user_id is not None:
+                    email_logs = [c for c in email_logs if c.get("user_id") == user_id]
         except Exception as e:
             print(f"Error reading sent_log.json: {e}")
 
@@ -95,10 +105,12 @@ def build_combined_report():
         try:
             with open(WHATSAPP_LOG_FILE, "r", encoding="utf-8") as f:
                 whatsapp_logs = json.load(f)
+                if isinstance(whatsapp_logs, list) and user_id is not None:
+                    whatsapp_logs = [c for c in whatsapp_logs if c.get("user_id") == user_id]
         except Exception as e:
             print(f"Error reading whatsapp_log.json: {e}")
 
-    email_to_biz, phone_to_biz, biz_to_info = scan_output_excel_mappings()
+    email_to_biz, phone_to_biz, biz_to_info = scan_output_excel_mappings(user_id)
 
     # Dictionary mapping entity_key -> row dict
     # Key strategy: normalized business_name lower if present, else lower email, else raw phone digits
@@ -218,15 +230,17 @@ def build_combined_report():
     return report_rows
 
 
-def export_combined_report_to_excel():
+def export_combined_report_to_excel(user_id=None):
     """
     Calls build_combined_report() and writes result to outputs/combined_outreach_report.xlsx
     using xlsxwriter with consistent visual formatting. Returns filename.
     """
     filename = "combined_outreach_report.xlsx"
+    if user_id is not None:
+        filename = f"user_{user_id}_combined_outreach_report.xlsx"
     filepath = os.path.join(OUTPUT_DIR, filename)
 
-    report_data = build_combined_report()
+    report_data = build_combined_report(user_id)
     df = pd.DataFrame(report_data)
 
     if df.empty:

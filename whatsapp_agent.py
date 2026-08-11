@@ -170,7 +170,7 @@ def extract_contacts_from_excel(filename):
     return contacts
 
 
-def get_available_files():
+def get_available_files(user_id=None):
     """
     Lists all .xlsx files in outputs/ with valid WhatsApp phone number counts.
     """
@@ -178,6 +178,11 @@ def get_available_files():
         return []
 
     files = [f for f in os.listdir(OUTPUT_DIR) if f.endswith(".xlsx") and f != "combined_outreach_report.xlsx"]
+    if user_id is not None:
+        files = [f for f in files if f.startswith(f"user_{user_id}_")]
+    else:
+        files = [f for f in files if not f.startswith("user_")]
+        
     files.sort(key=lambda x: os.path.getmtime(os.path.join(OUTPUT_DIR, x)), reverse=True)
 
     file_info_list = []
@@ -228,7 +233,7 @@ def replace_placeholders(text, lead):
     return t.strip()
 
 
-def log_campaign(file_name, message_template, result):
+def log_campaign(file_name, message_template, result, user_id=None):
     """
     Logs WhatsApp campaign send results into both outputs/whatsapp_log.json and outputs/whatsapp_sent_log.json.
     """
@@ -237,7 +242,8 @@ def log_campaign(file_name, message_template, result):
         "file_name": file_name,
         "message_template": message_template,
         "message_preview": message_template[:100] if message_template else "",
-        "result": result
+        "result": result,
+        "user_id": user_id
     }
 
     for log_path in [LOG_FILE, SENT_LOG_FILE]:
@@ -256,7 +262,7 @@ def log_campaign(file_name, message_template, result):
             print(f"Error writing to {log_path}: {e}")
 
 
-def get_campaign_history():
+def get_campaign_history(user_id=None):
     """
     Reads outputs/whatsapp_log.json and returns past campaign entries, most recent first.
     """
@@ -268,6 +274,8 @@ def get_campaign_history():
         with open(log_path, "r", encoding="utf-8") as f:
             history = json.load(f)
             if isinstance(history, list):
+                if user_id is not None:
+                    history = [c for c in history if c.get("user_id") == user_id]
                 return list(reversed(history))
             return []
     except Exception as e:
@@ -299,7 +307,7 @@ def load_progress():
             print(f"Error loading whatsapp progress: {e}")
 
 
-def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max_delay, daily_limit_enabled, daily_limit, drafts=None, start_index=0):
+def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max_delay, daily_limit_enabled, daily_limit, drafts=None, start_index=0, user_id=None):
     """
     Worker function executed in a background thread to send WhatsApp messages asynchronously.
     """
@@ -398,7 +406,7 @@ def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max
                     "skipped": status_entry["skipped"],
                     "details": status_entry["details"]
                 }
-                log_campaign(status_entry["file_name"], message_template, summary)
+                log_campaign(status_entry["file_name"], message_template, summary, user_id)
                 print(f"[DIAG SUMMARY] In-place search succeeded: {diag_inplace_count} | Fallback used: {diag_fallback_count}")
                 return
 
@@ -735,7 +743,7 @@ def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max
             "skipped": status_entry["skipped"],
             "details": status_entry["details"]
         }
-        log_campaign(status_entry["file_name"], message_template, summary)
+        log_campaign(status_entry["file_name"], message_template, summary, user_id)
         print(f"[DIAG SUMMARY] In-place search succeeded: {diag_inplace_count} | Fallback used: {diag_fallback_count}")
 
     finally:
@@ -746,7 +754,7 @@ def bg_send_whatsapp_worker(campaign_id, leads, message_template, min_delay, max
                 pass
 
 
-def start_campaign_send(file_name, message_template, min_delay=20, max_delay=40, daily_limit_enabled=False, daily_limit=150, drafts=None):
+def start_campaign_send(file_name, message_template, min_delay=20, max_delay=40, daily_limit_enabled=False, daily_limit=150, drafts=None, user_id=None):
     """
     Reads leads from file, initializes campaign status, and starts a background worker thread.
     """
@@ -775,13 +783,14 @@ def start_campaign_send(file_name, message_template, min_delay=20, max_delay=40,
         "daily_limit": daily_limit,
         "leads": leads,
         "drafts": drafts,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
+        "user_id": user_id
     }
     save_progress()
 
     thread = threading.Thread(
         target=bg_send_whatsapp_worker,
-        args=(campaign_id, leads, message_template, min_delay, max_delay, daily_limit_enabled, daily_limit, drafts, 0)
+        args=(campaign_id, leads, message_template, min_delay, max_delay, daily_limit_enabled, daily_limit, drafts, 0, user_id)
     )
     thread.daemon = True
     thread.start()

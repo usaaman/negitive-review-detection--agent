@@ -22,22 +22,23 @@ OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def get_client():
-    if not API_TOKEN:
+def get_client(api_token=None):
+    token = api_token or API_TOKEN
+    if not token:
         raise RuntimeError(
             "APIFY_API_TOKEN nahi mila .env file mein. "
             "Check karo .env file mein ye line hai: APIFY_API_TOKEN=your_token_here"
         )
-    return ApifyClient(API_TOKEN)
+    return ApifyClient(token)
 
 
-def fetch_businesses_basic(location, category, max_businesses):
+def fetch_businesses_basic(location, category, max_businesses, api_token=None):
     """
     PHASE 1: Sirf business info + rating fetch karta hai (reviews NAHI) — fast.
     Isse pehle rating filter apply karte hain, phir sirf qualifying
     businesses ke liye reviews mangwate hain (Phase 2).
     """
-    client = get_client()
+    client = get_client(api_token)
 
     run_input = {
         "searchStringsArray": [category],
@@ -53,7 +54,7 @@ def fetch_businesses_basic(location, category, max_businesses):
     return items
 
 
-def fetch_reviews_for_businesses(businesses, max_reviews):
+def fetch_reviews_for_businesses(businesses, max_reviews, api_token=None):
     """
     PHASE 2: Sirf filtered (rating < threshold) businesses ke liye reviews
     fetch karta hai — 'lowestRanking' sort use karta hai taake sabse buri
@@ -62,7 +63,7 @@ def fetch_reviews_for_businesses(businesses, max_reviews):
     if not businesses:
         return businesses
 
-    client = get_client()
+    client = get_client(api_token)
 
     start_urls = [{"url": biz["url"]} for biz in businesses if biz.get("url")]
     if not start_urls:
@@ -114,7 +115,7 @@ def normalize_domain(url):
         return None
 
 
-def fetch_emails_for_websites(website_urls):
+def fetch_emails_for_websites(website_urls, api_token=None):
     """
     Contact Details Scraper actor (vdrmota/contact-info-scraper) ko website URLs
     bhejta hai, domain -> email ka mapping return karta hai.
@@ -122,7 +123,7 @@ def fetch_emails_for_websites(website_urls):
     if not website_urls:
         return {}
 
-    client = get_client()
+    client = get_client(api_token)
 
     run_input = {
         "startUrls": [{"url": u} for u in website_urls],
@@ -147,14 +148,14 @@ def fetch_emails_for_websites(website_urls):
     return email_map
 
 
-def attach_contact_info(businesses):
+def attach_contact_info(businesses, api_token=None):
     """
     Har business ke liye email dhoondta hai (agar website hai), phone bhi rakhta hai.
     Jin businesses ki NA email milti hai NA phone hai, unhe list se hata deta hai.
     Returns: (kept_businesses, dropped_count)
     """
     website_urls = list({biz["website"] for biz in businesses if biz.get("website")})
-    email_map = fetch_emails_for_websites(website_urls)
+    email_map = fetch_emails_for_websites(website_urls, api_token)
 
     kept = []
     dropped_count = 0
@@ -230,11 +231,13 @@ def build_review_rows(businesses, negative_star_max):
     return results
 
 
-def build_filename(location, category):
+def build_filename(location, category, user_id=None):
     """Search ke hisaab se filename banata hai, duplicate hone par _1, _2 laga deta hai."""
     safe_location = re.sub(r'[^a-zA-Z0-9]+', '_', location).strip('_')
     safe_category = re.sub(r'[^a-zA-Z0-9]+', '_', category).strip('_')
     base_name = f"{safe_category}_{safe_location}"
+    if user_id:
+        base_name = f"user_{user_id}_{base_name}"
 
     filename = f"{base_name}.xlsx"
     counter = 1
@@ -412,11 +415,11 @@ def export_to_excel(results, filename):
 active_scans = {}
 
 
-def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):
+def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
     scan_entry = active_scans[scan_id]
     try:
         scan_entry["message"] = "Starting Google Places search..."
-        businesses = fetch_businesses_basic(location, category, max_businesses)
+        businesses = fetch_businesses_basic(location, category, max_businesses, api_token)
         scan_entry["total_scanned"] = len(businesses)
         
         scan_entry["message"] = f"Filtering ratings below {rating_threshold}..."
@@ -428,10 +431,10 @@ def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, r
             return
             
         scan_entry["message"] = f"Scraping reviews for {len(rating_filtered)} flagged businesses..."
-        with_reviews = fetch_reviews_for_businesses(rating_filtered, max_reviews)
+        with_reviews = fetch_reviews_for_businesses(rating_filtered, max_reviews, api_token)
         
         scan_entry["message"] = "Searching websites for email addresses..."
-        kept_businesses, dropped_count = attach_contact_info(with_reviews)
+        kept_businesses, dropped_count = attach_contact_info(with_reviews, api_token)
         scan_entry["dropped_no_contact"] = dropped_count
         
         scan_entry["message"] = "Processing negative reviews and mapping templates..."
@@ -441,7 +444,7 @@ def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, r
         filename = None
         if results:
             scan_entry["message"] = "Generating Excel report..."
-            filename = build_filename(location, category)
+            filename = build_filename(location, category, user_id)
             export_to_excel(results, filename)
             
         scan_entry["results"] = results
@@ -456,7 +459,7 @@ def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, r
         scan_entry["message"] = f"Scan failed: {str(e)}"
 
 
-def start_scan_job(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):
+def start_scan_job(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
     import uuid
     import threading
     scan_id = str(uuid.uuid4())
@@ -473,7 +476,7 @@ def start_scan_job(location, category, max_businesses, max_reviews, rating_thres
     
     thread = threading.Thread(
         target=run_agent_worker,
-        args=(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max)
+        args=(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token, user_id)
     )
     thread.daemon = True
     thread.start()
@@ -484,14 +487,14 @@ def get_scan_status(scan_id):
     return active_scans.get(scan_id)
 
 
-def run_agent(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max):
+def run_agent(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
     """
     Poora pipeline ek function mein — UI (app.py) sirf isko call karega.
     2-phase approach: pehle sirf ratings check karo (fast), phir sirf
     qualifying businesses ke reviews fetch karo (lowestRanking sort se).
     Returns: dict with 'results', 'filename', 'total_scanned', 'flagged_count', 'dropped_no_contact'
     """
-    businesses = fetch_businesses_basic(location, category, max_businesses)
+    businesses = fetch_businesses_basic(location, category, max_businesses, api_token)
     rating_filtered = filter_by_rating(businesses, rating_threshold)
 
     if not rating_filtered:
@@ -505,13 +508,13 @@ def run_agent(location, category, max_businesses, max_reviews, rating_threshold,
             "dropped_no_contact": 0,
         }
 
-    with_reviews = fetch_reviews_for_businesses(rating_filtered, max_reviews)
-    kept_businesses, dropped_count = attach_contact_info(with_reviews)
+    with_reviews = fetch_reviews_for_businesses(rating_filtered, max_reviews, api_token)
+    kept_businesses, dropped_count = attach_contact_info(with_reviews, api_token)
     results = build_review_rows(kept_businesses, negative_star_max)
 
     filename = None
     if results:
-        filename = build_filename(location, category)
+        filename = build_filename(location, category, user_id)
         export_to_excel(results, filename)
 
     return {

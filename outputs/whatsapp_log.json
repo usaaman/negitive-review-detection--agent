@@ -157,5 +157,4450 @@
         }
       ]
     }
+  },
+  {
+    "timestamp": "2026-08-11T16:56:30.265162",
+    "file_name": "test_whatsapp_3.xlsx",
+    "message_template": "helo{business_name}{review_link}{review_stars}{reviewer_name}{review_text}{review_date}",
+    "message_preview": "helo{business_name}{review_link}{review_stars}{reviewer_name}{review_text}{review_date}",
+    "result": {
+      "total": 3,
+      "sent": 2,
+      "failed": 1,
+      "skipped": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "sent",
+          "error": null,
+          "message": "heloKarachi Bites Restaurant3.8"
+        },
+        {
+          "phone": "923045160142",
+          "business_name": "Al Noor Electronics",
+          "status": "failed",
+          "error": "Message: stale element reference: stale element not found in the current frame\n  (Session info: chrome=151.0.7922.76); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception\nStacktrace:\n\tchromedriver!GetHandleVerifier [0x7ff6c9658935+14ce5]\n\tchromedriver!GetHandleVerifier [0x7ff6c9658990+14d40]\n\tchromedriver!(No symbol) [0x7ff6c9185afd]\n\tchromedriver!(No symbol) [0x7ff6c918da61]\n\tchromedriver!(No symbol) [0x7ff6c9190a15]\n\tchromedriver!(No symbol) [0x7ff6c9190adf]\n\tchromedriver!(No symbol) [0x7ff6c91e1db0]\n\tchromedriver!(No symbol) [0x7ff6c91e1ea7]\n\tchromedriver!(No symbol) [0x7ff6c91d893a]\n\tchromedriver!(No symbol) [0x7ff6c92095ba]\n\tchromedriver!(No symbol) [0x7ff6c91d4836]\n\tchromedriver!(No symbol) [0x7ff6c922e4ab]\n\tchromedriver!(No symbol) [0x7ff6c91d308c]\n\tchromedriver!(No symbol) [0x7ff6c91d3fb3]\n\tchromedriver!GetHandleVerifier [0x7ff6c9c8e5fb+64a9ab]\n\tchromedriver!GetHandleVerifier [0x7ff6c9c88b02+644eb2]\n\tchromedriver!GetHandleVerifier [0x7ff6c9cae39e+66a74e]\n\tchromedriver!GetHandleVerifier [0x7ff6c9675d6e+3211e]\n\tchromedriver!GetHandleVerifier [0x7ff6c967e51c+3a8cc]\n\tchromedriver!GetHandleVerifier [0x7ff6c9662844+1ebf4]\n\tchromedriver!GetHandleVerifier [0x7ff6c96629d4+1ed84]\n\tchromedriver!GetHandleVerifier [0x7ff6c9645d07+20b7]\n\tKERNEL32!BaseThreadInitThunk [0x7ffc382ce957+17]\n\tntdll!RtlUserThreadStart [0x7ffc3986ad6c+2c]\n",
+          "message": "heloAl Noor Electronics4.5"
+        },
+        {
+          "phone": "923488636207",
+          "business_name": "Sindh Home Decor",
+          "status": "sent",
+          "error": null,
+          "message": "heloSindh Home Decor3.5"
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-11T21:12:25.574797",
+    "file_name": "user_1_user_1_Dermatology_Clinics_spain.xlsx",
+    "message_template": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n{review_link}\n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,",
+    "message_preview": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business repu",
+    "result": {
+      "total": 725,
+      "sent": 8,
+      "failed": 37,
+      "skipped": 680,
+      "details": [
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34971391392",
+          "business_name": "Cl\u00ednica IMIF",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34922166768",
+          "business_name": "Mediten Clinics | Arona",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34922166768",
+          "business_name": "Mediten Clinics | Arona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972141689",
+          "business_name": "Oxia",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34684642673",
+          "business_name": "Derma\u00f1ueco",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34985526162",
+          "business_name": "For Your Health Clinics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972412742",
+          "business_name": "Institut Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34678958305",
+          "business_name": "Dermatologia Integral Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972245180",
+          "business_name": "QUINTANA DOCTORS",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972203728",
+          "business_name": "Centre Dermatol\u00f2gic Girona",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34972203728",
+          "business_name": "Centre Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972203728",
+          "business_name": "Centre Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972203728",
+          "business_name": "Centre Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972203728",
+          "business_name": "Centre Dermatol\u00f2gic Girona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972483535",
+          "business_name": "Cl\u00ednica Girona Dermatolog\u00eda",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34972483535",
+          "business_name": "Cl\u00ednica Girona Dermatolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34972483535",
+          "business_name": "Cl\u00ednica Girona Dermatolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937654647",
+          "business_name": "Consultori M\u00e8dic Creu Blava",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934881207",
+          "business_name": "Ribe Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34937367020",
+          "business_name": "\u00c0ptima Centre Cl\u00ednic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34931810181",
+          "business_name": "Cl\u00ednica Dermatol\u00f2gica Dermas",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34934671718",
+          "business_name": "Dr. \u00cd\u00f1igo de Felipe | Dermat\u00f3logo Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932800361",
+          "business_name": "Pablo Umbert Millet",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932529729",
+          "business_name": "Tur\u00f3 Park Clinics | Cl\u00edniques M\u00e8diques i Est\u00e8tiques Internationals a Barcelona",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932705400",
+          "business_name": "Cl\u00ednica Oliv\u00e9 Gum\u00e0",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34958272203",
+          "business_name": "Granada Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914468055",
+          "business_name": "IMDE - Madrid Institute of Dermatology and Aesthetics",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34622458042",
+          "business_name": "Consulta Dermatol\u00f3gica Miguel Redondo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34954330100",
+          "business_name": "Quir\u00f3nsalud Infanta Luisa Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34963114080",
+          "business_name": "Centro M\u00e9dico Europa",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34961114000",
+          "business_name": "IVO. Instituto Valenciano de Oncolog\u00eda",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34690285036",
+          "business_name": "eMe cl\u00ednica",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34690285036",
+          "business_name": "eMe cl\u00ednica",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34690285036",
+          "business_name": "eMe cl\u00ednica",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34690285036",
+          "business_name": "eMe cl\u00ednica",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34690285036",
+          "business_name": "eMe cl\u00ednica",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952121100",
+          "business_name": "Vithas Centro M\u00e9dico Limonar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952805329",
+          "business_name": "Cl\u00ednica del R\u00edo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952933377",
+          "business_name": "Clinic El Campanario",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34952417400",
+          "business_name": "Policlinica San Juan",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914521900",
+          "business_name": "University Hospital Quironsalud Madrid",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34917277000",
+          "business_name": "La Paz University Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34914101200",
+          "business_name": "Olympia - Grupo Quir\u00f3nsalud",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34911918000",
+          "business_name": "Hospital Universitario Infanta Leonor",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34933635701",
+          "business_name": "Centro M\u00e9dico AXA Les Corts",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34932483000",
+          "business_name": "Hospital del Mar",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34977660140",
+          "business_name": "Policl\u00ednica Comarcal del Vendrell",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973728090",
+          "business_name": "Avantm\u00e8dic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973232943",
+          "business_name": "Cl\u00ednica Mi NovAlian\u00e7a | Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34973266300",
+          "business_name": "Vithas Centre M\u00e8dic Lleida",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "360Clinics Ja\u00e9n",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34681051278",
+          "business_name": "Dra. M\u00aa Engracia Campo Virgili, Dermat\u00f3logo",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34928361898",
+          "business_name": "Cl\u00ednica Dermatol\u00f3gica Dr.Dom\u00ednguez Silva",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34922415342",
+          "business_name": "Dermatolog\u00eda La Palma",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34923210085",
+          "business_name": "Dermatolog\u00eda Cristobal",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34981586327",
+          "business_name": "CL\u00cdNICA DERMATOL\u00d3GICA DRA. CEBREIRO",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\n\nI noticed a few reviews on your Google Maps profile that may be affecting your business reputation.\n\nI can help you identify and report policy-violating reviews for removal, usually within 2\u20133 days.\n\nOne of the reviews I noticed:\n ViewLink \n\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\n\nIf you'd like, I can explain how the removal process works.\n\nBest regards,"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "34697195694",
+          "business_name": "Dra Virginia Benitez Roig Aesthetics Marbella",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        }
+      ]
+    },
+    "user_id": 1
   }
 ]

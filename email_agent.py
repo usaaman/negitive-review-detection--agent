@@ -121,7 +121,7 @@ def extract_emails_from_excel(filename):
     return [lead["email"] for lead in leads]
 
 
-def get_available_files():
+def get_available_files(user_id=None):
     """
     Lists all .xlsx files in the outputs/ directory along with the count
     of valid email addresses in each file.
@@ -130,6 +130,11 @@ def get_available_files():
         return []
 
     files = [f for f in os.listdir(OUTPUT_DIR) if f.endswith(".xlsx")]
+    if user_id is not None:
+        files = [f for f in files if f.startswith(f"user_{user_id}_")]
+    else:
+        files = [f for f in files if not f.startswith("user_")]
+
     file_info_list = []
 
     # Sort files by last modified time (newest first)
@@ -145,7 +150,7 @@ def get_available_files():
     return file_info_list
 
 
-def log_campaign(file_name, subject, message, result):
+def log_campaign(file_name, subject, message, result, user_id=None):
     """
     Logs campaign send results into outputs/sent_log.json.
     """
@@ -164,7 +169,8 @@ def log_campaign(file_name, subject, message, result):
         "subject": subject,
         "message_preview": message[:100] if message else "",
         "message_body": message,
-        "result": result
+        "result": result,
+        "user_id": user_id
     }
 
     history.append(log_entry)
@@ -176,7 +182,7 @@ def log_campaign(file_name, subject, message, result):
         print(f"Error writing to sent_log.json: {e}")
 
 
-def get_campaign_history():
+def get_campaign_history(user_id=None):
     """
     Reads outputs/sent_log.json and returns past campaign entries, most recent first.
     """
@@ -187,6 +193,8 @@ def get_campaign_history():
         with open(LOG_FILE, "r", encoding="utf-8") as f:
             history = json.load(f)
             if isinstance(history, list):
+                if user_id is not None:
+                    history = [c for c in history if c.get("user_id") == user_id]
                 return list(reversed(history))
             return []
     except Exception as e:
@@ -212,26 +220,26 @@ def replace_placeholders(text, lead):
     return t
 
 
-def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, file_name):
+def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, file_name, sender_email=None, sender_password=None, user_id=None):
     """
     Worker function executed in a background thread to send template-replaced emails.
     """
     load_dotenv()
-    sender_email = os.getenv("EMAIL_ADDRESS", "").strip()
-    sender_password = os.getenv("EMAIL_APP_PASSWORD", "").strip()
+    email_address = sender_email or os.getenv("EMAIL_ADDRESS", "").strip()
+    password = sender_password or os.getenv("EMAIL_APP_PASSWORD", "").strip()
 
     status_entry = active_campaigns[campaign_id]
 
-    if not sender_email or not sender_password:
+    if not email_address or not password:
         status_entry["status"] = "failed"
-        status_entry["error"] = "Email credentials not configured in .env (EMAIL_ADDRESS and EMAIL_APP_PASSWORD required)."
+        status_entry["error"] = "Email credentials not configured."
         return
 
     # Connect to Gmail SMTP server
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587, timeout=30)
         server.starttls()
-        server.login(sender_email, sender_password)
+        server.login(email_address, password)
     except Exception as e:
         status_entry["status"] = "failed"
         status_entry["error"] = f"Failed to connect/authenticate with Gmail SMTP: {str(e)}"
@@ -252,9 +260,9 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
 
             # Format display name if provided
             if sender_name:
-                msg["From"] = f"{Header(sender_name, 'utf-8').encode()} <{sender_email}>"
+                msg["From"] = f"{Header(sender_name, 'utf-8').encode()} <{email_address}>"
             else:
-                msg["From"] = sender_email
+                msg["From"] = email_address
                 
             msg["To"] = recipient
             msg["Subject"] = personalized_subject
@@ -262,7 +270,7 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
             
             msg.attach(MIMEText(personalized_message, "plain", "utf-8"))
 
-            server.sendmail(sender_email, recipient, msg.as_string())
+            server.sendmail(email_address, recipient, msg.as_string())
             
             status_entry["sent"] += 1
             status_entry["details"].append({
@@ -304,10 +312,10 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
         "failed": status_entry["failed"],
         "details": status_entry["details"]
     }
-    log_campaign(file_name, subject, message, summary)
+    log_campaign(file_name, subject, message, summary, user_id)
 
 
-def start_campaign_send(leads, subject, message, sender_name, file_name):
+def start_campaign_send(leads, subject, message, sender_name, file_name, sender_email=None, sender_password=None, user_id=None):
     """
     Initializes campaign tracking state and starts a background sending thread.
     Returns the campaign_id.
@@ -322,13 +330,14 @@ def start_campaign_send(leads, subject, message, sender_name, file_name):
         "error": None,
         "file_name": file_name,
         "subject": subject,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
+        "user_id": user_id
     }
 
     # Spawn thread
     thread = threading.Thread(
         target=bg_send_emails_worker,
-        args=(campaign_id, leads, subject, message, sender_name, file_name)
+        args=(campaign_id, leads, subject, message, sender_name, file_name, sender_email, sender_password, user_id)
     )
     thread.daemon = True
     thread.start()

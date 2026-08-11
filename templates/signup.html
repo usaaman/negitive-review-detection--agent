@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — MU AGENTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0F17;
+      --surface: #121826;
+      --surface-2: #161D2C;
+      --border: #232B3D;
+      --text: #E7EAF0;
+      --muted: #8B93A7;
+      --accent: #F5A623;
+      --accent-soft: rgba(245, 166, 35, 0.12);
+      --accent-hover: #D97706;
+      --danger: #EF4444;
+      --danger-soft: rgba(239, 68, 68, 0.15);
+      --success: #10B981;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Split Screen Layout */
+    .split-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* Left Half: Form */
+    .form-half {
+      flex: 1;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px min(80px, 8%);
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    /* Right Half: Graphic/Animation */
+    .graphic-half {
+      flex: 1.2;
+      background: linear-gradient(135deg, #121826 0%, #0B0F17 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .split-container {
+        flex-direction: column;
+      }
+      .graphic-half {
+        display: none; /* Hide on mobile devices for focus */
+      }
+      .form-half {
+        padding: 40px 24px;
+        min-height: 100vh;
+      }
+    }
+
+    /* Decorative Cosmic Gradients on Right Half */
+    .graphic-half::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
+      top: -10%;
+      right: -10%;
+    }
+    .graphic-half::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(94, 234, 212, 0.06) 0%, transparent 70%);
+      bottom: -15%;
+      left: -10%;
+    }
+
+    /* Rotating Tagline Component */
+    .promo-box {
+      z-index: 2;
+      text-align: center;
+      max-width: 480px;
+      padding: 20px;
+    }
+
+    .promo-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(245, 166, 35, 0.1);
+    }
+    .promo-circle .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .tagline-container {
+      height: 50px;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tagline {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 20px;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: -0.02em;
+    }
+
+    .tagline.active {
+      opacity: 1;
+      top: 0;
+    }
+
+    .tagline.exit {
+      opacity: 0;
+      top: -20px;
+    }
+
+    .promo-box p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Brand Logo */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+    .brand-logo .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Form Styles */
+    .header-text {
+      margin-bottom: 28px;
+    }
+    .header-text h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .header-text p {
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft);
+    }
+
+    .helper-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 5px;
+      transition: color 0.15s ease;
+    }
+    .helper-link:hover {
+      color: var(--accent-hover);
+    }
+
+    .guide-text {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* Warning/Error Boxes */
+    .error-box {
+      background: var(--danger-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FEE2E2;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    .general-error {
+      background: var(--danger-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FEE2E2;
+      font-size: 13.5px;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0B0F17;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .footer-link {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .footer-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Small spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(11, 15, 23, 0.2);
+      border-top: 2px solid #0B0F17;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="split-container">
+    <!-- Left Half: Form -->
+    <div class="form-half">
+      <a href="/" class="brand-logo">
+        <span class="dot"></span>MU AGENTS
+      </a>
+
+      <div class="header-text">
+        <h1>Create Intelligence Account</h1>
+        <p>Set up your login credentials and connect your scrape & SMTP providers.</p>
+      </div>
+
+      {% if general_error %}
+        <div class="general-error">
+          ⚠️ {{ general_error }}
+        </div>
+      {% endif %}
+
+      <form id="signup-form" method="POST" action="/signup" onsubmit="showLoading()">
+        <div class="form-group">
+          <label for="email">Login Email</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email" required placeholder="name@company.com" value="{{ email or '' }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Login Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" name="password" required placeholder="••••••••" minlength="6">
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border); margin: 25px 0 20px;"></div>
+
+        <div class="form-group">
+          <label for="gmail_address">Outbound Gmail Address</label>
+          <div class="input-wrapper">
+            <input type="email" id="gmail_address" name="gmail_address" required placeholder="youraccount@gmail.com" value="{{ gmail_address or '' }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gmail_app_password">Gmail App Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="gmail_app_password" name="gmail_app_password" required placeholder="16-character password">
+          </div>
+          <a href="https://myaccount.google.com/apppasswords" target="_blank" class="helper-link">
+            Get your App Password here →
+          </a>
+          <div class="guide-text">
+            Go to the link above, sign in, generate a 16-character App Password (requires 2-Step Verification to be ON), then paste it here.
+          </div>
+          {% if smtp_error %}
+            <div class="error-box">
+              ❌ SMTP Login Failure: {{ smtp_error }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div style="border-top: 1px solid var(--border); margin: 25px 0 20px;"></div>
+
+        <div class="form-group">
+          <label for="apify_token">Apify API Token</label>
+          <div class="input-wrapper">
+            <input type="password" id="apify_token" name="apify_token" required placeholder="apify_api_...">
+          </div>
+          <a href="https://console.apify.com/settings/integrations" target="_blank" class="helper-link">
+            Get your Apify Token here →
+          </a>
+          <div class="guide-text">
+            Open the link, copy your Personal API Token, paste it here.
+          </div>
+          {% if apify_error %}
+            <div class="error-box">
+              ❌ Apify Validation Failure: {{ apify_error }}
+            </div>
+          {% endif %}
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">
+          <span class="spinner" id="btn-spinner"></span>
+          <span id="btn-text">Verify & Register Account</span>
+        </button>
+      </form>
+
+      <div class="footer-link">
+        Already have an account? <a href="/login">Log in here</a>
+      </div>
+    </div>
+
+    <!-- Right Half: Promos -->
+    <div class="graphic-half">
+      <div class="promo-box">
+        <div class="promo-circle">
+          <div class="dot"></div>
+        </div>
+        <div class="tagline-container">
+          <div class="tagline active">Automate your outreach</div>
+          <div class="tagline">Reach every hot lead</div>
+          <div class="tagline">Scan negative reviews</div>
+          <div class="tagline">AI-generated reply drafts</div>
+          <div class="tagline">Scale via WhatsApp Web</div>
+        </div>
+        <p>Access reputation intelligence. Instantly extract businesses with bad ratings, find contact emails, and launch AI-personalized outreach campaigns to turn reviews into revenue.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Rotating taglines
+    const taglines = document.querySelectorAll('.tagline');
+    let currentIdx = 0;
+
+    setInterval(() => {
+      const activeTag = taglines[currentIdx];
+      activeTag.classList.remove('active');
+      activeTag.classList.add('exit');
+
+      currentIdx = (currentIdx + 1) % taglines.length;
+
+      const nextTag = taglines[currentIdx];
+      nextTag.classList.remove('exit');
+      nextTag.classList.add('active');
+    }, 3000);
+
+    function showLoading() {
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('btn-spinner').style.display = 'inline-block';
+      document.getElementById('btn-text').innerText = 'Validating Credentials...';
+    }
+  </script>
+</body>
+</html>

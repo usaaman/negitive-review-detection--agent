@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MU AGENTS — Intelligence Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap"
+    rel="stylesheet">
   <style>
     /* ===== CSS Variables & Reset ===== */
     :root {
@@ -18,14 +21,14 @@
       --text-muted: #8B93A7;
       --text-faint: #4B5563;
       --accent-lead: #F5A623;
-      --accent-lead-soft: rgba(245,166,35,0.12);
+      --accent-lead-soft: rgba(245, 166, 35, 0.12);
       --accent-email: #5EEAD4;
-      --accent-email-soft: rgba(94,234,212,0.12);
+      --accent-email-soft: rgba(94, 234, 212, 0.12);
       --accent-whatsapp: #25D366;
-      --accent-whatsapp-soft: rgba(37,211,102,0.12);
+      --accent-whatsapp-soft: rgba(37, 211, 102, 0.12);
 
       --accent: #F5A623;
-      --accent-soft: rgba(245,166,35,0.12);
+      --accent-soft: rgba(245, 166, 35, 0.12);
       --accent-hover: #D97706;
       --bg-panel: #121826;
 
@@ -39,18 +42,18 @@
       --danger: #EF4444;
       --danger-soft: rgba(239, 68, 68, 0.15);
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       margin: 0;
       background:
-        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245,166,35,0.07), transparent),
-        radial-gradient(ellipse 900px 500px at 85% 0%, rgba(94,234,212,0.06), transparent),
+        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245, 166, 35, 0.07), transparent),
+        radial-gradient(ellipse 900px 500px at 85% 0%, rgba(94, 234, 212, 0.06), transparent),
         var(--bg);
       color: var(--text);
       font-family: var(--font-body);
@@ -60,7 +63,7 @@
       overflow-x: hidden;
       position: relative;
     }
-    
+
     /* Background Scanlines Grid Pattern */
     body::before {
       content: "";
@@ -68,46 +71,127 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.006) 0px,
-        rgba(255, 255, 255, 0.006) 1px,
-        transparent 1px,
-        transparent 3px
-      );
+      background: repeating-linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.006) 0px,
+          rgba(255, 255, 255, 0.006) 1px,
+          transparent 1px,
+          transparent 3px);
     }
-    
+
     /* ---- Top brand row ---- */
-    .brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; color: var(--text); }
-    .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-lead); box-shadow: 0 0 10px var(--accent-lead); }
-    .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .brand .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-lead);
+      box-shadow: 0 0 10px var(--accent-lead);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
 
     /* ---- Agent switcher ---- */
     .switcher {
-      display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 5px; margin-bottom: 26px; width: fit-content;
+      display: flex;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 5px;
+      margin-bottom: 26px;
+      width: fit-content;
     }
+
     .switch-tab {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
-      padding: 9px 16px; border-radius: 8px; cursor: pointer;
-      color: var(--muted); border: 1px solid transparent; text-decoration: none;
-      transition: all .18s ease; user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--muted);
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all .18s ease;
+      user-select: none;
     }
-    .switch-tab .ic { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
-    .switch-tab:hover { color: var(--text); }
-    .switch-tab.active[data-agent="lead"] { background: var(--accent-lead-soft); color: var(--accent-lead); border-color: rgba(245,166,35,0.35); }
-    .switch-tab.active[data-agent="lead"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-lead); }
-    .switch-tab.active[data-agent="email"] { background: var(--accent-email-soft); color: var(--accent-email); border-color: rgba(94,234,212,0.35); }
-    .switch-tab.active[data-agent="email"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-email); }
-    .switch-tab.active[data-agent="whatsapp"] { background: var(--accent-whatsapp-soft); color: var(--accent-whatsapp); border-color: rgba(37,211,102,0.35); }
-    .switch-tab.active[data-agent="whatsapp"] .ic { opacity: 1; box-shadow: 0 0 8px var(--accent-whatsapp); }
-    
+
+    .switch-tab .ic {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .5;
+    }
+
+    .switch-tab:hover {
+      color: var(--text);
+    }
+
+    .switch-tab.active[data-agent="lead"] {
+      background: var(--accent-lead-soft);
+      color: var(--accent-lead);
+      border-color: rgba(245, 166, 35, 0.35);
+    }
+
+    .switch-tab.active[data-agent="lead"] .ic {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--accent-lead);
+    }
+
+    .switch-tab.active[data-agent="email"] {
+      background: var(--accent-email-soft);
+      color: var(--accent-email);
+      border-color: rgba(94, 234, 212, 0.35);
+    }
+
+    .switch-tab.active[data-agent="email"] .ic {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--accent-email);
+    }
+
+    .switch-tab.active[data-agent="whatsapp"] {
+      background: var(--accent-whatsapp-soft);
+      color: var(--accent-whatsapp);
+      border-color: rgba(37, 211, 102, 0.35);
+    }
+
+    .switch-tab.active[data-agent="whatsapp"] .ic {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--accent-whatsapp);
+    }
+
     /* ===== Main Output Canvas ===== */
     .canvas-container {
       flex: 1;
-      padding: 40px 40px 180px; /* High bottom padding to prevent overlap with floating dock */
+      padding: 40px 40px 180px;
+      /* High bottom padding to prevent overlap with floating dock */
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
@@ -117,14 +201,14 @@
       justify-content: center;
       z-index: 1;
     }
-    
+
     /* Initial / Welcome State */
     .welcome-studio {
       text-align: center;
       max-width: 600px;
       animation: fadeIn 0.6s ease;
     }
-    
+
     .welcome-studio h1 {
       font-family: var(--font-display);
       font-size: 38px;
@@ -133,13 +217,13 @@
       letter-spacing: -0.02em;
       color: var(--text);
     }
-    
+
     .welcome-studio p {
       font-size: 15px;
       color: var(--text-muted);
       line-height: 1.6;
     }
-    
+
     /* Results Table State */
     .results-panel {
       width: 100%;
@@ -147,10 +231,10 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 26px;
-      box-shadow: 0 20px 40px -25px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.6);
       animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     .results-header {
       display: flex;
       align-items: center;
@@ -158,28 +242,28 @@
       margin-bottom: 22px;
       gap: 16px;
     }
-    
+
     .results-title h2 {
       font-family: var(--font-display);
       font-size: 22px;
       font-weight: 600;
       color: var(--text);
     }
-    
+
     .results-title p {
       font-size: 13px;
       color: var(--text-muted);
       margin-top: 4px;
       font-family: var(--font-mono);
     }
-    
+
     /* Export CSV Button */
     .export-btn {
       display: inline-flex;
       align-items: center;
       gap: 7px;
       background: var(--accent-lead-soft);
-      border: 1px solid rgba(245,166,35,.4);
+      border: 1px solid rgba(245, 166, 35, .4);
       color: var(--accent-lead);
       border-radius: 8px;
       padding: 9px 16px;
@@ -191,18 +275,18 @@
       white-space: nowrap;
       transition: all 0.15s ease;
     }
-    
+
     .export-btn:hover {
       background: var(--accent-lead);
       color: #0B0F17;
     }
-    
+
     .export-btn svg {
       width: 15px;
       height: 15px;
       fill: currentColor;
     }
-    
+
     /* Table Styling */
     .table-wrap {
       overflow-x: auto;
@@ -210,14 +294,14 @@
       border-radius: 8px;
       background: rgba(11, 15, 23, 0.6);
     }
-    
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13.5px;
       text-align: left;
     }
-    
+
     th {
       background: rgba(20, 26, 38, 0.95);
       color: var(--text-muted);
@@ -228,22 +312,22 @@
       padding: 14px 18px;
       border-bottom: 1px solid var(--border);
     }
-    
+
     td {
       padding: 14px 18px;
       border-bottom: 1px solid var(--border);
       color: var(--text);
       vertical-align: middle;
     }
-    
+
     tr:last-child td {
       border-bottom: none;
     }
-    
+
     tr:hover td {
       background: rgba(255, 255, 255, 0.015);
     }
-    
+
     /* Badges */
     .badge {
       display: inline-flex;
@@ -257,26 +341,26 @@
       padding: 4px 8px;
       border-radius: 4px;
     }
-    
+
     .badge.flagged {
       background-color: var(--danger-soft);
       color: var(--danger);
       border: 1px solid rgba(239, 68, 68, 0.3);
     }
-    
+
     .badge.clean {
       background-color: var(--success-soft);
       color: var(--success);
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
-    
+
     .badge-dot {
       width: 5px;
       height: 5px;
       border-radius: 50%;
       background-color: currentColor;
     }
-    
+
     /* ===== Fixed Bottom Center Search Dock ===== */
     .bottom-dock {
       position: fixed;
@@ -294,7 +378,7 @@
       z-index: 100;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     /* Dock Header */
     .dock-header {
       display: flex;
@@ -302,12 +386,12 @@
       justify-content: space-between;
       user-select: none;
     }
-    
+
     .dock-info {
       flex: 1;
       cursor: pointer;
     }
-    
+
     .dock-info h3 {
       font-family: var(--font-display);
       font-size: 13.5px;
@@ -317,13 +401,13 @@
       color: var(--accent);
       margin-bottom: 3px;
     }
-    
+
     .dock-info p {
       font-size: 11.5px;
       color: var(--text-muted);
       line-height: 1.45;
     }
-    
+
     /* Chevron Toggle Button */
     .toggle-btn {
       background: transparent;
@@ -337,12 +421,12 @@
       justify-content: center;
       transition: all 0.2s ease;
     }
-    
+
     .toggle-btn:hover {
       color: var(--text);
       background: rgba(255, 255, 255, 0.05);
     }
-    
+
     .toggle-btn svg {
       width: 18px;
       height: 18px;
@@ -353,12 +437,12 @@
       stroke-linejoin: round;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     /* Collapsed state styling */
     .bottom-dock.collapsed .toggle-btn svg {
       transform: rotate(-180deg);
     }
-    
+
     /* Slide transition for dock inputs */
     .dock-content {
       max-height: 480px;
@@ -367,14 +451,14 @@
       transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin-top 0.3s ease;
       margin-top: 18px;
     }
-    
+
     .bottom-dock.collapsed .dock-content {
       max-height: 0;
       opacity: 0;
       margin-top: 0;
       pointer-events: none;
     }
-    
+
     /* Form Grid Layouts */
     .form-grid {
       display: grid;
@@ -382,20 +466,20 @@
       gap: 14px;
       margin-bottom: 14px;
     }
-    
+
     .form-row-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-bottom: 18px;
     }
-    
+
     .input-field {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    
+
     .input-field label {
       font-family: var(--font-mono);
       font-size: 9.5px;
@@ -403,7 +487,7 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
-    
+
     .input-field input {
       width: 100%;
       background: rgba(11, 15, 23, 0.85);
@@ -415,13 +499,13 @@
       font-size: 13.5px;
       transition: all 0.15s ease;
     }
-    
+
     .input-field input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 2px var(--accent-soft);
     }
-    
+
     /* Footer Action Bar */
     .dock-actions {
       display: flex;
@@ -430,7 +514,7 @@
       border-top: 1px solid var(--border);
       padding-top: 14px;
     }
-    
+
     /* Scan Loading State */
     .scan-status-indicator {
       display: flex;
@@ -441,7 +525,7 @@
       color: var(--accent);
       visibility: hidden;
     }
-    
+
     .spinner {
       width: 14px;
       height: 14px;
@@ -450,7 +534,7 @@
       border-radius: 50%;
       animation: spin 0.9s linear infinite;
     }
-    
+
     /* Scan CTA Button */
     .scan-btn {
       display: inline-flex;
@@ -467,28 +551,28 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    
+
     .scan-btn:hover {
       background: var(--accent-hover);
       box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
     }
-    
+
     .scan-btn:active {
       transform: translateY(1px);
     }
-    
+
     .scan-btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    
+
     .scan-dot {
       width: 6px;
       height: 6px;
       background-color: #0B0F17;
       border-radius: 50%;
     }
-    
+
     /* Status Messages panel inside layout */
     .error-card {
       width: 100%;
@@ -502,65 +586,92 @@
       margin-bottom: 20px;
       animation: slideUp 0.3s ease;
     }
-    
+
     /* Animations */
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
-    
+
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
+
     /* ===== Scrollbar Styling ===== */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
+
     ::-webkit-scrollbar-track {
       background: rgba(11, 15, 23, 0.3);
     }
+
     ::-webkit-scrollbar-thumb {
       background: var(--border);
       border-radius: 4px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: var(--text-faint);
     }
-    
+
     /* ===== Mobile Responsive adjustments ===== */
     @media (max-width: 768px) {
       .header-bar {
         padding: 16px 20px;
       }
+
       .canvas-container {
         padding: 24px 16px 240px;
       }
+
       .welcome-studio h1 {
         font-size: 28px;
       }
+
       .bottom-dock {
         width: calc(100% - 32px);
         bottom: 16px;
         padding: 14px 18px;
       }
+
       .form-grid {
         grid-template-columns: 1fr;
         gap: 10px;
       }
+
       .form-row-4 {
         grid-template-columns: 1fr 1fr;
         gap: 8px;
       }
     }
-    
+
     .open-link-btn {
       display: inline-flex;
       align-items: center;
@@ -578,11 +689,13 @@
       transition: all 0.15s ease;
       white-space: nowrap;
     }
+
     .open-link-btn:hover {
       background: var(--accent);
       color: #0B0F17;
       box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
     }
+
     .open-link-btn.disabled {
       border-color: var(--border);
       background: transparent;
@@ -590,13 +703,28 @@
       cursor: not-allowed;
       pointer-events: none;
     }
+
     .signature {
-      position: fixed; bottom: 18px; right: 22px;
-      font-family: var(--font-sig); font-size: 22px; color: var(--muted);
-      opacity: .55; display: flex; align-items: center; gap: 6px; pointer-events: none;
-      transform: rotate(-3deg); z-index: 1000;
+      position: fixed;
+      bottom: 18px;
+      right: 22px;
+      font-family: var(--font-sig);
+      font-size: 22px;
+      color: var(--muted);
+      opacity: .55;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+      transform: rotate(-3deg);
+      z-index: 1000;
     }
-    .signature .spark { font-size: 13px; color: var(--accent-lead); opacity: .9; }
+
+    .signature .spark {
+      font-size: 13px;
+      color: var(--accent-lead);
+      opacity: .9;
+    }
 
     /* ---- Skeleton Loader ---- */
     .skeleton {
@@ -606,26 +734,43 @@
       border-radius: 4px;
       display: inline-block;
     }
+
     @keyframes skeleton-loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
     }
+
     .skeleton-text {
       height: 12px;
       width: 100%;
     }
+
     .skeleton-row td {
       padding: 16px;
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top Header / Agent Switcher -->
   <div style="max-width: 1080px; margin: 0 auto; padding: 28px 24px 0; width: 100%;">
     <div class="brand-row">
       <div class="brand"><span class="dot"></span>MU AGENTS</div>
-      <span class="eyebrow">Intelligence Studio</span>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        {% if current_user.is_authenticated %}
+          <span class="eyebrow" style="text-transform: none; font-size: 12.5px; color: var(--muted); font-family: var(--font-mono);">{{ current_user.email }}</span>
+          <a href="/settings" class="open-link-btn" style="border-radius: 6px; padding: 6px 12px; font-size: 11px; text-decoration: none;">Settings</a>
+          <a href="/logout" class="open-link-btn" style="border-radius: 6px; padding: 6px 12px; font-size: 11px; text-decoration: none; border-color: var(--danger); color: var(--danger); background: transparent;">Logout</a>
+        {% else %}
+          <span class="eyebrow">Intelligence Studio</span>
+        {% endif %}
+      </div>
     </div>
 
     <div class="switcher">
@@ -637,11 +782,12 @@
 
   <!-- Output Canvas Container -->
   <main class="canvas-container" id="canvas-container">
-    
+
     <!-- Welcome State -->
     <div class="welcome-studio" id="welcome-studio">
       <h1>MU Agents Intelligence Studio</h1>
-      <p>Configure search parameters in the bottom dashboard panel and execute a scan to retrieve business storefront leads, reviews, and reputation analysis.</p>
+      <p>Configure search parameters in the bottom dashboard panel and execute a scan to retrieve business storefront
+        leads, reviews, and reputation analysis.</p>
     </div>
 
     <!-- Error Card (Hidden initially) -->
@@ -656,7 +802,8 @@
         </div>
         <button class="export-btn" id="export-xlsx-btn">
           <svg viewBox="0 0 24 24">
-            <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+            <path
+              d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
           </svg>
           <span>Export XLSX</span>
         </button>
@@ -689,7 +836,7 @@
 
   <!-- Floating Center Dock Panel -->
   <div class="bottom-dock" id="bottom-dock">
-    
+
     <!-- Dock Top Header Bar -->
     <div class="dock-header" id="dock-toggle-trigger">
       <div class="dock-info">
@@ -706,7 +853,7 @@
     <!-- Collapsible Fields Area -->
     <div class="dock-content">
       <form id="scan-form">
-        
+
         <div class="form-grid">
           <div class="input-field">
             <label for="location">Location</label>
@@ -732,8 +879,8 @@
             <input type="text" id="rating_threshold" name="rating_threshold" value="4.5">
           </div>
           <div class="input-field">
-            <label for="negative_star_max">Negative <=</label>
-            <input type="number" id="negative_star_max" name="negative_star_max" value="3" min="1" max="5">
+            <label for="negative_star_max">Negative <=< /label>
+                <input type="number" id="negative_star_max" name="negative_star_max" value="3" min="1" max="5">
           </div>
         </div>
 
@@ -743,7 +890,7 @@
             <div class="spinner"></div>
             <span id="scan-status-text">Scanning the map grid…</span>
           </div>
-          
+
           <button type="submit" class="scan-btn" id="scan-submit-btn">
             <span class="scan-dot"></span>
             <span id="scan-btn-label">Run scan</span>
@@ -766,14 +913,14 @@
     const scanBtnLabel = document.getElementById("scan-btn-label");
     const scanStatusIndicator = document.getElementById("scan-status-indicator");
     const scanStatusText = document.getElementById("scan-status-text");
-    
+
     const welcomeStudio = document.getElementById("welcome-studio");
     const resultsPanel = document.getElementById("results-panel");
     const resultsBody = document.getElementById("results-body");
     const resultsSummary = document.getElementById("results-summary");
     const exportXlsxBtn = document.getElementById("export-xlsx-btn");
     const errorCard = document.getElementById("error-card");
-    
+
     // Status text cycler messages
     const statusMessages = [
       "Scanning the map grid…",
@@ -785,14 +932,14 @@
     let statusInterval = null;
     let latestScanData = null; // Store grouped results for CSV export
     let latestFilename = null; // Store filename for Excel export
-    
+
     // 1. Collapsible Dock Toggle Handler
     function toggleDock() {
       bottomDock.classList.toggle("collapsed");
     }
-    
+
     dockTrigger.addEventListener("click", toggleDock);
-    
+
     function startStatusCycles() {
       let i = 0;
       scanStatusText.textContent = statusMessages[0];
@@ -802,12 +949,12 @@
         scanStatusText.textContent = statusMessages[i];
       }, 2400);
     }
-    
+
     function stopStatusCycles() {
       clearInterval(statusInterval);
       scanStatusIndicator.style.visibility = "hidden";
     }
-    
+
     // Helper to escape HTML characters
     function escapeHtml(str) {
       if (str === null || str === undefined) return "";
@@ -816,7 +963,7 @@
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
     }
-    
+
     // Render skeleton rows during scanning
     function renderSkeletonRows(count = 5) {
       let html = "";
@@ -843,30 +990,30 @@
 
     function startScanPolling(scanId) {
       if (scanPollIntervalId) clearInterval(scanPollIntervalId);
-      
+
       scanPollIntervalId = setInterval(async () => {
         try {
           const res = await fetch(`/scan/status/${scanId}`);
           if (!res.ok) throw new Error("Failed to check scan status.");
-          
+
           const data = await res.json();
-          
+
           if (data.message) {
             scanStatusText.textContent = data.message;
           }
-          
+
           if (data.status === "completed") {
             clearInterval(scanPollIntervalId);
             scanPollIntervalId = null;
-            
+
             stopStatusCycles();
             scanSubmitBtn.disabled = false;
             scanBtnLabel.textContent = "Run scan";
-            
+
             // Hide welcome and display result canvas
             welcomeStudio.style.display = "none";
             resultsPanel.style.display = "block";
-            
+
             if (!data.results || data.results.length === 0) {
               resultsSummary.textContent = `${data.total_scanned} businesses scanned · 0 flagged below threshold.`;
               resultsBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">No reviews fell below rating threshold.</td></tr>`;
@@ -874,42 +1021,42 @@
               latestFilename = null;
               return;
             }
-            
+
             latestScanData = data.results;
             latestFilename = data.filename;
-            
+
             let summary = `${data.total_scanned} businesses scanned · ${data.flagged_count} flagged below rating threshold`;
             if (data.dropped_no_contact) {
               summary += ` · ${data.dropped_no_contact} dropped (no email or phone)`;
             }
             resultsSummary.textContent = summary + ".";
-            
+
             // Render raw review rows
             resultsBody.innerHTML = data.results.map(row => {
               const ratingVal = (row["Business Rating"] !== null && row["Business Rating"] !== "N/A") ? `${row["Business Rating"]} ★` : "—";
               const starsVal = (row["Review Stars"] !== null && row["Review Stars"] !== "N/A") ? `${row["Review Stars"]} ★` : "—";
-              
+
               const reviewUrl = row["Review Link"];
               const mapsUrl = row["Business Maps Link"];
               const email = row["Email"];
               const website = row["Website"];
-              
+
               const reviewBtn = (reviewUrl && reviewUrl !== "N/A" && reviewUrl.startsWith("http"))
                 ? `<a class="open-link-btn" href="${escapeHtml(reviewUrl)}" target="_blank" rel="noopener">Open link</a>`
                 : `<span class="open-link-btn disabled">Open link</span>`;
-                
+
               const mapsBtn = (mapsUrl && mapsUrl !== "N/A" && mapsUrl.startsWith("http"))
                 ? `<a class="open-link-btn" href="${escapeHtml(mapsUrl)}" target="_blank" rel="noopener">Open link</a>`
                 : `<span class="open-link-btn disabled">Open link</span>`;
-    
+
               const emailHtml = (email && email !== "N/A")
                 ? `<a class="open-link-btn" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`
                 : `<span class="open-link-btn disabled">—</span>`;
-    
+
               const websiteHtml = (website && website !== "N/A")
                 ? `<a class="open-link-btn" href="${escapeHtml(website)}" target="_blank" rel="noopener">visit →</a>`
                 : `<span class="open-link-btn disabled">—</span>`;
-                
+
               return `
                 <tr>
                   <td style="font-weight: 600;">${escapeHtml(row["Business Name"])}</td>
@@ -928,11 +1075,11 @@
           } else if (data.status === "failed") {
             clearInterval(scanPollIntervalId);
             scanPollIntervalId = null;
-            
+
             stopStatusCycles();
             scanSubmitBtn.disabled = false;
             scanBtnLabel.textContent = "Run scan";
-            
+
             errorCard.textContent = "Scan error: " + (data.error || "Unknown server error.");
             errorCard.style.display = "block";
             welcomeStudio.style.display = "block";
@@ -944,27 +1091,27 @@
         }
       }, 1500);
     }
-    
+
     // 2. Scan Form Submission
     scanForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      
+
       // Reset UI state
       errorCard.style.display = "none";
       scanSubmitBtn.disabled = true;
       scanBtnLabel.textContent = "Scanning…";
-      
+
       // Auto-collapse dock when starting scan for visual focus on the canvas
       bottomDock.classList.add("collapsed");
       scanStatusText.textContent = "Initializing scanner...";
       scanStatusIndicator.style.visibility = "visible";
-      
+
       // Show skeleton table immediately to give feedback
       welcomeStudio.style.display = "none";
       resultsPanel.style.display = "block";
       resultsSummary.textContent = "Running map grid scan, please wait...";
       renderSkeletonRows(5);
-      
+
       const payload = {
         location: document.getElementById("location").value,
         category: document.getElementById("category").value,
@@ -973,16 +1120,16 @@
         rating_threshold: parseFloat(document.getElementById("rating_threshold").value),
         negative_star_max: parseInt(document.getElementById("negative_star_max").value, 10)
       };
-      
+
       try {
         const res = await fetch("/scan", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
-        
+
         const data = await res.json();
-        
+
         if (!res.ok || data.error) {
           stopStatusCycles();
           scanSubmitBtn.disabled = false;
@@ -994,10 +1141,10 @@
           bottomDock.classList.remove("collapsed");
           return;
         }
-        
+
         // Start polling the scan status
         startScanPolling(data.scan_id);
-        
+
       } catch (err) {
         stopStatusCycles();
         scanSubmitBtn.disabled = false;
@@ -1009,17 +1156,18 @@
         bottomDock.classList.remove("collapsed");
       }
     });
-    
+
     // Export XLSX Functionality (Server-Side Download)
     exportXlsxBtn.addEventListener("click", () => {
       if (!latestFilename) {
         alert("No scan data or export file available to download.");
         return;
       }
-      
+
       window.location.href = "/download/" + encodeURIComponent(latestFilename);
     });
   </script>
-  <div class="signature"><span class="spark">✦</span> crafted by Bushra</div>
+  <div class="signature"><span class="spark">✦</span> crafted by US</div>
 </body>
+
 </html>
