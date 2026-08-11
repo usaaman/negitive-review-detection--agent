@@ -1,0 +1,161 @@
+[
+  {
+    "timestamp": "2026-08-10T07:03:00.621582",
+    "file_name": "test_whatsapp.xlsx",
+    "message_template": "heyyyyyy? whatsappp uppp",
+    "message_preview": "heyyyyyy? whatsappp uppp",
+    "result": {
+      "total": 1,
+      "sent": 1,
+      "failed": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "sent",
+          "error": null
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-10T14:06:56.374221",
+    "file_name": "test_whatsapp_4.xlsx",
+    "message_template": "hiiiiiiiiiiiiiiiiii{business_name}{review_link}{review_stars}{reviewer_name}{review_text}{review_date}",
+    "message_preview": "hiiiiiiiiiiiiiiiiii{business_name}{review_link}{review_stars}{reviewer_name}{review_text}{review_dat",
+    "result": {
+      "total": 3,
+      "sent": 1,
+      "failed": 2,
+      "skipped": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "failed",
+          "error": "Message: element click intercepted: Element <button data-tab=\"11\" aria-label=\"Send\" aria-disabled=\"false\" tabindex=\"0\" type=\"button\" class=\"html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x178xt8z x1lun4ml xso031l xpilrb4 x1n2onr6 x1ejq31n x18oe1m7 x1sy0etr xstzfhl x1so62im x1syfmzz x1ja2u2z x1ypdohk x1s928wv x1j6awrg x4eaejv x1wsn0xg x1r0yslu x2q1x1w xapdjt xr6f91l x5rv0tg x1akc3lz xikp0eg x1xl5mkn x1mfml39 x1l5mzlr xgmdoj8 x1f1wgk5 x1x3ic1u xfn3atn x1pse0pq x1yxkqql xtnn1bt x9v5kkp xmw7ebm xrdum7p x3oybdh x13t8fmb x11xpdln xum2xem x2lah0s x1lliihq xk8lq53 x9f619 xt8t1vi x1xc408v x129tdwq x15urzxu x1vqgdyp x100vrsf\">...</button> is not clickable at point (998, 617). Other element would receive the click: <div class=\"x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 x1otje77 x1jn0hjm x1us19tq x1t137rt\" tabindex=\"-1\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"_r_4p_\">...</div>\n  (Session info: chrome=151.0.7922.109); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception\nStacktrace:\n\tchromedriver!GetHandleVerifier [0x7ff7e1e68935+14ce5]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e68990+14d40]\n\tchromedriver!(No symbol) [0x7ff7e1995afd]\n\tchromedriver!(No symbol) [0x7ff7e19f8985]\n\tchromedriver!(No symbol) [0x7ff7e19f659a]\n\tchromedriver!(No symbol) [0x7ff7e19f38d7]\n\tchromedriver!(No symbol) [0x7ff7e19f2790]\n\tchromedriver!(No symbol) [0x7ff7e19e53d3]\n\tchromedriver!(No symbol) [0x7ff7e1a195ba]\n\tchromedriver!(No symbol) [0x7ff7e19e4836]\n\tchromedriver!(No symbol) [0x7ff7e1a3e4ab]\n\tchromedriver!(No symbol) [0x7ff7e19e308c]\n\tchromedriver!(No symbol) [0x7ff7e19e3fb3]\n\tchromedriver!GetHandleVerifier [0x7ff7e249e5fb+64a9ab]\n\tchromedriver!GetHandleVerifier [0x7ff7e2498b02+644eb2]\n\tchromedriver!GetHandleVerifier [0x7ff7e24be39e+66a74e]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e85d6e+3211e]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e8e51c+3a8cc]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e72844+1ebf4]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e729d4+1ed84]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e55d07+20b7]\n\tKERNEL32!BaseThreadInitThunk [0x7ffdce2d7374+14]\n\tntdll!RtlUserThreadStart [0x7ffdcee5cc91+21]\n",
+          "message": "hiiiiiiiiiiiiiiiiiiKarachi Bites Restaurant3.8"
+        },
+        {
+          "phone": "923045160142",
+          "business_name": "Al Noor Electronics",
+          "status": "sent",
+          "error": null,
+          "message": "hiiiiiiiiiiiiiiiiiiAl Noor Electronics4.1"
+        },
+        {
+          "phone": "923488636207",
+          "business_name": "Sindh Home Decor",
+          "status": "failed",
+          "error": "Message: element not interactable\n  (Session info: chrome=151.0.7922.109); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementnotinteractableexception\nStacktrace:\n\tchromedriver!GetHandleVerifier [0x7ff7e1e68935+14ce5]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e68990+14d40]\n\tchromedriver!(No symbol) [0x7ff7e19958e6]\n\tchromedriver!(No symbol) [0x7ff7e19f23a4]\n\tchromedriver!(No symbol) [0x7ff7e19e4fb8]\n\tchromedriver!(No symbol) [0x7ff7e1a195ba]\n\tchromedriver!(No symbol) [0x7ff7e19e4836]\n\tchromedriver!(No symbol) [0x7ff7e1a3e4ab]\n\tchromedriver!(No symbol) [0x7ff7e19e308c]\n\tchromedriver!(No symbol) [0x7ff7e19e3fb3]\n\tchromedriver!GetHandleVerifier [0x7ff7e249e5fb+64a9ab]\n\tchromedriver!GetHandleVerifier [0x7ff7e2498b02+644eb2]\n\tchromedriver!GetHandleVerifier [0x7ff7e24be39e+66a74e]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e85d6e+3211e]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e8e51c+3a8cc]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e72844+1ebf4]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e729d4+1ed84]\n\tchromedriver!GetHandleVerifier [0x7ff7e1e55d07+20b7]\n\tKERNEL32!BaseThreadInitThunk [0x7ffdce2d7374+14]\n\tntdll!RtlUserThreadStart [0x7ffdcee5cc91+21]\n",
+          "message": "hiiiiiiiiiiiiiiiiiiSindh Home Decor3.5"
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-10T14:19:44.084549",
+    "file_name": "test_whatsapp_4.xlsx",
+    "message_template": "bbbbbbbbbbbbbb\n{business_name}\n{review_stars}\n{review_link}",
+    "message_preview": "bbbbbbbbbbbbbb\n{business_name}\n{review_stars}\n{review_link}",
+    "result": {
+      "total": 3,
+      "sent": 3,
+      "failed": 0,
+      "skipped": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "sent",
+          "error": null,
+          "message": "bbbbbbbbbbbbbb\nKarachi Bites Restaurant\n3.8"
+        },
+        {
+          "phone": "923045160142",
+          "business_name": "Al Noor Electronics",
+          "status": "sent",
+          "error": null,
+          "message": "bbbbbbbbbbbbbb\nAl Noor Electronics\n4.1"
+        },
+        {
+          "phone": "923488636207",
+          "business_name": "Sindh Home Decor",
+          "status": "sent",
+          "error": null,
+          "message": "bbbbbbbbbbbbbb\nSindh Home Decor\n3.5"
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-10T14:27:43.494097",
+    "file_name": "test_whatsapp_4.xlsx",
+    "message_template": "bbss\n{business_name}\n{review_link}{review_stars}",
+    "message_preview": "bbss\n{business_name}\n{review_link}{review_stars}",
+    "result": {
+      "total": 3,
+      "sent": 3,
+      "failed": 0,
+      "skipped": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "sent",
+          "error": null,
+          "message": "bbss\nKarachi Bites Restaurant\n3.8"
+        },
+        {
+          "phone": "923045160142",
+          "business_name": "Al Noor Electronics",
+          "status": "sent",
+          "error": null,
+          "message": "bbss\nAl Noor Electronics\n4.1"
+        },
+        {
+          "phone": "923488636207",
+          "business_name": "Sindh Home Decor",
+          "status": "sent",
+          "error": null,
+          "message": "bbss\nSindh Home Decor\n3.5"
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-11T04:06:05.831811",
+    "file_name": "test_whatsapp_4.xlsx",
+    "message_template": "testing\n{business_name}\n{review_link}\n{review_stars}\n{reviewer_name}\n{review_date}",
+    "message_preview": "testing\n{business_name}\n{review_link}\n{review_stars}\n{reviewer_name}\n{review_date}",
+    "result": {
+      "total": 3,
+      "sent": 3,
+      "failed": 0,
+      "skipped": 0,
+      "details": [
+        {
+          "phone": "923199428321",
+          "business_name": "Karachi Bites Restaurant",
+          "status": "sent",
+          "error": null,
+          "message": "testing\nKarachi Bites Restaurant\n\n3.8"
+        },
+        {
+          "phone": "923045160142",
+          "business_name": "Al Noor Electronics",
+          "status": "sent",
+          "error": null,
+          "message": "testing\nAl Noor Electronics\n\n4.1"
+        },
+        {
+          "phone": "923488636207",
+          "business_name": "Sindh Home Decor",
+          "status": "sent",
+          "error": null,
+          "message": "testing\nSindh Home Decor\n\n3.5"
+        }
+      ]
+    }
+  }
+]

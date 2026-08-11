@@ -1,0 +1,95 @@
+{
+  "6caebd1a-8998-4ed9-ac2a-e0182e32fec2": {
+    "campaign_id": "6caebd1a-8998-4ed9-ac2a-e0182e32fec2",
+    "status": "completed",
+    "status_message": "WhatsApp campaign completed successfully!",
+    "total": 3,
+    "sent": 3,
+    "failed": 0,
+    "skipped": 0,
+    "processed_count": 3,
+    "sent_today": 3,
+    "details": [
+      {
+        "phone": "923199428321",
+        "business_name": "Karachi Bites Restaurant",
+        "status": "sent",
+        "error": null,
+        "message": "testing\nKarachi Bites Restaurant\n\n3.8"
+      },
+      {
+        "phone": "923045160142",
+        "business_name": "Al Noor Electronics",
+        "status": "sent",
+        "error": null,
+        "message": "testing\nAl Noor Electronics\n\n4.1"
+      },
+      {
+        "phone": "923488636207",
+        "business_name": "Sindh Home Decor",
+        "status": "sent",
+        "error": null,
+        "message": "testing\nSindh Home Decor\n\n3.5"
+      }
+    ],
+    "error": null,
+    "file_name": "test_whatsapp_4.xlsx",
+    "message_template": "testing\n{business_name}\n{review_link}\n{review_stars}\n{reviewer_name}\n{review_date}",
+    "min_delay": 20,
+    "max_delay": 40,
+    "daily_limit_enabled": true,
+    "daily_limit": 150,
+    "leads": [
+      {
+        "Business Name": "Karachi Bites Restaurant",
+        "business_name": "Karachi Bites Restaurant",
+        "Email": "bushi786143@gmail.com",
+        "email": "bushi786143@gmail.com",
+        "Phone": "3199428321",
+        "phone": "923199428321",
+        "Rating": "3.8",
+        "rating": "3.8",
+        "phone_raw": "3199428321",
+        "review_link": "",
+        "review_stars": "3.8",
+        "reviewer_name": "",
+        "review_text": "",
+        "review_date": ""
+      },
+      {
+        "Business Name": "Al Noor Electronics",
+        "business_name": "Al Noor Electronics",
+        "Email": "bushra981bilal@gmail.com",
+        "email": "bushra981bilal@gmail.com",
+        "Phone": "3045160142",
+        "phone": "923045160142",
+        "Rating": "4.1",
+        "rating": "4.1",
+        "phone_raw": "3045160142",
+        "review_link": "",
+        "review_stars": "4.1",
+        "reviewer_name": "",
+        "review_text": "",
+        "review_date": ""
+      },
+      {
+        "Business Name": "Sindh Home Decor",
+        "business_name": "Sindh Home Decor",
+        "Email": "bushrabilal226@gmail.com",
+        "email": "bushrabilal226@gmail.com",
+        "Phone": "3488636207",
+        "phone": "923488636207",
+        "Rating": "3.5",
+        "rating": "3.5",
+        "phone_raw": "3488636207",
+        "review_link": "",
+        "review_stars": "3.5",
+        "reviewer_name": "",
+        "review_text": "",
+        "review_date": ""
+      }
+    ],
+    "drafts": null,
+    "timestamp": "2026-08-11T04:03:48.825629"
+  }
+}

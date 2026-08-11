@@ -1,0 +1,196 @@
+[
+  {
+    "timestamp": "2026-08-10T07:01:09.243297",
+    "file_name": "test_whatsapp.xlsx",
+    "subject": "testing whatsapp+eamail",
+    "message_preview": "hey are you ready",
+    "message_body": "hey are you ready",
+    "result": {
+      "success": true,
+      "total": 1,
+      "sent": 1,
+      "failed": 0,
+      "details": [
+        {
+          "email": "bushrabilalofficial21@gmail.com",
+          "status": "sent",
+          "error": null
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-10T13:19:38.113562",
+    "file_name": "test_whatsapp_3.xlsx",
+    "subject": "heyyyy",
+    "message_preview": "are you interested",
+    "message_body": "are you interested",
+    "result": {
+      "success": true,
+      "total": 3,
+      "sent": 3,
+      "failed": 0,
+      "details": [
+        {
+          "email": "bushi786143@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639317026.13660.9178134596112009306@DESKTOP-BN9A5I6>",
+          "business_name": "Karachi Bites Restaurant",
+          "lead_data": {
+            "Business Name": "Karachi Bites Restaurant",
+            "business_name": "Karachi Bites Restaurant",
+            "Email": "bushi786143@gmail.com",
+            "email": "bushi786143@gmail.com",
+            "Phone": "3199428321",
+            "phone": "3199428321",
+            "Rating": "3.8",
+            "rating": "3.8",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        },
+        {
+          "email": "bushra981bilal@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639317326.13660.8690271832371583871@DESKTOP-BN9A5I6>",
+          "business_name": "Al Noor Electronics",
+          "lead_data": {
+            "Business Name": "Al Noor Electronics",
+            "business_name": "Al Noor Electronics",
+            "Email": "bushra981bilal@gmail.com",
+            "email": "bushra981bilal@gmail.com",
+            "Phone": "3045160142",
+            "phone": "3045160142",
+            "Rating": "4.1",
+            "rating": "4.1",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        },
+        {
+          "email": "bushrabilal226@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639317643.13660.5340274233406028342@DESKTOP-BN9A5I6>",
+          "business_name": "Sindh Home Decor",
+          "lead_data": {
+            "Business Name": "Sindh Home Decor",
+            "business_name": "Sindh Home Decor",
+            "Email": "bushrabilal226@gmail.com",
+            "email": "bushrabilal226@gmail.com",
+            "Phone": "3488636207",
+            "phone": "3488636207",
+            "Rating": "3.5",
+            "rating": "3.5",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-08-10T13:33:28.226344",
+    "file_name": "test_whatsapp_4.xlsx",
+    "subject": "heeyy",
+    "message_preview": "hi , i am sulbush{business_name}{website}{reviewer_name}{review_link}{business_maps_link}{reviewer_n",
+    "message_body": "hi , i am sulbush{business_name}{website}{reviewer_name}{review_link}{business_maps_link}{reviewer_name}{review_stars}{review_text}",
+    "result": {
+      "success": true,
+      "total": 3,
+      "sent": 3,
+      "failed": 0,
+      "details": [
+        {
+          "email": "bushi786143@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639400114.13660.2966177214908666004@DESKTOP-BN9A5I6>",
+          "business_name": "Karachi Bites Restaurant",
+          "lead_data": {
+            "Business Name": "Karachi Bites Restaurant",
+            "business_name": "Karachi Bites Restaurant",
+            "Email": "bushi786143@gmail.com",
+            "email": "bushi786143@gmail.com",
+            "Phone": "3199428321",
+            "phone": "3199428321",
+            "Rating": "3.8",
+            "rating": "3.8",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        },
+        {
+          "email": "bushra981bilal@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639400378.13660.6167956873163045240@DESKTOP-BN9A5I6>",
+          "business_name": "Al Noor Electronics",
+          "lead_data": {
+            "Business Name": "Al Noor Electronics",
+            "business_name": "Al Noor Electronics",
+            "Email": "bushra981bilal@gmail.com",
+            "email": "bushra981bilal@gmail.com",
+            "Phone": "3045160142",
+            "phone": "3045160142",
+            "Rating": "4.1",
+            "rating": "4.1",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        },
+        {
+          "email": "bushrabilal226@gmail.com",
+          "status": "sent",
+          "error": null,
+          "message_id": "<178639400681.13660.12402285067613421437@DESKTOP-BN9A5I6>",
+          "business_name": "Sindh Home Decor",
+          "lead_data": {
+            "Business Name": "Sindh Home Decor",
+            "business_name": "Sindh Home Decor",
+            "Email": "bushrabilal226@gmail.com",
+            "email": "bushrabilal226@gmail.com",
+            "Phone": "3488636207",
+            "phone": "3488636207",
+            "Rating": "3.5",
+            "rating": "3.5",
+            "website": "N/A",
+            "reviewer_name": "N/A",
+            "review_stars": "N/A",
+            "review_text": "",
+            "review_date": "N/A",
+            "review_link": "N/A",
+            "business_maps_link": "N/A"
+          }
+        }
+      ]
+    }
+  }
+]

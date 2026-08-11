@@ -178,7 +178,7 @@
       border: 1px solid rgba(37,211,102,0.4);
     }
 
-    select, input[type="text"], textarea {
+    select, input[type="text"], input[type="number"], textarea {
       width: 100%;
       background: var(--bg-input);
       border: 1px solid var(--border);
@@ -190,7 +190,7 @@
       transition: all 0.15s ease;
     }
 
-    select:focus, input[type="text"]:focus, textarea:focus {
+    select:focus, input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
@@ -328,7 +328,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin-bottom: 20px;
     }
@@ -349,6 +349,7 @@
 
     .stat-val.sent { color: var(--success); }
     .stat-val.failed { color: var(--danger); }
+    .stat-val.skipped { color: var(--accent-lead); }
     .stat-val.total { color: var(--accent); }
 
     .stat-lbl {
@@ -411,6 +412,12 @@
       background: var(--danger-soft);
       color: var(--danger);
       border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-status.skipped {
+      background: rgba(245, 166, 35, 0.15);
+      color: var(--accent-lead);
+      border: 1px solid rgba(245, 166, 35, 0.3);
     }
 
     /* History Panel Styles */
@@ -481,6 +488,12 @@
       border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
+    .history-badge.skipped {
+      background: rgba(245, 166, 35, 0.15);
+      color: var(--accent-lead);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+    }
+
     .history-details {
       display: none;
       padding: 18px 20px;
@@ -490,6 +503,56 @@
 
     .history-details.open {
       display: block;
+    }
+
+    /* Progress Bar */
+    .progress-wrapper {
+      margin-top: 20px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .progress-bar-container {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .pause-notice {
+      background: rgba(245, 166, 35, 0.12);
+      border: 1px solid rgba(245, 166, 35, 0.4);
+      color: #F5A623;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     /* Tags Helper */
@@ -575,13 +638,13 @@
       <div class="panel-header">
         <div class="eyebrow">WhatsApp Dispatcher</div>
         <h1 class="panel-title">Send WhatsApp Campaign</h1>
-        <p class="panel-sub">Select an output report file, compose your message, and dispatch via WhatsApp Web Selenium automation with randomized delays.</p>
+        <p class="panel-sub">Select an output report file, compose your personalized message, set your safety limits, and dispatch via WhatsApp Web Selenium automation.</p>
       </div>
 
       <div class="error-card" id="error-card"></div>
 
       <div class="info-notice">
-        ℹ️ <strong>Selenium Session Notice:</strong> Running a campaign opens a Chrome browser window controlled by Selenium. On the first run, scan the WhatsApp Web QR code within 60 seconds. Login state will be saved in <code>whatsapp_session/</code> for future runs.
+        ℹ️ <strong>Selenium Session Notice:</strong> Running a campaign opens a Chrome browser window controlled by Selenium. On the first run, scan the WhatsApp Web QR code within 120 seconds (2 minutes). Login state will be saved in <code>whatsapp_session/</code> for future runs.
       </div>
 
       <form id="whatsapp-form">
@@ -599,13 +662,76 @@
         <!-- Message Body + Clickable tags -->
         <div class="form-group" style="margin-bottom: 12px;">
           <label for="message-input">Message Template</label>
-          <textarea id="message-input" rows="7" placeholder="e.g. Hello {business_name}, we noticed some recent negative feedback on Google Maps..." required></textarea>
+          <textarea id="message-input" rows="7" placeholder="e.g. Hello {business_name}, we noticed some recent negative feedback on Google Maps. Check your review here: {review_link}" required></textarea>
         </div>
 
-        <div class="form-group" style="margin-bottom: 24px;">
+        <div class="form-group" style="margin-bottom: 20px;">
           <div class="tags-label">💡 Click tag to insert placeholder</div>
           <div class="tags-helper">
             <button type="button" class="tag-badge" data-tag="{business_name}">{business_name}</button>
+            <button type="button" class="tag-badge" data-tag="{review_link}">{review_link}</button>
+            <button type="button" class="tag-badge" data-tag="{review_stars}">{review_stars}</button>
+            <button type="button" class="tag-badge" data-tag="{reviewer_name}">{reviewer_name}</button>
+            <button type="button" class="tag-badge" data-tag="{review_text}">{review_text}</button>
+            <button type="button" class="tag-badge" data-tag="{review_date}">{review_date}</button>
+          </div>
+        </div>
+
+        <!-- Sending & Safety Settings -->
+        <div class="form-group" style="border-top: 1px solid var(--border); padding-top: 16px;">
+          <div class="tags-label" style="margin-bottom: 12px; font-size: 11px; color: var(--accent-whatsapp);">⚙️ Sending & Safety Settings</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+            <div>
+              <label for="min-delay" style="font-size: 10px;">Min Delay (seconds)</label>
+              <input type="number" id="min-delay" value="20" min="5" max="120" style="margin-top: 4px;">
+            </div>
+            <div>
+              <label for="max-delay" style="font-size: 10px;">Max Delay (seconds)</label>
+              <input type="number" id="max-delay" value="40" min="5" max="300" style="margin-top: 4px;">
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+              <label style="font-size: 10px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="daily-limit-toggle" checked style="width: auto; cursor: pointer;">
+                <span>Enable Daily Send Limit</span>
+              </label>
+              <input type="number" id="daily-limit-val" value="150" min="1" max="5000" style="margin-top: 6px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional Customize Individually Mode -->
+        <div class="form-group" style="margin-top: 12px;">
+          <button type="button" class="tag-badge" id="customize-mode-btn" style="border: 1px solid var(--border); width: 100%; justify-content: center; padding: 10px; color: var(--accent-whatsapp); font-size: 12px;">
+            <span>✏️ Customize Messages Individually (Optional)</span>
+          </button>
+        </div>
+
+        <div id="customize-preview-wrapper" style="display: none; margin-top: 16px; border: 1px solid var(--border); border-radius: 10px; padding: 16px; background: rgba(18, 24, 38, 0.7);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h4 style="font-family: var(--font-display); font-size: 14.5px; color: var(--text);">Per-Recipient Custom Messages</h4>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);" id="customize-count">0 leads</span>
+          </div>
+          <div id="customize-leads-list" style="display: flex; flex-direction: column; gap: 14px; max-height: 450px; overflow-y: auto; padding-right: 6px;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Live Progress Dashboard Wrapper -->
+        <div class="progress-wrapper" id="progress-wrapper">
+          <div class="progress-info">
+            <span id="progress-label" style="font-weight: 600;">Sending Campaign...</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 10px; font-family: var(--font-mono);">
+            <span id="progress-stats">Sent: 0 | Failed: 0 | Skipped: 0</span>
+            <span id="progress-time-estimate">Processing...</span>
+          </div>
+          <div id="pause-banner" class="pause-notice" style="display: none;">
+            <span id="pause-message">Daily limit reached — resume tomorrow</span>
+            <button type="button" id="resume-btn" class="send-btn" style="padding: 6px 14px; font-size: 11px; background: #F5A623; color: #0B0F17; border-color: #F5A623;">▶️ Resume Campaign</button>
           </div>
         </div>
 
@@ -638,6 +764,10 @@
         <div class="stat-box">
           <div class="stat-val failed" id="stat-failed">0</div>
           <div class="stat-lbl">Failed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val skipped" id="stat-skipped">0</div>
+          <div class="stat-lbl">Skipped</div>
         </div>
       </div>
 
@@ -691,7 +821,7 @@
 
   </main>
 
-  <script src="/static/whatsapp_agent.js?v=1"></script>
+  <script src="/static/whatsapp_agent.js?v=2"></script>
   <div class="signature"><span class="spark">✦</span> crafted by Bushra</div>
 </body>
 </html>

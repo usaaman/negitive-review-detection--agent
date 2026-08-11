@@ -273,16 +273,69 @@ def whatsapp_agent_send():
     data = request.get_json() or {}
     file_name = data.get("file_name", "").strip()
     message_template = data.get("message_template", "").strip()
+    min_delay = int(data.get("min_delay", 20))
+    max_delay = int(data.get("max_delay", 40))
+    daily_limit_enabled = bool(data.get("daily_limit_enabled", False))
+    daily_limit = int(data.get("daily_limit", 150))
+    drafts = data.get("drafts", None)
 
     if not file_name:
         return jsonify({"success": False, "error": "Output report file select karna zaroori hai."}), 400
 
-    if not message_template:
+    if not message_template and not drafts:
         return jsonify({"success": False, "error": "Message template cannot be empty."}), 400
 
     try:
-        result = whatsapp_agent.send_whatsapp_campaign(file_name, message_template)
-        return jsonify({"success": True, "result": result})
+        campaign_id = whatsapp_agent.start_campaign_send(
+            file_name=file_name,
+            message_template=message_template,
+            min_delay=min_delay,
+            max_delay=max_delay,
+            daily_limit_enabled=daily_limit_enabled,
+            daily_limit=daily_limit,
+            drafts=drafts
+        )
+        return jsonify({"success": True, "campaign_id": campaign_id})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/whatsapp-agent/status/<campaign_id>")
+def whatsapp_agent_status(campaign_id):
+    try:
+        status = whatsapp_agent.get_campaign_status(campaign_id)
+        if not status:
+            return jsonify({"error": "Campaign not found."}), 404
+        return jsonify(status)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/whatsapp-agent/resume/<campaign_id>", methods=["POST"])
+def whatsapp_agent_resume(campaign_id):
+    try:
+        data = request.get_json() or {}
+        resumed_id = whatsapp_agent.resume_campaign(campaign_id, data)
+        return jsonify({"success": True, "campaign_id": resumed_id})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/whatsapp-agent/preview-leads", methods=["POST"])
+def whatsapp_agent_preview_leads():
+    try:
+        data = request.get_json() or {}
+        file_name = data.get("file_name", "").strip()
+        message_template = data.get("message_template", "").strip()
+
+        if not file_name:
+            return jsonify({"success": False, "error": "File name is required."}), 400
+
+        leads = whatsapp_agent.generate_preview_leads(file_name, message_template)
+        return jsonify({"success": True, "leads": leads})
     except Exception as e:
         traceback.print_exc()
         return jsonify({"success": False, "error": str(e)}), 500
