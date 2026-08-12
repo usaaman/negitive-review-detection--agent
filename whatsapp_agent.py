@@ -15,6 +15,7 @@ import random
 import uuid
 import threading
 import sys
+import shutil
 from datetime import datetime
 from urllib.parse import quote
 import pandas as pd
@@ -891,3 +892,29 @@ def generate_preview_leads(file_name, message_template):
         })
 
     return preview_leads
+
+
+def reset_whatsapp_session():
+    """
+    Closes any active WhatsApp Selenium browser session and deletes/renames
+    the persistent session directory (SESSION_DIR) so a new WhatsApp number
+    can be scanned on the next campaign run.
+    """
+    try:
+        if not os.path.exists(SESSION_DIR):
+            return {"success": True, "message": "No active session folder found to reset."}
+
+        # Attempt deleting session directory
+        try:
+            shutil.rmtree(SESSION_DIR)
+        except Exception:
+            # Fallback: rename to backup directory if deletion is blocked
+            backup_dir = f"{SESSION_DIR}_old_{int(time.time())}"
+            if os.path.exists(backup_dir):
+                shutil.rmtree(backup_dir, ignore_errors=True)
+            os.rename(SESSION_DIR, backup_dir)
+
+        return {"success": True, "message": "WhatsApp session reset successfully. Next send will prompt for QR scan."}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+

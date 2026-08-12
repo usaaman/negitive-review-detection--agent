@@ -4602,5 +4602,857 @@
       ]
     },
     "user_id": 1
+  },
+  {
+    "timestamp": "2026-08-12T04:49:46.996310",
+    "file_name": "user_2_user_2_Dermatology_Clinics_united_kingdom_1.xlsx",
+    "message_template": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,",
+    "message_preview": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation",
+    "result": {
+      "total": 137,
+      "sent": 1,
+      "failed": 14,
+      "skipped": 122,
+      "details": [
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "The Harley Street Dermatology Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448000489230",
+          "business_name": "Stratum Dermatology Clinic Wimbledon & Raynes Park",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Edinburgh",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "448451114000",
+          "business_name": "Barnet Hospital :Dermatology",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442830835000",
+          "business_name": "Daisy Hill Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441304865500",
+          "business_name": "Dover Health Centre",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843855800",
+          "business_name": "East Cliff Practice",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441227472288",
+          "business_name": "Kent Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441843225544",
+          "business_name": "Queen Elizabeth The Queen Mother Hospital Emergency Room",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "443330141666",
+          "business_name": "sk:n Southampton East Street",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442039652995",
+          "business_name": "Dr Christopher Heaton",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442039652995",
+          "business_name": "Dr Christopher Heaton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380002910",
+          "business_name": "Laser Clinics UK \u2013 Southampton",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "441202486361",
+          "business_name": "Christchurch Hospital",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "447792354776",
+          "business_name": "Avanthills Medical Aesthetics, Skin and Laser Clinic",
+          "status": "sent",
+          "error": null,
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "447792354776",
+          "business_name": "Avanthills Medical Aesthetics, Skin and Laser Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442380634288",
+          "business_name": "Fanshawe Wing",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442890322020",
+          "business_name": "Cathedral Dermatology",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442890322020",
+          "business_name": "Cathedral Dermatology",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "failed",
+          "error": "Phone number not registered on WhatsApp",
+          "message": "Hello,\nI noticed some reviews on your Google Maps profile that are damaging your business reputation.\nI can help remove policy-violating reviews from your profile, usually within 2\u20133 days.\nNo upfront payment \u2022 No account access \u2022 Pay only after success.\nReply if you\u2019d like details.\nBest regards,"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        },
+        {
+          "phone": "442892680940",
+          "business_name": "Orthoderm Private Medical Clinic",
+          "status": "skipped",
+          "error": "Duplicate phone number in campaign"
+        }
+      ]
+    },
+    "user_id": 2
   }
 ]

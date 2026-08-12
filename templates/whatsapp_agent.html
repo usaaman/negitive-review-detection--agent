@@ -297,6 +297,30 @@
       color: #0B0F17;
     }
 
+    .neutral-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .neutral-btn:hover {
+      border-color: var(--muted);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
     /* Errors & Results */
     .error-card {
       background: var(--danger-soft);
@@ -680,8 +704,13 @@
 
       <div class="error-card" id="error-card"></div>
 
-      <div class="info-notice">
-        ℹ️ <strong>Selenium Session Notice:</strong> Running a campaign opens a Chrome browser window controlled by Selenium. On the first run, scan the WhatsApp Web QR code within 120 seconds (2 minutes). Login state will be saved in <code>whatsapp_session/</code> for future runs.
+      <div class="info-notice" style="display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <div>
+          ℹ️ <strong>Selenium Session Notice:</strong> Running a campaign opens a Chrome browser window controlled by Selenium. On the first run, scan the WhatsApp Web QR code within 120 seconds (2 minutes). Login state will be saved in <code>whatsapp_session/</code> for future runs.
+        </div>
+        <button type="button" id="switch-number-btn" class="neutral-btn" style="flex-shrink: 0;">
+          🔄 Switch WhatsApp Number
+        </button>
       </div>
 
       <form id="whatsapp-form">
