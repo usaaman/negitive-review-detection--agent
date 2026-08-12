@@ -380,14 +380,18 @@
         <p class="panel-desc">Currently configured default credentials for reputation scanning and outreach pipelines.</p>
       </div>
 
-      <div class="status-grid">
+      <div class="status-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
         <div class="status-item">
           <div class="status-label">Default Gmail Account</div>
           <div class="status-value">{{ default_email_masked or 'None Connected' }}</div>
         </div>
         <div class="status-item">
-          <div class="status-label">Default Apify Token</div>
-          <div class="status-value">{{ default_token_masked or 'None Configured' }}</div>
+          <div class="status-label">Apify Token (Google Maps)</div>
+          <div class="status-value">{{ default_token_maps_masked or 'None Configured' }}</div>
+        </div>
+        <div class="status-item">
+          <div class="status-label">Apify Token (Email Finder)</div>
+          <div class="status-value">{{ default_token_contact_masked or 'None Configured' }}</div>
         </div>
       </div>
     </div>
@@ -396,26 +400,38 @@
     <div class="panel">
       <div class="panel-header">
         <h2 class="panel-title">Manage Apify Configuration</h2>
-        <p class="panel-desc">Update your default Apify API Token. All Google Places scans will execute using this token.</p>
+        <p class="panel-desc">Configure separate API tokens to distribute usage workload across different accounts.</p>
       </div>
 
       <form method="POST" action="/settings" onsubmit="showApifyLoading()">
         <input type="hidden" name="action" value="update_apify">
-        <div class="form-group">
-          <label for="apify_token">New Apify API Token</label>
+        
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="maps_apify_token">Apify API Token (Google Maps Scraper)</label>
           <div class="input-wrapper">
-            <input type="password" id="apify_token" name="apify_token" required placeholder="apify_api_...">
+            <input type="password" id="maps_apify_token" name="maps_apify_token" placeholder="Leave blank to keep current token">
           </div>
           <div class="helper-links">
             <a href="https://console.apify.com/settings/integrations" target="_blank">Get your Apify Token here →</a>
           </div>
           <div class="guide-text">
-            Open the link, copy your Personal API Token, and save it.
+            Used for Phase 1 & 2 (Businesses search and Reviews fetching).
           </div>
         </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="contact_apify_token">Apify API Token (Email Finder / Contact Scraper)</label>
+          <div class="input-wrapper">
+            <input type="password" id="contact_apify_token" name="contact_apify_token" placeholder="Leave blank to keep current token">
+          </div>
+          <div class="guide-text">
+            Used for Phase 3 (Website crawling). If left empty, it will fall back to using your Google Maps token.
+          </div>
+        </div>
+        
         <button type="submit" id="apify-btn" class="action-btn">
           <span class="spinner" id="apify-spinner"></span>
-          <span id="apify-btn-text">Verify & Change Token</span>
+          <span id="apify-btn-text">Verify & Update Tokens</span>
         </button>
       </form>
     </div>

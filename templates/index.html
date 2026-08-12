@@ -753,6 +753,42 @@
     .skeleton-row td {
       padding: 16px;
     }
+
+    /* ---- Specific Search UI styles ---- */
+    .dock-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .dock-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 6px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .dock-tab-btn:hover {
+      color: var(--text);
+    }
+
+    .dock-tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .business-detail-card {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
   </style>
 </head>
 
@@ -794,42 +830,113 @@
     <div class="error-card" id="error-card" style="display: none;"></div>
 
     <!-- Results Table Panel (Hidden initially) -->
-    <div class="results-panel" id="results-panel" style="display: none;">
-      <div class="results-header">
-        <div class="results-title">
-          <h2>Scan Report</h2>
-          <p id="results-summary"></p>
+    <div class="results-panel" id="results-panel" style="display: none; position: relative;">
+      <!-- Close Button (Cross) -->
+      <button id="close-results-btn" style="position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.15s ease;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-muted)'" title="Close report">&times;</button>
+      
+      <!-- Bulk Results View -->
+      <div id="results-bulk-view">
+        <div class="results-header">
+          <div class="results-title">
+            <h2>Scan Report</h2>
+            <p id="results-summary"></p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="export-btn" id="export-xlsx-btn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
+              </svg>
+              <span>Export XLSX</span>
+            </button>
+            <button class="export-btn" id="export-pdf-btn" style="background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: var(--danger); transition: all 0.15s ease;" onmouseover="this.style.background='var(--danger)'; this.style.color='#0B0F17';" onmouseout="this.style.background='rgba(239, 68, 68, 0.12)'; this.style.color='var(--danger)';">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
+              </svg>
+              <span>Export PDF</span>
+            </button>
+          </div>
         </div>
-        <button class="export-btn" id="export-xlsx-btn">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
-          </svg>
-          <span>Export XLSX</span>
-        </button>
+
+        <div class="table-wrap">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Business Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th class="col-email">Email</th>
+                <th class="col-email">Website</th>
+                <th>Rating</th>
+                <th>Reviewer Name</th>
+                <th>Stars</th>
+                <th style="text-align: center;">Review Link</th>
+                <th style="text-align: center;">Maps Link</th>
+              </tr>
+            </thead>
+            <tbody id="results-body">
+              <!-- Dynamic rows will inject here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div class="table-wrap">
-        <table id="results-table">
-          <thead>
-            <tr>
-              <th>Business Name</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th class="col-email">Email</th>
-              <th class="col-email">Website</th>
-              <th>Rating</th>
-              <th>Reviewer Name</th>
-              <th>Stars</th>
-              <th style="text-align: center;">Review Link</th>
-              <th style="text-align: center;">Maps Link</th>
-            </tr>
-          </thead>
-          <tbody id="results-body">
-            <!-- Dynamic rows will inject here -->
-          </tbody>
-        </table>
+      <!-- Specific Business Search Results View -->
+      <div id="results-specific-view" style="display: none;">
+        <div class="results-header" style="border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px;">
+          <div class="results-title">
+            <h2>Specific Business Report</h2>
+            <p id="specific-results-summary"></p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="export-btn" id="specific-export-xlsx-btn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
+              </svg>
+              <span>Export XLSX</span>
+            </button>
+            <button class="export-btn" id="specific-export-pdf-btn" style="background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: var(--danger); transition: all 0.15s ease;" onmouseover="this.style.background='var(--danger)'; this.style.color='#0B0F17';" onmouseout="this.style.background='rgba(239, 68, 68, 0.12)'; this.style.color='var(--danger)';">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
+              </svg>
+              <span>Export PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Business Info Card -->
+        <div id="specific-business-card" class="business-detail-card" style="background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px;">
+          <!-- Injected dynamically -->
+        </div>
+
+        <!-- Reviews list header -->
+        <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--danger); box-shadow: 0 0 8px var(--danger);"></span>
+          <span id="specific-reviews-header">Negative Reviews (Stars &le; 3)</span>
+        </h3>
+
+        <!-- Reviews Table -->
+        <div class="table-wrap">
+          <table id="specific-reviews-table">
+            <thead>
+              <tr>
+                <th style="width: 180px;">Reviewer Name</th>
+                <th style="width: 80px;">Stars</th>
+                <th>Review Text</th>
+                <th style="width: 120px;">Date</th>
+                <th style="width: 120px; text-align: center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="specific-reviews-body">
+              <!-- Dynamic rows will inject here -->
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
 
   </main>
@@ -852,6 +959,14 @@
 
     <!-- Collapsible Fields Area -->
     <div class="dock-content">
+
+      <!-- Dock Tab Selector -->
+      <div class="dock-tabs">
+        <button type="button" class="dock-tab-btn active" id="tab-bulk" onclick="switchDockTab('bulk')">Bulk Lead Finder</button>
+        <button type="button" class="dock-tab-btn" id="tab-specific" onclick="switchDockTab('specific')">Specific Business Search</button>
+      </div>
+
+      <!-- Bulk Lead Finder Form -->
       <form id="scan-form">
 
         <div class="form-grid">
@@ -868,7 +983,7 @@
         <div class="form-row-4">
           <div class="input-field">
             <label for="max_businesses">Businesses</label>
-            <input type="number" id="max_businesses" name="max_businesses" value="10" min="1" max="150">
+            <input type="number" id="max_businesses" name="max_businesses" value="10" min="1" max="1000">
           </div>
           <div class="input-field">
             <label for="max_reviews">Reviews / Biz</label>
@@ -879,8 +994,8 @@
             <input type="text" id="rating_threshold" name="rating_threshold" value="4.5">
           </div>
           <div class="input-field">
-            <label for="negative_star_max">Negative <=< /label>
-                <input type="number" id="negative_star_max" name="negative_star_max" value="3" min="1" max="5">
+            <label for="negative_star_max">Negative &le;</label>
+            <input type="number" id="negative_star_max" name="negative_star_max" value="3" min="1" max="5">
           </div>
         </div>
 
@@ -898,6 +1013,47 @@
         </div>
 
       </form>
+
+      <!-- Specific Business Search Form -->
+      <form id="specific-search-form" style="display: none;">
+
+        <div class="form-grid">
+          <div class="input-field" style="flex: 2;">
+            <label for="specific_business_name">Business Name</label>
+            <input type="text" id="specific_business_name" name="business_name" placeholder="e.g. Starbucks, PC Hotel" required autocomplete="off">
+          </div>
+          <div class="input-field" style="flex: 1;">
+            <label for="specific_location">Location</label>
+            <input type="text" id="specific_location" name="location" value="lahore" required autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-row-4">
+          <div class="input-field">
+            <label for="max_reviews_limit">Max Negative Reviews</label>
+            <input type="number" id="max_reviews_limit" name="max_reviews_limit" value="20" min="1" max="500">
+          </div>
+          <div class="input-field">
+            <label for="specific_negative_star_max">Negative Rating &le;</label>
+            <input type="number" id="specific_negative_star_max" name="specific_negative_star_max" value="3" min="1" max="5">
+          </div>
+        </div>
+
+        <!-- Action Bar in Dock -->
+        <div class="dock-actions">
+          <div class="scan-status-indicator" id="specific-status-indicator" style="visibility: hidden; display: flex;">
+            <div class="spinner"></div>
+            <span id="specific-status-text">Searching for business…</span>
+          </div>
+
+          <button type="submit" class="scan-btn" id="specific-submit-btn">
+            <span class="scan-dot"></span>
+            <span id="specific-btn-label">Search Business</span>
+          </button>
+        </div>
+
+      </form>
+
     </div>
 
   </div>
@@ -919,7 +1075,24 @@
     const resultsBody = document.getElementById("results-body");
     const resultsSummary = document.getElementById("results-summary");
     const exportXlsxBtn = document.getElementById("export-xlsx-btn");
+    const exportPdfBtn = document.getElementById("export-pdf-btn");
+    const closeResultsBtn = document.getElementById("close-results-btn");
     const errorCard = document.getElementById("error-card");
+
+    // Specific search elements
+    const specificSearchForm = document.getElementById("specific-search-form");
+    const specificSubmitBtn = document.getElementById("specific-submit-btn");
+    const specificBtnLabel = document.getElementById("specific-btn-label");
+    const specificStatusIndicator = document.getElementById("specific-status-indicator");
+    const specificStatusText = document.getElementById("specific-status-text");
+    const specificExportXlsxBtn = document.getElementById("specific-export-xlsx-btn");
+    const specificExportPdfBtn = document.getElementById("specific-export-pdf-btn");
+    
+    const resultsBulkView = document.getElementById("results-bulk-view");
+    const resultsSpecificView = document.getElementById("results-specific-view");
+    const specificReviewsBody = document.getElementById("specific-reviews-body");
+    const specificResultsSummary = document.getElementById("specific-results-summary");
+    const specificBusinessCard = document.getElementById("specific-business-card");
 
     // Status text cycler messages
     const statusMessages = [
@@ -932,6 +1105,9 @@
     let statusInterval = null;
     let latestScanData = null; // Store grouped results for CSV export
     let latestFilename = null; // Store filename for Excel export
+    let latestPdfFilename = null; // Store PDF filename for export
+    let specificLatestFilename = null; // Store filename for specific Excel export
+    let specificLatestPdfFilename = null; // Store PDF filename for specific PDF export
 
     // 1. Collapsible Dock Toggle Handler
     function toggleDock() {
@@ -939,6 +1115,26 @@
     }
 
     dockTrigger.addEventListener("click", toggleDock);
+
+    let activeTab = "bulk";
+
+    function switchDockTab(tabType) {
+      activeTab = tabType;
+      const tabBulk = document.getElementById("tab-bulk");
+      const tabSpecific = document.getElementById("tab-specific");
+      
+      if (tabType === "bulk") {
+        tabBulk.classList.add("active");
+        tabSpecific.classList.remove("active");
+        scanForm.style.display = "block";
+        specificSearchForm.style.display = "none";
+      } else {
+        tabBulk.classList.remove("active");
+        tabSpecific.classList.add("active");
+        scanForm.style.display = "none";
+        specificSearchForm.style.display = "block";
+      }
+    }
 
     function startStatusCycles() {
       let i = 0;
@@ -1013,17 +1209,28 @@
             // Hide welcome and display result canvas
             welcomeStudio.style.display = "none";
             resultsPanel.style.display = "block";
+            resultsBulkView.style.display = "block";
+            resultsSpecificView.style.display = "none";
 
             if (!data.results || data.results.length === 0) {
               resultsSummary.textContent = `${data.total_scanned} businesses scanned · 0 flagged below threshold.`;
               resultsBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">No reviews fell below rating threshold.</td></tr>`;
               latestScanData = [];
               latestFilename = null;
+              latestPdfFilename = null;
+
+              localStorage.setItem("latestScanType", "bulk");
+              localStorage.setItem("bulkScanData", JSON.stringify([]));
+              localStorage.setItem("bulkFilename", "");
+              localStorage.setItem("bulkPdfFilename", "");
+              localStorage.setItem("bulkSummary", resultsSummary.textContent);
+              localStorage.setItem("bulkHtml", resultsBody.innerHTML);
               return;
             }
 
             latestScanData = data.results;
             latestFilename = data.filename;
+            latestPdfFilename = data.pdf_filename;
 
             let summary = `${data.total_scanned} businesses scanned · ${data.flagged_count} flagged below rating threshold`;
             if (data.dropped_no_contact) {
@@ -1072,6 +1279,14 @@
                 </tr>
               `;
             }).join("");
+
+            // Save non-empty results to localStorage
+            localStorage.setItem("latestScanType", "bulk");
+            localStorage.setItem("bulkScanData", JSON.stringify(data.results));
+            localStorage.setItem("bulkFilename", data.filename);
+            localStorage.setItem("bulkPdfFilename", data.pdf_filename);
+            localStorage.setItem("bulkSummary", resultsSummary.textContent);
+            localStorage.setItem("bulkHtml", resultsBody.innerHTML);
           } else if (data.status === "failed") {
             clearInterval(scanPollIntervalId);
             scanPollIntervalId = null;
@@ -1109,6 +1324,8 @@
       // Show skeleton table immediately to give feedback
       welcomeStudio.style.display = "none";
       resultsPanel.style.display = "block";
+      resultsBulkView.style.display = "block";
+      resultsSpecificView.style.display = "none";
       resultsSummary.textContent = "Running map grid scan, please wait...";
       renderSkeletonRows(5);
 
@@ -1165,6 +1382,333 @@
       }
 
       window.location.href = "/download/" + encodeURIComponent(latestFilename);
+    });
+
+    // Export PDF Functionality (Server-Side Download)
+    exportPdfBtn.addEventListener("click", () => {
+      if (!latestPdfFilename) {
+        alert("No scan data or PDF export file available to download.");
+        return;
+      }
+
+      window.location.href = "/download/" + encodeURIComponent(latestPdfFilename);
+    });
+
+    // 3. Specific Business Search Polling & Submission
+    let specificPollIntervalId = null;
+
+    function renderSpecificSkeletonRows(count = 3) {
+      let html = "";
+      for (let i = 0; i < count; i++) {
+        html += `
+          <tr class="skeleton-row">
+            <td><div class="skeleton skeleton-text" style="width: 120px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 45px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 300px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 80px; height: 14px;"></div></td>
+            <td><div class="skeleton skeleton-text" style="width: 80px; height: 14px; margin: 0 auto;"></div></td>
+          </tr>
+        `;
+      }
+      specificReviewsBody.innerHTML = html;
+    }
+
+    function renderSpecificCardSkeleton() {
+      specificBusinessCard.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div class="skeleton skeleton-text" style="width: 200px; height: 24px; margin-bottom: 12px;"></div>
+            <div class="skeleton skeleton-text" style="width: 300px; height: 14px; margin-bottom: 8px;"></div>
+            <div class="skeleton skeleton-text" style="width: 180px; height: 14px; margin-bottom: 8px;"></div>
+            <div class="skeleton skeleton-text" style="width: 100px; height: 14px;"></div>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <div class="skeleton" style="width: 100px; height: 32px; border-radius: 8px;"></div>
+            <div class="skeleton" style="width: 140px; height: 32px; border-radius: 8px;"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function startSpecificSearchPolling(jobId) {
+      if (specificPollIntervalId) clearInterval(specificPollIntervalId);
+
+      specificPollIntervalId = setInterval(async () => {
+        try {
+          const res = await fetch(`/business-search/status/${jobId}`);
+          if (!res.ok) throw new Error("Failed to check search status.");
+
+          const data = await res.json();
+
+          if (data.message) {
+            specificStatusText.textContent = data.message;
+          }
+
+          if (data.status === "completed") {
+            clearInterval(specificPollIntervalId);
+            specificPollIntervalId = null;
+
+            specificStatusIndicator.style.visibility = "hidden";
+            specificSubmitBtn.disabled = false;
+            specificBtnLabel.textContent = "Search Business";
+
+            // Hide welcome and display result canvas
+            welcomeStudio.style.display = "none";
+            resultsPanel.style.display = "block";
+            resultsBulkView.style.display = "none";
+            resultsSpecificView.style.display = "block";
+
+            const result = data.result;
+            if (!result || !result.found) {
+              specificResultsSummary.textContent = "Business search failed.";
+              specificBusinessCard.innerHTML = `<h3 style="color: var(--danger); font-family: var(--font-display); font-size: 18px;">Business not found.</h3><p style="color: var(--text-muted);">Please check the name and location and try again.</p>`;
+              specificReviewsBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">No business records.</td></tr>`;
+              specificLatestFilename = null;
+              specificLatestPdfFilename = null;
+              return;
+            }
+
+            specificLatestFilename = data.filename;
+            specificLatestPdfFilename = data.pdf_filename;
+
+            // Render Business Card
+            const biz = result.business;
+            const ratingStars = (biz.rating !== null && biz.rating !== "N/A") ? `${biz.rating} ★` : "—";
+            const websiteLink = (biz.website && biz.website !== "N/A")
+              ? `<a href="${escapeHtml(biz.website)}" target="_blank" class="open-link-btn" style="text-decoration:none;">Visit Website</a>`
+              : `<span class="open-link-btn disabled">No Website</span>`;
+            const mapsLink = (biz.maps_link && biz.maps_link !== "N/A")
+              ? `<a href="${escapeHtml(biz.maps_link)}" target="_blank" class="open-link-btn" style="text-decoration:none;">View on Maps</a>`
+              : `<span class="open-link-btn disabled">No Maps Link</span>`;
+
+            specificResultsSummary.textContent = `Found business: ${biz.name}. Checked reviews.`;
+
+            specificBusinessCard.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+                <div>
+                  <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 10px; color: var(--text);">${escapeHtml(biz.name)}</h3>
+                  <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; color: var(--text);">Address:</span> ${escapeHtml(biz.address)}
+                  </p>
+                  <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; color: var(--text);">Phone:</span> ${escapeHtml(biz.phone)}
+                  </p>
+                  <p style="color: var(--text-muted); font-size: 13.5px; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; color: var(--text);">Rating:</span> 
+                    <span style="color: var(--accent); font-family: var(--font-mono); font-weight: 600;">${ratingStars}</span>
+                  </p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                  ${websiteLink}
+                  ${mapsLink}
+                </div>
+              </div>
+            `;
+
+            // Set dynamic header threshold
+            const specificNegativeStarMax = data.negative_star_max || 3;
+            document.getElementById("specific-reviews-header").innerHTML = `Negative Reviews (Stars &le; ${specificNegativeStarMax})`;
+
+            // Render Reviews
+            const reviews = result.reviews;
+            if (reviews.length === 0) {
+              specificReviewsBody.innerHTML = `
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); padding: 30px;">
+                    No negative reviews (rating &le; 3) found for this business.
+                  </td>
+                </tr>
+              `;
+            } else {
+              specificReviewsBody.innerHTML = reviews.map(r => {
+                const starVal = (r.stars !== null) ? `${r.stars} ★` : "—";
+                const reviewBtn = (r.review_link && r.review_link !== "N/A" && r.review_link.startsWith("http"))
+                  ? `<a class="open-link-btn" href="${escapeHtml(r.review_link)}" target="_blank" rel="noopener">Open review</a>`
+                  : `<span class="open-link-btn disabled">—</span>`;
+
+                return `
+                  <tr>
+                    <td style="font-weight: 600;">${escapeHtml(r.reviewer_name)}</td>
+                    <td style="font-family: var(--font-mono); color: var(--danger); font-weight: 600;">${starVal}</td>
+                    <td style="color: var(--text); line-height: 1.4; max-width: 400px; word-wrap: break-word; white-space: normal;">${escapeHtml(r.text)}</td>
+                    <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${escapeHtml(r.date)}</td>
+                    <td style="text-align: center;">${reviewBtn}</td>
+                  </tr>
+                `;
+              }).join("");
+            }
+
+            // Save specific search results to localStorage
+            localStorage.setItem("latestScanType", "specific");
+            localStorage.setItem("specificFilename", data.filename);
+            localStorage.setItem("specificPdfFilename", data.pdf_filename);
+            localStorage.setItem("specificSummary", specificResultsSummary.textContent);
+            localStorage.setItem("specificCardHtml", specificBusinessCard.innerHTML);
+            localStorage.setItem("specificTableHtml", specificReviewsBody.innerHTML);
+            localStorage.setItem("specificNegativeStarMax", specificNegativeStarMax.toString());
+
+          } else if (data.status === "failed") {
+            clearInterval(specificPollIntervalId);
+            specificPollIntervalId = null;
+
+            specificStatusIndicator.style.visibility = "hidden";
+            specificSubmitBtn.disabled = false;
+            specificBtnLabel.textContent = "Search Business";
+
+            errorCard.textContent = "Search error: " + (data.message || "Unknown server error.");
+            errorCard.style.display = "block";
+            welcomeStudio.style.display = "block";
+            resultsPanel.style.display = "none";
+            bottomDock.classList.remove("collapsed");
+          }
+        } catch (err) {
+          console.error("Specific search poll error:", err);
+        }
+      }, 1200);
+    }
+
+    specificSearchForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      errorCard.style.display = "none";
+      specificSubmitBtn.disabled = true;
+      specificBtnLabel.textContent = "Searching…";
+
+      bottomDock.classList.add("collapsed");
+      specificStatusText.textContent = "Initializing specific search...";
+      specificStatusIndicator.style.visibility = "visible";
+
+      welcomeStudio.style.display = "none";
+      resultsPanel.style.display = "block";
+      resultsBulkView.style.display = "none";
+      resultsSpecificView.style.display = "block";
+      specificResultsSummary.textContent = "Searching Google Maps, please wait...";
+      renderSpecificCardSkeleton();
+      renderSpecificSkeletonRows(3);
+
+      const payload = {
+        business_name: document.getElementById("specific_business_name").value,
+        location: document.getElementById("specific_location").value,
+        max_reviews_limit: parseInt(document.getElementById("max_reviews_limit").value, 10),
+        negative_star_max: parseInt(document.getElementById("specific_negative_star_max").value, 10)
+      };
+
+      try {
+        const res = await fetch("/business-search/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          specificStatusIndicator.style.visibility = "hidden";
+          specificSubmitBtn.disabled = false;
+          specificBtnLabel.textContent = "Search Business";
+          errorCard.textContent = "Search error: " + (data.error || "Unknown server error.");
+          errorCard.style.display = "block";
+          welcomeStudio.style.display = "block";
+          resultsPanel.style.display = "none";
+          bottomDock.classList.remove("collapsed");
+          return;
+        }
+
+        startSpecificSearchPolling(data.job_id);
+
+      } catch (err) {
+        specificStatusIndicator.style.visibility = "hidden";
+        specificSubmitBtn.disabled = false;
+        specificBtnLabel.textContent = "Search Business";
+        errorCard.textContent = "Search error: " + err.message;
+        errorCard.style.display = "block";
+        welcomeStudio.style.display = "block";
+        resultsPanel.style.display = "none";
+        bottomDock.classList.remove("collapsed");
+      }
+    });
+
+    // Specific Export XLSX click listener
+    specificExportXlsxBtn.addEventListener("click", () => {
+      if (!specificLatestFilename) {
+        alert("No specific search data or export file available to download.");
+        return;
+      }
+      window.location.href = "/download/" + encodeURIComponent(specificLatestFilename);
+    });
+
+    // Specific Export PDF click listener
+    specificExportPdfBtn.addEventListener("click", () => {
+      if (!specificLatestPdfFilename) {
+        alert("No specific search data or PDF export file available to download.");
+        return;
+      }
+      window.location.href = "/download/" + encodeURIComponent(specificLatestPdfFilename);
+    });
+
+    // Close Results Panel Functionality
+    closeResultsBtn.addEventListener("click", () => {
+      // Clear localStorage
+      localStorage.removeItem("latestScanType");
+      localStorage.removeItem("bulkScanData");
+      localStorage.removeItem("bulkFilename");
+      localStorage.removeItem("bulkPdfFilename");
+      localStorage.removeItem("bulkSummary");
+      localStorage.removeItem("bulkHtml");
+      localStorage.removeItem("specificFilename");
+      localStorage.removeItem("specificPdfFilename");
+      localStorage.removeItem("specificSummary");
+      localStorage.removeItem("specificCardHtml");
+      localStorage.removeItem("specificTableHtml");
+      localStorage.removeItem("specificNegativeStarMax");
+
+      // Reset state
+      latestScanData = null;
+      latestFilename = null;
+      latestPdfFilename = null;
+      specificLatestFilename = null;
+      specificLatestPdfFilename = null;
+
+      // Reset UI
+      resultsPanel.style.display = "none";
+      welcomeStudio.style.display = "block";
+    });
+
+    // Restore scan state from localStorage on load
+    window.addEventListener("DOMContentLoaded", () => {
+      const latestScanType = localStorage.getItem("latestScanType");
+      if (latestScanType === "bulk") {
+        const cachedData = localStorage.getItem("bulkScanData");
+        latestScanData = cachedData ? JSON.parse(cachedData) : [];
+        latestFilename = localStorage.getItem("bulkFilename");
+        latestPdfFilename = localStorage.getItem("bulkPdfFilename");
+
+        resultsSummary.textContent = localStorage.getItem("bulkSummary") || "";
+        resultsBody.innerHTML = localStorage.getItem("bulkHtml") || "";
+
+        welcomeStudio.style.display = "none";
+        resultsPanel.style.display = "block";
+        resultsBulkView.style.display = "block";
+        resultsSpecificView.style.display = "none";
+      } else if (latestScanType === "specific") {
+        specificLatestFilename = localStorage.getItem("specificFilename");
+        specificLatestPdfFilename = localStorage.getItem("specificPdfFilename");
+
+        specificResultsSummary.textContent = localStorage.getItem("specificSummary") || "";
+        specificBusinessCard.innerHTML = localStorage.getItem("specificCardHtml") || "";
+        specificReviewsBody.innerHTML = localStorage.getItem("specificTableHtml") || "";
+        
+        const cachedStarMax = localStorage.getItem("specificNegativeStarMax") || "3";
+        const headerEl = document.getElementById("specific-reviews-header");
+        if (headerEl) {
+          headerEl.innerHTML = `Negative Reviews (Stars &le; ${cachedStarMax})`;
+        }
+
+        welcomeStudio.style.display = "none";
+        resultsPanel.style.display = "block";
+        resultsBulkView.style.display = "none";
+        resultsSpecificView.style.display = "block";
+      }
     });
   </script>
   <div class="signature"><span class="spark">✦</span> crafted by US</div>

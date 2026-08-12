@@ -40,6 +40,18 @@ login_manager.login_view = "login"
 
 with app.app_context():
     db.create_all()
+    # Auto-migrate SQLite if token_type is missing
+    from sqlalchemy import text
+    try:
+        db.session.execute(text("SELECT token_type FROM apify_token LIMIT 1"))
+    except Exception:
+        db.session.rollback()
+        try:
+            db.session.execute(text("ALTER TABLE apify_token ADD COLUMN token_type VARCHAR(50) DEFAULT 'maps'"))
+            db.session.commit()
+            print("Database migrated successfully: added token_type column to apify_token.")
+        except Exception as migrate_err:
+            print(f"Migration error: {migrate_err}")
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -103,7 +115,6 @@ def signup():
         password = request.form.get("password", "").strip()
         gmail_address = request.form.get("gmail_address", "").strip()
         gmail_app_password = request.form.get("gmail_app_password", "").strip()
-        apify_token = request.form.get("apify_token", "").strip()
 
         # Check user exists
         if User.query.filter_by(email=email).first():
@@ -124,16 +135,6 @@ def signup():
                 gmail_address=gmail_address
             )
 
-        # Validate Apify
-        apify_ok, apify_err = test_apify_token(apify_token)
-        if not apify_ok:
-            return render_template(
-                "signup.html",
-                apify_error=apify_err,
-                email=email,
-                gmail_address=gmail_address
-            )
-
         # Save to DB
         hashed = generate_password_hash(password)
         user = User(email=email, password_hash=hashed)
@@ -148,18 +149,10 @@ def signup():
             is_default=True
         )
 
-        enc_apify_tok = encrypt_value(apify_token)
-        apify_rec = ApifyToken(
-            user_id=user.id,
-            encrypted_token=enc_apify_tok,
-            is_default=True
-        )
-
         db.session.add(gmail_acc)
-        db.session.add(apify_rec)
         db.session.commit()
 
-        login_user(user)
+        login_user(user, remember=True)
         return redirect("/")
 
     return render_template("signup.html")
@@ -175,7 +168,7 @@ def login():
         
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
-            login_user(user)
+            login_user(user, remember=True)
             return redirect("/")
         else:
             return render_template(
@@ -201,23 +194,52 @@ def settings():
     if request.method == "POST":
         action = request.form.get("action")
         if action == "update_apify":
-            new_token = request.form.get("apify_token", "").strip()
-            ok, err = test_apify_token(new_token)
-            if ok:
-                default_apify = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
-                if default_apify:
-                    default_apify.encrypted_token = encrypt_value(new_token)
-                else:
-                    default_apify = ApifyToken(
+            maps_token = request.form.get("maps_apify_token", "").strip()
+            contact_token = request.form.get("contact_apify_token", "").strip()
+            
+            updated_any = False
+            
+            if maps_token:
+                ok, err = test_apify_token(maps_token)
+                if ok:
+                    ApifyToken.query.filter_by(user_id=current_user.id, token_type="maps").update({ApifyToken.is_default: False})
+                    ApifyToken.query.filter_by(user_id=current_user.id, token_type=None).update({ApifyToken.is_default: False})
+                    ApifyToken.query.filter_by(user_id=current_user.id, token_type="").update({ApifyToken.is_default: False})
+                    
+                    new_maps = ApifyToken(
                         user_id=current_user.id,
-                        encrypted_token=encrypt_value(new_token),
+                        encrypted_token=encrypt_value(maps_token),
+                        token_type="maps",
                         is_default=True
                     )
-                    db.session.add(default_apify)
+                    db.session.add(new_maps)
+                    updated_any = True
+                else:
+                    flash(f"Failed to update Maps Token: {err}", "danger")
+                    return redirect("/settings")
+                    
+            if contact_token:
+                ok, err = test_apify_token(contact_token)
+                if ok:
+                    ApifyToken.query.filter_by(user_id=current_user.id, token_type="contact").update({ApifyToken.is_default: False})
+                    
+                    new_contact = ApifyToken(
+                        user_id=current_user.id,
+                        encrypted_token=encrypt_value(contact_token),
+                        token_type="contact",
+                        is_default=True
+                    )
+                    db.session.add(new_contact)
+                    updated_any = True
+                else:
+                    flash(f"Failed to update Email Finder Token: {err}", "danger")
+                    return redirect("/settings")
+                    
+            if updated_any:
                 db.session.commit()
-                flash("Apify API Token updated successfully!", "success")
+                flash("Apify API Token(s) updated successfully!", "success")
             else:
-                flash(f"Failed to update Apify token: {err}", "danger")
+                flash("No tokens were entered to update.", "info")
 
         elif action == "add_gmail":
             new_email = request.form.get("gmail_address", "").strip()
@@ -271,21 +293,30 @@ def settings():
         return redirect("/settings")
 
     default_gmail = GmailAccount.query.filter_by(user_id=current_user.id, is_default=True).first()
-    default_apify = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
+    
+    # Query maps and contact default tokens
+    apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, token_type="maps", is_default=True).first()
+    if not apify_maps:
+        # Fallback to legacy is_default=True
+        apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
+        
+    apify_contact = ApifyToken.query.filter_by(user_id=current_user.id, token_type="contact", is_default=True).first()
+    
     gmail_accounts = GmailAccount.query.filter_by(user_id=current_user.id).all()
 
-    decrypted_token = ""
-    if default_apify:
-        decrypted_token = decrypt_value(default_apify.encrypted_token)
+    maps_token_decrypted = decrypt_value(apify_maps.encrypted_token) if apify_maps else ""
+    contact_token_decrypted = decrypt_value(apify_contact.encrypted_token) if apify_contact else ""
 
     default_email_masked = mask_email(default_gmail.email) if default_gmail else None
-    default_token_masked = mask_token(decrypted_token) if decrypted_token else None
+    default_token_maps_masked = mask_token(maps_token_decrypted) if maps_token_decrypted else None
+    default_token_contact_masked = mask_token(contact_token_decrypted) if contact_token_decrypted else None
 
     return render_template(
         "settings.html",
         gmail_accounts=gmail_accounts,
         default_email_masked=default_email_masked,
-        default_token_masked=default_token_masked
+        default_token_maps_masked=default_token_maps_masked,
+        default_token_contact_masked=default_token_contact_masked
     )
 
 
@@ -313,11 +344,14 @@ def scan():
         return jsonify({"error": "Location aur category dono zaroori hain."}), 400
 
     try:
-        default_apify = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
-        if not default_apify:
-            return jsonify({"error": "No active Apify token configured. Please configure it in Settings."}), 400
+        apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, token_type="maps", is_default=True).first()
+        if not apify_maps:
+            apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
+            
+        if not apify_maps:
+            return jsonify({"error": "No active Google Maps Apify token configured. Please configure it in Settings."}), 400
         
-        api_token = decrypt_value(default_apify.encrypted_token)
+        api_token = decrypt_value(apify_maps.encrypted_token)
 
         scan_id = agent_logic.start_scan_job(
             location, category, max_businesses, max_reviews,
@@ -340,6 +374,50 @@ def scan_status(scan_id):
         status = agent_logic.get_scan_status(scan_id)
         if not status:
             return jsonify({"error": "Scan not found."}), 404
+        return jsonify(status)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/business-search/run", methods=["POST"])
+@login_required
+def business_search_run():
+    data = request.get_json()
+    business_name = data.get("business_name", "").strip()
+    location = data.get("location", "").strip()
+    max_reviews_limit = int(data.get("max_reviews_limit", 20))
+    negative_star_max = int(data.get("negative_star_max", 3))
+
+    if not business_name or not location:
+        return jsonify({"error": "Business name aur location dono zaroori hain."}), 400
+
+    try:
+        apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, token_type="maps", is_default=True).first()
+        if not apify_maps:
+            apify_maps = ApifyToken.query.filter_by(user_id=current_user.id, is_default=True).first()
+            
+        if not apify_maps:
+            return jsonify({"error": "No active Google Maps Apify token configured. Please configure it in Settings."}), 400
+        
+        api_token = decrypt_value(apify_maps.encrypted_token)
+
+        job_id = agent_logic.start_business_search_job(
+            business_name, location, max_reviews_limit, negative_star_max, api_token=api_token, user_id=current_user.id
+        )
+        return jsonify({"job_id": job_id})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/business-search/status/<job_id>")
+@login_required
+def business_search_status(job_id):
+    try:
+        status = agent_logic.get_business_search_status(job_id)
+        if not status:
+            return jsonify({"error": "Job not found."}), 404
         return jsonify(status)
     except Exception as e:
         traceback.print_exc()

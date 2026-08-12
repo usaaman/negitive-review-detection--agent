@@ -25,4 +25,5 @@ class ApifyToken(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     encrypted_token = db.Column(db.Text, nullable=False)  # Fernet-encrypted
     is_default = db.Column(db.Boolean, default=False)
+    token_type = db.Column(db.String(50), nullable=True, default="maps")  # "maps" or "contact"
     added_at = db.Column(db.DateTime, default=datetime.utcnow)

@@ -2,3 +2,5 @@ whatsapp_session/
 __pycache__/
 *.pyc
 .env
+instance/
+outputs/

@@ -412,25 +412,7 @@
           {% endif %}
         </div>
 
-        <div style="border-top: 1px solid var(--border); margin: 25px 0 20px;"></div>
 
-        <div class="form-group">
-          <label for="apify_token">Apify API Token</label>
-          <div class="input-wrapper">
-            <input type="password" id="apify_token" name="apify_token" required placeholder="apify_api_...">
-          </div>
-          <a href="https://console.apify.com/settings/integrations" target="_blank" class="helper-link">
-            Get your Apify Token here →
-          </a>
-          <div class="guide-text">
-            Open the link, copy your Personal API Token, paste it here.
-          </div>
-          {% if apify_error %}
-            <div class="error-box">
-              ❌ Apify Validation Failure: {{ apify_error }}
-            </div>
-          {% endif %}
-        </div>
 
         <button type="submit" id="submit-btn" class="submit-btn">
           <span class="spinner" id="btn-spinner"></span>
