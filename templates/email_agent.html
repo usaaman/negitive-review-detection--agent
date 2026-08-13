@@ -1100,47 +1100,56 @@
       <div class="error-card" id="error-card"></div>
 
       <form id="email-form">
-        <!-- Tabs -->
-        <div class="tab-container">
-          <button type="button" class="tab-btn active" id="tab-report" data-tab="report-mode">Scan Report (Excel)</button>
-          <button type="button" class="tab-btn" id="tab-manual" data-tab="manual-mode">Manual Email List</button>
-        </div>
-
         <input type="hidden" id="sending-mode" value="report-mode">
 
-        <!-- Tab 1: Scan Report Selection & Upload -->
-        <div class="tab-content active" id="report-mode">
-          <div class="form-group">
-            <label for="file-select">
-              <span>Select Output Report File</span>
-              <span class="email-count-badge" id="email-count-badge">0 valid emails</span>
-            </label>
-            <select id="file-select">
-              <option value="" disabled selected>Loading available report files...</option>
-            </select>
-            <button type="button" class="send-btn" id="generate-ai-btn" style="margin-top: 12px; background: rgba(94, 234, 212, 0.08); border-color: rgba(94, 234, 212, 0.3); color: var(--accent-email); width: 100%; justify-content: center;" disabled>
-              <span>✨ Auto-Generate Custom Emails with Gemini AI</span>
-            </button>
+        <!-- Unified Recipients Section -->
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-email); box-shadow: 0 0 8px var(--accent-email);"></span>
+            <span>Configure Recipients</span>
           </div>
-          
-          <div class="form-group" style="margin-bottom: 24px;">
-            <div class="upload-zone" id="upload-zone">
-              <p>📂 Drag & Drop custom Excel file here or <strong>browse files</strong></p>
-              <span>Must contain an "Email" column (.xlsx)</span>
-              <input type="file" id="file-upload" class="upload-input-hidden" accept=".xlsx">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
+            <!-- Column 1: Scan Report -->
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="file-select" style="margin-bottom: 6px;">
+                <span>Scan Report (Excel)</span>
+                <span class="email-count-badge" id="email-count-badge">0 valid emails</span>
+              </label>
+              <select id="file-select" style="margin-bottom: 10px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 8px 12px; font-size: 13.5px; width: 100%;">
+                <option value="" selected>None - Only manual list</option>
+              </select>
+              <div class="upload-zone" id="upload-zone" style="padding: 15px; min-height: 80px; background: rgba(0,0,0,0.2); border: 1px dashed var(--border); border-radius: 6px; text-align: center; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <p style="font-size: 12px; margin-bottom: 4px; color: var(--text); pointer-events: none;">📂 Drag & Drop Excel here or <strong>browse files</strong></p>
+                <span style="font-size: 10px; color: var(--muted); pointer-events: none;">Must contain "Email" column (.xlsx)</span>
+                <input type="file" id="file-upload" class="upload-input-hidden" accept=".xlsx" style="display: none;">
+              </div>
+            </div>
+
+            <!-- Column 2: Manual Email List -->
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="manual-emails" style="margin-bottom: 6px;">
+                <span>Manual Email List</span>
+                <span class="email-count-badge" id="manual-count-badge">0 emails</span>
+              </label>
+              <textarea id="manual-emails" rows="6" placeholder="Enter emails separated by commas, spaces or newlines..." style="background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 10px 12px; font-size: 13px; font-family: var(--font-mono); width: 100%; height: calc(100% - 24px); resize: none;"></textarea>
             </div>
           </div>
         </div>
 
-        <!-- Tab 2: Manual Email List -->
-        <div class="tab-content" id="manual-mode">
-          <div class="form-group">
-            <label for="manual-emails">
-              <span>Enter Recipient Email Addresses</span>
-              <span class="email-count-badge" id="manual-count-badge">0 emails</span>
+        <!-- Custom Prompt Section -->
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="ai-instructions" style="margin-bottom: 8px;">
+              <span>AI Prompt Instructions (Optional)</span>
+              <span style="color: var(--accent-email); font-size: 10.5px; font-family: var(--font-mono); text-transform: none; letter-spacing: normal;">Custom instructions for generating email draft</span>
             </label>
-            <textarea id="manual-emails" rows="4" placeholder="Enter emails separated by commas, spaces or newlines..."></textarea>
+            <textarea id="ai-instructions" rows="3" placeholder="e.g. Write in a polite, friendly tone. Do not use words like 'reputation' directly. Focus on improving customer satisfaction score." style="background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 10px 12px; font-size: 13px; width: 100%; resize: vertical;"></textarea>
           </div>
+          
+          <button type="button" class="send-btn" id="generate-ai-btn" style="margin-top: 16px; background: rgba(94, 234, 212, 0.08); border-color: rgba(94, 234, 212, 0.3); color: var(--accent-email); width: 100%; justify-content: center;" disabled>
+            <span>✨ Auto-Generate Custom Emails with Gemini AI</span>
+          </button>
         </div>
 
         <!-- Sender Display Name -->

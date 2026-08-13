@@ -661,7 +661,7 @@ IMPORTANT:
 - Keep the suggested response professional and concise.
 - If the sender asks a question, answer only using information available in context.
 - If information is missing, suggest asking the human user to provide it.
-- Sign off the response using the name 'Muhammad usman' and the company 'US agents'. Do NOT use any placeholders like '[Your Name]', '[Your Agency]', or '[Company Name]'.
+- Sign off the response using the name 'Reputation Specialist' and the company 'US agents'. Do NOT use any placeholders like '[Your Name]', '[Your Agency]', or '[Company Name]'.
 
 BUSINESS:
 {reply.get("business_name") or "Unknown"}

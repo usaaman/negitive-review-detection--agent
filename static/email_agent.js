@@ -92,26 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- 1. Tab Switching ---
+  // --- 1. Tab Switching & AI Button State ---
   function switchTab(mode) {
-    sendingModeInput.value = mode;
-    if (mode === "report-mode") {
-      tabReport.classList.add("active");
-      tabManual.classList.remove("active");
-      reportModeContent.classList.add("active");
-      manualModeContent.classList.remove("active");
-    } else {
-      tabReport.classList.remove("active");
-      tabManual.classList.add("active");
-      reportModeContent.classList.remove("active");
-      manualModeContent.classList.add("active");
-    }
+    if (sendingModeInput) sendingModeInput.value = mode;
     errorCard.style.display = "none";
   }
 
-  if (tabReport && tabManual) {
-    tabReport.addEventListener("click", () => switchTab("report-mode"));
-    tabManual.addEventListener("click", () => switchTab("manual-mode"));
+  function updateGenerateAiBtnState() {
+    if (!generateAiBtn) return;
+    const hasExcelFile = fileSelect && fileSelect.value !== "";
+    const hasManualEmails = getManualEmailsList().length > 0;
+    generateAiBtn.disabled = !(hasExcelFile || hasManualEmails);
   }
 
   // --- 2. Manual Emails Count ---
@@ -125,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     manualEmailsTextarea.addEventListener("input", () => {
       const list = getManualEmailsList();
       manualCountBadge.textContent = `${list.length} email${list.length === 1 ? '' : 's'}`;
+      updateGenerateAiBtnState();
     });
   }
 
@@ -240,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!files || files.length === 0) {
         fileSelect.innerHTML = `<option value="" disabled selected>No .xlsx report files found in outputs/ folder</option>`;
         emailCountBadge.textContent = "0 valid emails";
-        if (generateAiBtn) generateAiBtn.disabled = true;
+        updateGenerateAiBtnState();
         return;
       }
       
@@ -252,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fileSelect.appendChild(opt);
       });
       
-      if (generateAiBtn) generateAiBtn.disabled = true; // wait for file select change
+      updateGenerateAiBtnState();
     } catch (err) {
       showError("Error loading files: " + err.message);
     }
@@ -391,19 +383,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const fileObj = availableFiles.find(f => f.filename === selectedFilename);
       if (fileObj) {
         emailCountBadge.textContent = `${fileObj.valid_email_count} valid email${fileObj.valid_email_count === 1 ? '' : 's'}`;
-        if (generateAiBtn) generateAiBtn.disabled = fileObj.valid_email_count === 0;
       } else {
         emailCountBadge.textContent = "0 valid emails";
-        if (generateAiBtn) generateAiBtn.disabled = true;
       }
+      updateGenerateAiBtnState();
     });
   }
 
   // --- 8. Gemini AI Drafts Generation ---
   if (generateAiBtn) {
     generateAiBtn.addEventListener("click", async () => {
-      const filename = fileSelect.value;
-      if (!filename) return;
+      const filename = fileSelect.value || "";
+      const manualEmails = getManualEmailsList();
+      const instructionsText = document.getElementById("ai-instructions") ? document.getElementById("ai-instructions").value.trim() : "";
+
+      if (!filename && manualEmails.length === 0) {
+        showError("Please select a Scan Report file or enter manual email addresses first.");
+        return;
+      }
 
       errorCard.style.display = "none";
       emailForm.style.display = "none";
@@ -414,7 +411,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch("/email-agent/generate-drafts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ file_name: filename })
+          body: JSON.stringify({ 
+            file_name: filename,
+            manual_emails: manualEmails,
+            prompt_instructions: instructionsText
+          })
         });
         const data = await res.json();
 
@@ -617,13 +618,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function setFormDisabled(disabled) {
     sendBtn.disabled = disabled;
     if (fileSelect) fileSelect.disabled = disabled;
-    if (generateAiBtn) generateAiBtn.disabled = disabled || (!fileSelect.value);
+    if (generateAiBtn) generateAiBtn.disabled = disabled;
     subjectInput.disabled = disabled;
     messageInput.disabled = disabled;
     if (manualEmailsTextarea) manualEmailsTextarea.disabled = disabled;
     if (senderNameInput) senderNameInput.disabled = disabled;
-    if (tabReport) tabReport.disabled = disabled;
-    if (tabManual) tabManual.disabled = disabled;
+    if (generateAiBtn && !disabled) updateGenerateAiBtnState();
   }
 
   // --- 10. Form Submit Handler ---
@@ -631,33 +631,25 @@ document.addEventListener("DOMContentLoaded", () => {
     emailForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const mode = sendingModeInput.value;
       const subject = subjectInput.value.trim();
       const message = messageInput.value.trim();
       const senderName = senderNameInput ? senderNameInput.value.trim() : "";
 
+      const fileName = fileSelect ? fileSelect.value : "";
+      const emailsList = getManualEmailsList();
+
+      if (!fileName && emailsList.length === 0) {
+        showError("Please select an Excel report file or enter manual email addresses first.");
+        return;
+      }
+
       let payload = {
         subject: subject,
         message: message,
-        sender_name: senderName
+        sender_name: senderName,
+        file_name: fileName,
+        manual_emails: emailsList
       };
-
-      if (mode === "report-mode") {
-        const fileName = fileSelect.value;
-        if (!fileName) {
-          showError("Please select or upload an Excel report file first.");
-          return;
-        }
-        payload.file_name = fileName;
-      } else {
-        const emailsList = getManualEmailsList();
-        if (emailsList.length === 0) {
-          showError("Please enter at least one valid email address in the manual list.");
-          return;
-        }
-        payload.file_name = "manual";
-        payload.manual_emails = emailsList;
-      }
 
       errorCard.style.display = "none";
       resultsCard.style.display = "none";

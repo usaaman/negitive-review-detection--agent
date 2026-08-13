@@ -339,6 +339,7 @@ def scan():
     max_reviews = int(data.get("max_reviews", 10))
     rating_threshold = float(data.get("rating_threshold", 4.5))
     negative_star_max = int(data.get("negative_star_max", 3))
+    find_emails = data.get("find_emails", True)
 
     if not location or not category:
         return jsonify({"error": "Location aur category dono zaroori hain."}), 400
@@ -356,7 +357,8 @@ def scan():
         scan_id = agent_logic.start_scan_job(
             location, category, max_businesses, max_reviews,
             rating_threshold, negative_star_max,
-            api_token=api_token, user_id=current_user.id
+            api_token=api_token, user_id=current_user.id,
+            find_emails=find_emails
         )
         return jsonify({
             "success": True,
@@ -501,21 +503,42 @@ def email_agent_upload():
 def email_agent_generate_drafts():
     data = request.get_json() or {}
     file_name = data.get("file_name", "").strip()
+    manual_emails = data.get("manual_emails", [])
+    prompt_instructions = data.get("prompt_instructions", "").strip()
     
-    if not file_name:
-        return jsonify({"success": False, "error": "Excel file select karna zaroori hai."}), 400
+    if not file_name and not manual_emails:
+        return jsonify({"success": False, "error": "Excel report file select karein ya manual emails enter karein."}), 400
         
     try:
         # Security validation: make sure file belongs to the user
-        if file_name != "manual" and not file_name.startswith(f"user_{current_user.id}_"):
+        if file_name and file_name != "manual" and not file_name.startswith(f"user_{current_user.id}_"):
             return jsonify({"success": False, "error": "Unauthorized file access."}), 403
 
-        leads = email_agent.extract_leads_from_excel(file_name)
+        leads = []
+        if file_name:
+            leads.extend(email_agent.extract_leads_from_excel(file_name))
+            
+        if manual_emails:
+            for email in manual_emails:
+                email_str = email.strip()
+                if email_agent.is_valid_email(email_str):
+                    leads.append({
+                        "email": email_str,
+                        "business_name": "N/A",
+                        "website": "N/A",
+                        "reviewer_name": "N/A",
+                        "review_stars": "N/A",
+                        "review_text": "",
+                        "review_date": "N/A",
+                        "review_link": "N/A",
+                        "business_maps_link": "N/A"
+                    })
+
         if not leads:
-            return jsonify({"success": False, "error": "Selected file has no valid leads."}), 400
+            return jsonify({"success": False, "error": "Selected inputs have no valid leads."}), 400
             
         # Generate custom drafts in parallel
-        drafts = ai_helper.generate_drafts_for_leads_async(leads)
+        drafts = ai_helper.generate_drafts_for_leads_async(leads, prompt_instructions)
         return jsonify({"success": True, "drafts": drafts})
     except Exception as e:
         traceback.print_exc()
@@ -533,9 +556,6 @@ def email_agent_send():
     manual_emails = data.get("manual_emails", [])
     drafts = data.get("drafts", [])
 
-    if not file_name:
-        return jsonify({"success": False, "error": "File selection or sending mode is required."}), 400
-
     if file_name != "ai_drafts" and not subject:
         return jsonify({"success": False, "error": "Subject line cannot be empty."}), 400
 
@@ -543,7 +563,7 @@ def email_agent_send():
         return jsonify({"success": False, "error": "Message body cannot be empty."}), 400
 
     # Security check: if loading from file, verify owner
-    if file_name not in ["manual", "ai_drafts"] and not file_name.startswith(f"user_{current_user.id}_"):
+    if file_name and file_name not in ["manual", "ai_drafts"] and not file_name.startswith(f"user_{current_user.id}_"):
         return jsonify({"success": False, "error": "Unauthorized file access."}), 403
 
     try:
@@ -555,23 +575,9 @@ def email_agent_send():
         sender_password = decrypt_value(default_gmail.encrypted_app_password)
 
         leads = []
-        if file_name == "manual":
-            for email in manual_emails:
-                email_str = email.strip()
-                if email_agent.is_valid_email(email_str):
-                    leads.append({
-                        "email": email_str,
-                        "business_name": "N/A",
-                        "website": "N/A",
-                        "reviewer_name": "N/A",
-                        "review_stars": "N/A",
-                        "review_text": "",
-                        "review_date": "N/A",
-                        "review_link": "N/A",
-                        "business_maps_link": "N/A"
-                    })
-            display_file_name = "Manual Entry"
-        elif file_name == "ai_drafts":
+        display_file_name = ""
+
+        if file_name == "ai_drafts":
             for d in drafts:
                 leads.append({
                     "email": d.get("email", "").strip(),
@@ -590,8 +596,36 @@ def email_agent_send():
             subject = "AI Campaign"
             message = "AI Campaign"
         else:
-            leads = email_agent.extract_leads_from_excel(file_name)
-            display_file_name = file_name
+            # 1. Excel leads
+            excel_leads = []
+            if file_name and file_name != "manual":
+                excel_leads = email_agent.extract_leads_from_excel(file_name)
+                leads.extend(excel_leads)
+                display_file_name = file_name
+            
+            # 2. Manual leads
+            manual_leads_count = 0
+            if manual_emails:
+                for email in manual_emails:
+                    email_str = email.strip()
+                    if email_agent.is_valid_email(email_str):
+                        leads.append({
+                            "email": email_str,
+                            "business_name": "N/A",
+                            "website": "N/A",
+                            "reviewer_name": "N/A",
+                            "review_stars": "N/A",
+                            "review_text": "",
+                            "review_date": "N/A",
+                            "review_link": "N/A",
+                            "business_maps_link": "N/A"
+                        })
+                        manual_leads_count += 1
+                
+                if not display_file_name:
+                    display_file_name = "Manual Entry"
+                else:
+                    display_file_name = f"Combined ({display_file_name} + Manual)"
 
         if not leads:
             return jsonify({"success": False, "error": "No valid recipients found to send emails to."}), 400

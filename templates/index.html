@@ -866,7 +866,7 @@
                 <th>Business Name</th>
                 <th>Address</th>
                 <th>Phone</th>
-                <th class="col-email">Email</th>
+                <th class="col-email email-header-th">Email</th>
                 <th class="col-email">Website</th>
                 <th>Rating</th>
                 <th>Reviewer Name</th>
@@ -997,6 +997,11 @@
             <label for="negative_star_max">Negative &le;</label>
             <input type="number" id="negative_star_max" name="negative_star_max" value="3" min="1" max="5">
           </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin: 12px 0 20px 0; user-select: none;">
+          <input type="checkbox" id="find_emails" checked style="width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;">
+          <label for="find_emails" style="cursor: pointer; font-size: 13.5px; color: var(--text-muted); font-family: var(--font-body); text-transform: none; letter-spacing: normal;">Find business email addresses (using contact scraper)</label>
         </div>
 
         <!-- Action Bar in Dock -->
@@ -1161,7 +1166,7 @@
     }
 
     // Render skeleton rows during scanning
-    function renderSkeletonRows(count = 5) {
+    function renderSkeletonRows(count = 5, findEmails = true) {
       let html = "";
       for (let i = 0; i < count; i++) {
         html += `
@@ -1169,7 +1174,7 @@
             <td><div class="skeleton skeleton-text" style="width: 120px; height: 14px;"></div></td>
             <td><div class="skeleton skeleton-text" style="width: 180px; height: 14px;"></div></td>
             <td><div class="skeleton skeleton-text" style="width: 85px; height: 14px;"></div></td>
-            <td><div class="skeleton skeleton-text" style="width: 100px; height: 14px;"></div></td>
+            ${findEmails ? '<td><div class="skeleton skeleton-text" style="width: 100px; height: 14px;"></div></td>' : ''}
             <td><div class="skeleton skeleton-text" style="width: 80px; height: 14px;"></div></td>
             <td><div class="skeleton skeleton-text" style="width: 45px; height: 14px;"></div></td>
             <td><div class="skeleton skeleton-text" style="width: 90px; height: 14px;"></div></td>
@@ -1238,6 +1243,13 @@
             }
             resultsSummary.textContent = summary + ".";
 
+            // Adjust Email header visibility
+            const emailHeader = document.querySelector("#results-table th.email-header-th");
+            const hasEmails = data.results && data.results.length > 0 && ("Email" in data.results[0]);
+            if (emailHeader) {
+              emailHeader.style.display = hasEmails ? "" : "none";
+            }
+
             // Render raw review rows
             resultsBody.innerHTML = data.results.map(row => {
               const ratingVal = (row["Business Rating"] !== null && row["Business Rating"] !== "N/A") ? `${row["Business Rating"]} ★` : "—";
@@ -1264,12 +1276,16 @@
                 ? `<a class="open-link-btn" href="${escapeHtml(website)}" target="_blank" rel="noopener">visit →</a>`
                 : `<span class="open-link-btn disabled">—</span>`;
 
+              const emailTd = (row["Email"] !== undefined)
+                ? `<td>${emailHtml}</td>`
+                : '';
+
               return `
                 <tr>
                   <td style="font-weight: 600;">${escapeHtml(row["Business Name"])}</td>
                   <td style="color: var(--text-muted); max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(row["Address"])}</td>
                   <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${escapeHtml(row["Phone"])}</td>
-                  <td>${emailHtml}</td>
+                  ${emailTd}
                   <td>${websiteHtml}</td>
                   <td style="font-family: var(--font-mono); color: var(--accent);">${ratingVal}</td>
                   <td>${escapeHtml(row["Reviewer Name"])}</td>
@@ -1327,7 +1343,14 @@
       resultsBulkView.style.display = "block";
       resultsSpecificView.style.display = "none";
       resultsSummary.textContent = "Running map grid scan, please wait...";
-      renderSkeletonRows(5);
+      
+      const findEmailsCheckbox = document.getElementById("find_emails");
+      const findEmails = findEmailsCheckbox ? findEmailsCheckbox.checked : true;
+      const emailHeader = document.querySelector("#results-table th.email-header-th");
+      if (emailHeader) {
+        emailHeader.style.display = findEmails ? "" : "none";
+      }
+      renderSkeletonRows(5, findEmails);
 
       const payload = {
         location: document.getElementById("location").value,
@@ -1335,7 +1358,8 @@
         max_businesses: parseInt(document.getElementById("max_businesses").value, 10),
         max_reviews: parseInt(document.getElementById("max_reviews").value, 10),
         rating_threshold: parseFloat(document.getElementById("rating_threshold").value),
-        negative_star_max: parseInt(document.getElementById("negative_star_max").value, 10)
+        negative_star_max: parseInt(document.getElementById("negative_star_max").value, 10),
+        find_emails: findEmails
       };
 
       try {
@@ -1685,6 +1709,12 @@
 
         resultsSummary.textContent = localStorage.getItem("bulkSummary") || "";
         resultsBody.innerHTML = localStorage.getItem("bulkHtml") || "";
+
+        const emailHeader = document.querySelector("#results-table th.email-header-th");
+        if (emailHeader) {
+          const hasEmails = latestScanData && latestScanData.length > 0 && ("Email" in latestScanData[0]);
+          emailHeader.style.display = hasEmails ? "" : "none";
+        }
 
         welcomeStudio.style.display = "none";
         resultsPanel.style.display = "block";

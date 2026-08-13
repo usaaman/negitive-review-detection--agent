@@ -148,14 +148,17 @@ def fetch_emails_for_websites(website_urls, api_token=None):
     return email_map
 
 
-def attach_contact_info(businesses, api_token=None):
+def attach_contact_info(businesses, api_token=None, find_emails=True):
     """
     Har business ke liye email dhoondta hai (agar website hai), phone bhi rakhta hai.
-    Jin businesses ki NA email milti hai NA phone hai, unhe list se hata deta hai.
+    Jin businesses ki NA email milti hai NA phone hai, unhe list se hata deta hai (agar find_emails true hai).
     Returns: (kept_businesses, dropped_count)
     """
-    website_urls = list({biz["website"] for biz in businesses if biz.get("website")})
-    email_map = fetch_emails_for_websites(website_urls, api_token)
+    if find_emails:
+        website_urls = list({biz["website"] for biz in businesses if biz.get("website")})
+        email_map = fetch_emails_for_websites(website_urls, api_token)
+    else:
+        email_map = {}
 
     kept = []
     dropped_count = 0
@@ -165,17 +168,18 @@ def attach_contact_info(businesses, api_token=None):
         email = email_map.get(domain) if domain else None
         phone = biz.get("phone")
 
-        if not email and not phone:
-            dropped_count += 1
-            continue
-
+        if find_emails:
+            if not email and not phone:
+                dropped_count += 1
+                continue
+        
         biz["_resolved_email"] = email or "N/A"
         kept.append(biz)
 
     return kept, dropped_count
 
 
-def build_review_rows(businesses, negative_star_max):
+def build_review_rows(businesses, negative_star_max, include_email=True):
     """Har business ki EK row banata hai — sirf pehla mila negative review."""
     results = []
 
@@ -197,36 +201,32 @@ def build_review_rows(businesses, negative_star_max):
                 matched_review = rev
                 break  # <-- yehi wo "ruk jao" wala hissa hai
 
+        row = {
+            "Business Name": biz_name,
+            "Address": address,
+            "Phone": phone,
+            "Website": website,
+            "Business Rating": rating,
+            "Reviewer Name": "N/A",
+            "Review Stars": "N/A",
+            "Review Text": "",
+            "Review Date": "N/A",
+            "Review Link": "N/A",
+            "Business Maps Link": biz_url,
+        }
+        if include_email:
+            row["Email"] = email
+
         if matched_review:
-            results.append({
-                "Business Name": biz_name,
-                "Address": address,
-                "Phone": phone,
-                "Email": email,
-                "Website": website,
-                "Business Rating": rating,
-                "Reviewer Name": matched_review.get("name", "N/A"),
-                "Review Stars": matched_review.get("stars"),
-                "Review Text": matched_review.get("text", ""),
-                "Review Date": matched_review.get("publishedAtDate", "N/A"),
-                "Review Link": matched_review.get("reviewUrl", "N/A"),
-                "Business Maps Link": biz_url,
-            })
+            row["Reviewer Name"] = matched_review.get("name", "N/A")
+            row["Review Stars"] = matched_review.get("stars")
+            row["Review Text"] = matched_review.get("text", "")
+            row["Review Date"] = matched_review.get("publishedAtDate", "N/A")
+            row["Review Link"] = matched_review.get("reviewUrl", "N/A")
         else:
-            results.append({
-                "Business Name": biz_name,
-                "Address": address,
-                "Phone": phone,
-                "Email": email,
-                "Website": website,
-                "Business Rating": rating,
-                "Reviewer Name": "N/A",
-                "Review Stars": "N/A",
-                "Review Text": "(Fetched reviews mein negative review nahi mila)",
-                "Review Date": "N/A",
-                "Review Link": "N/A",
-                "Business Maps Link": biz_url,
-            })
+            row["Review Text"] = "(Fetched reviews mein negative review nahi mila)"
+
+        results.append(row)
 
     return results
 
@@ -503,7 +503,7 @@ def export_to_pdf(results, filename):
 active_scans = {}
 
 
-def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
+def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None, find_emails=True):
     scan_entry = active_scans[scan_id]
     try:
         # Load maps and contact tokens from the database if user_id is provided
@@ -552,12 +552,17 @@ def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, r
         effective_max_reviews = max(max_reviews, 30)
         with_reviews = fetch_reviews_for_businesses(rating_filtered, effective_max_reviews, maps_token)
         
-        scan_entry["message"] = "Searching websites for email addresses..."
-        kept_businesses, dropped_count = attach_contact_info(with_reviews, contact_token)
+        if find_emails:
+            scan_entry["message"] = "Searching websites for email addresses..."
+            kept_businesses, dropped_count = attach_contact_info(with_reviews, contact_token, find_emails=True)
+        else:
+            scan_entry["message"] = "Skipping email search..."
+            kept_businesses, dropped_count = attach_contact_info(with_reviews, contact_token, find_emails=False)
+            
         scan_entry["dropped_no_contact"] = dropped_count
         
         scan_entry["message"] = "Processing negative reviews and mapping templates..."
-        results = build_review_rows(kept_businesses, negative_star_max)
+        results = build_review_rows(kept_businesses, negative_star_max, include_email=find_emails)
         scan_entry["flagged_count"] = len(set(r["Business Name"] for r in results))
         
         filename = None
@@ -582,7 +587,7 @@ def run_agent_worker(scan_id, location, category, max_businesses, max_reviews, r
         scan_entry["message"] = f"Scan failed: {str(e)}"
 
 
-def start_scan_job(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
+def start_scan_job(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None, find_emails=True):
     import uuid
     import threading
     scan_id = str(uuid.uuid4())
@@ -594,12 +599,13 @@ def start_scan_job(location, category, max_businesses, max_reviews, rating_thres
         "dropped_no_contact": 0,
         "results": [],
         "filename": None,
-        "error": None
+        "error": None,
+        "find_emails": find_emails
     }
     
     thread = threading.Thread(
         target=run_agent_worker,
-        args=(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token, user_id)
+        args=(scan_id, location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token, user_id, find_emails)
     )
     thread.daemon = True
     thread.start()
@@ -610,7 +616,7 @@ def get_scan_status(scan_id):
     return active_scans.get(scan_id)
 
 
-def run_agent(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None):
+def run_agent(location, category, max_businesses, max_reviews, rating_threshold, negative_star_max, api_token=None, user_id=None, find_emails=True):
     """
     Poora pipeline ek function mein — UI (app.py) sirf isko call karega.
     2-phase approach: pehle sirf ratings check karo (fast), phir sirf
@@ -633,8 +639,8 @@ def run_agent(location, category, max_businesses, max_reviews, rating_threshold,
 
     effective_max_reviews = max(max_reviews, 30)
     with_reviews = fetch_reviews_for_businesses(rating_filtered, effective_max_reviews, api_token)
-    kept_businesses, dropped_count = attach_contact_info(with_reviews, api_token)
-    results = build_review_rows(kept_businesses, negative_star_max)
+    kept_businesses, dropped_count = attach_contact_info(with_reviews, api_token, find_emails=find_emails)
+    results = build_review_rows(kept_businesses, negative_star_max, include_email=find_emails)
 
     filename = None
     pdf_filename = None
