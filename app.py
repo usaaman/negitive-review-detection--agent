@@ -699,8 +699,8 @@ def whatsapp_agent_send():
     data = request.get_json() or {}
     file_name = data.get("file_name", "").strip()
     message_template = data.get("message_template", "").strip()
-    min_delay = int(data.get("min_delay", 20))
-    max_delay = int(data.get("max_delay", 40))
+    min_delay = int(data.get("min_delay", 2))
+    max_delay = int(data.get("max_delay", 4))
     daily_limit_enabled = bool(data.get("daily_limit_enabled", False))
     daily_limit = int(data.get("daily_limit", 150))
     drafts = data.get("drafts", None)
