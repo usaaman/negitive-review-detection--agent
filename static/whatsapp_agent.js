@@ -521,6 +521,44 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/'/g, "&#039;");
   }
 
+  // 8. Handle Switch WhatsApp Number button click
+  const switchNumberBtn = document.getElementById("switch-number-btn");
+  if (switchNumberBtn) {
+    switchNumberBtn.addEventListener("click", async () => {
+      const confirmed = confirm("This will log out the current WhatsApp number. You'll need to scan a new QR code next time you send a campaign. Continue?");
+      if (!confirmed) return;
+
+      try {
+        switchNumberBtn.disabled = true;
+        switchNumberBtn.textContent = "Clearing Session...";
+
+        const response = await fetch("/whatsapp-agent/switch-number", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const contentType = response.headers.get("content-type");
+        let data;
+        if (contentType && contentType.includes("application/json")) {
+          data = await response.json();
+        } else {
+          throw new Error(`Server returned non-JSON response (Status: ${response.status}). Please check login session.`);
+        }
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Failed to reset WhatsApp session.");
+        }
+
+        alert("WhatsApp session cleared successfully! You will see a QR code to scan the next time you send a campaign.");
+      } catch (err) {
+        showError("Reset Error: " + err.message);
+      } finally {
+        switchNumberBtn.disabled = false;
+        switchNumberBtn.textContent = "🔄 Switch WhatsApp Number";
+      }
+    });
+  }
+
   // Initial loads
   loadAvailableFiles();
   loadHistory();

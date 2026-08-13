@@ -800,6 +800,20 @@ def whatsapp_agent_history():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/whatsapp-agent/switch-number", methods=["POST"])
+def whatsapp_agent_switch_number():
+    if not current_user.is_authenticated:
+        return jsonify({"success": False, "error": "Unauthorized access. Please log in."}), 401
+    try:
+        result = whatsapp_agent.reset_whatsapp_session()
+        if not result.get("success"):
+            return jsonify(result), 500
+        return jsonify(result)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 # ---------- Combined Outreach Report Route ----------
 
 @app.route("/outreach-report/download")
