@@ -585,6 +585,8 @@ def check_for_replies(email_address=None, password=None, user_id=None):
                 ),
 
                 "status": "New",
+                "is_read": False,
+                "notified": False,
                 "intent": "unknown",
                 "ai_draft": "",
                 "ai_reason": "",
@@ -906,3 +908,13 @@ def send_reply(reply_id, response_text, sender_email=None, sender_password=None)
         "success": True,
         "reply": updated
     }
+
+
+def mark_reply_read(reply_id):
+    return update_reply(reply_id, {"is_read": True, "notified": True})
+
+
+def get_unread_count(user_id=None):
+    replies = get_replies(user_id=user_id)
+    return len([r for r in replies if not r.get("is_read", False)])
+

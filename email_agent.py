@@ -276,9 +276,11 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
             status_entry["details"].append({
                 "email": recipient,
                 "status": "sent",
+                "placement": "inbox",  # default successful SMTP delivery placement
                 "error": None,
                 "message_id": message_id,
                 "business_name": lead.get("business_name") or lead.get("Business Name") or lead.get("Business") or lead.get("Name") or "",
+                "timestamp": datetime.now().isoformat(),
                 "lead_data": lead
             })
         except Exception as e:
@@ -286,9 +288,11 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
             status_entry["details"].append({
                 "email": recipient,
                 "status": "failed",
+                "placement": "failed",
                 "error": str(e),
                 "message_id": None,
                 "business_name": lead.get("business_name") or lead.get("Business Name") or lead.get("Business") or lead.get("Name") or "",
+                "timestamp": datetime.now().isoformat(),
                 "lead_data": lead
             })
 
@@ -313,6 +317,219 @@ def bg_send_emails_worker(campaign_id, leads, subject, message, sender_name, fil
         "details": status_entry["details"]
     }
     log_campaign(file_name, subject, message, summary, user_id)
+
+
+def get_delivery_stats(user_id=None):
+    """
+    Reads sent_log.json and extracts placement statistics:
+    - total_sent
+    - inbox_count & inbox_emails list
+    - spam_count & spam_emails list
+    - failed_count & failed_emails list
+    """
+    if not os.path.exists(LOG_FILE):
+        return {
+            "total_sent": 0,
+            "inbox_count": 0,
+            "spam_count": 0,
+            "failed_count": 0,
+            "inbox_emails": [],
+            "spam_emails": [],
+            "failed_emails": []
+        }
+
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            history = json.load(f)
+            if not isinstance(history, list):
+                history = []
+    except Exception as e:
+        print(f"Error reading LOG_FILE for delivery stats: {e}")
+        history = []
+
+    if user_id is not None:
+        history = [c for c in history if c.get("user_id") in (user_id, None)]
+
+    inbox_list = []
+    spam_list = []
+    failed_list = []
+    seen_emails = set()
+
+    for campaign in reversed(history):
+        timestamp = campaign.get("timestamp", "")
+        subject = campaign.get("subject", "")
+        result = campaign.get("result", {})
+        details = result.get("details", [])
+
+        for detail in details:
+            email = (detail.get("email") or "").strip()
+            if not email:
+                continue
+
+            lower_email = email.lower()
+            if lower_email in seen_emails:
+                continue
+            seen_emails.add(lower_email)
+
+            placement = detail.get("placement")
+            if not placement:
+                placement = "failed" if detail.get("status") == "failed" else "inbox"
+
+            item = {
+                "email": email,
+                "business_name": detail.get("business_name") or "N/A",
+                "subject": subject,
+                "timestamp": detail.get("timestamp") or timestamp,
+                "placement": placement,
+                "status": detail.get("status") or "sent",
+                "error": detail.get("error")
+            }
+
+            if placement == "spam":
+                spam_list.append(item)
+            elif placement == "failed" or item["status"] == "failed":
+                failed_list.append(item)
+            else:
+                inbox_list.append(item)
+
+    total = len(inbox_list) + len(spam_list) + len(failed_list)
+
+    return {
+        "total_sent": total,
+        "inbox_count": len(inbox_list),
+        "spam_count": len(spam_list),
+        "failed_count": len(failed_list),
+        "inbox_emails": inbox_list,
+        "spam_emails": spam_list,
+        "failed_emails": failed_list
+    }
+
+
+def update_email_placement(email, new_placement, user_id=None):
+    """
+    Updates the placement status ('inbox', 'spam', 'failed') of a given email address in sent_log.json.
+    """
+    if not os.path.exists(LOG_FILE):
+        return False
+
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            history = json.load(f)
+            if not isinstance(history, list):
+                return False
+    except Exception as e:
+        print(f"Error reading LOG_FILE for update: {e}")
+        return False
+
+    target_email = email.strip().lower()
+    updated = False
+
+    for campaign in history:
+        if user_id is not None and campaign.get("user_id") not in (user_id, None):
+            continue
+        result = campaign.get("result", {})
+        details = result.get("details", [])
+        for detail in details:
+            if (detail.get("email") or "").strip().lower() == target_email:
+                detail["placement"] = new_placement
+                updated = True
+
+    if updated:
+        try:
+            with open(LOG_FILE, "w", encoding="utf-8") as f:
+                json.dump(history, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"Error saving updated LOG_FILE: {e}")
+
+    return False
+
+
+def check_spam_and_bounces_via_imap(email_address, password, user_id=None):
+    """
+    Connects to Gmail via IMAP and checks Spam folder & Mail Delivery subsystem bounce messages
+    to automatically classify emails into Spam or Failed.
+    """
+    import imaplib
+    from email import message_from_bytes
+
+    if not email_address or not password:
+        return {"success": False, "error": "Email credentials required."}
+
+    detected_spam = 0
+    detected_bounces = 0
+
+    try:
+        mail = imaplib.IMAP4_SSL("imap.gmail.com", 993)
+        mail.login(email_address, password)
+
+        # 1. Check Spam folder
+        spam_folder = None
+        status, folders = mail.list()
+        if status == "OK":
+            for folder in folders:
+                folder_str = folder.decode("utf-8", errors="ignore")
+                if "spam" in folder_str.lower() or "junk" in folder_str.lower():
+                    parts = folder_str.split(' "/" ')
+                    if len(parts) > 1:
+                        spam_folder = parts[-1].strip('"')
+                    break
+
+        if spam_folder:
+            mail.select(f'"{spam_folder}"')
+            status, data = mail.search(None, "ALL")
+            if status == "OK" and data[0]:
+                msg_nums = data[0].split()[-50:]
+                for num in msg_nums:
+                    st, msg_data = mail.fetch(num, "(RFC822)")
+                    if st != "OK":
+                        continue
+                    for response_part in msg_data:
+                        if isinstance(response_part, tuple):
+                            msg = message_from_bytes(response_part[1])
+                            to_addr = msg.get("To", "").lower()
+                            from_addr = msg.get("From", "").lower()
+                            for header_val in [to_addr, from_addr]:
+                                if header_val:
+                                    import re
+                                    emails_found = re.findall(r'[\w\.-]+@[\w\.-]+', header_val)
+                                    for em in emails_found:
+                                        if em != email_address.lower():
+                                            if update_email_placement(em, "spam", user_id):
+                                                detected_spam += 1
+
+        # 2. Check Inbox for Mail Delivery Subsystem / Bounces
+        mail.select("INBOX")
+        status, data = mail.search(None, 'HEADER From "mailer-daemon@googlemail.com"')
+        if status != "OK" or not data[0]:
+            status, data = mail.search(None, 'SUBJECT "Delivery Status Notification"')
+
+        if status == "OK" and data[0]:
+            msg_nums = data[0].split()[-30:]
+            for num in msg_nums:
+                st, msg_data = mail.fetch(num, "(RFC822)")
+                if st != "OK":
+                    continue
+                for response_part in msg_data:
+                    if isinstance(response_part, tuple):
+                        msg = message_from_bytes(response_part[1])
+                        body = str(msg)
+                        import re
+                        emails_found = re.findall(r'[\w\.-]+@[\w\.-]+', body)
+                        for em in emails_found:
+                            em_clean = em.lower()
+                            if em_clean != email_address.lower() and "googlemail" not in em_clean and "gmail.com" not in em_clean:
+                                if update_email_placement(em_clean, "failed", user_id):
+                                    detected_bounces += 1
+
+        mail.logout()
+        return {
+            "success": True,
+            "detected_spam": detected_spam,
+            "detected_bounces": detected_bounces
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 
 def start_campaign_send(leads, subject, message, sender_name, file_name, sender_email=None, sender_password=None, user_id=None):

@@ -56,13 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- 0. Section Tab Switching ---
-  const subTabs = document.querySelectorAll(".sub-tab");
-  const campaignSection = document.getElementById("campaign-section");
-  const repliesSection = document.getElementById("replies-section");
-  const historySection = document.getElementById("history-section");
-
   window.showSection = function(sectionName) {
-    subTabs.forEach(tab => {
+    const campaignSec = document.getElementById("campaign-section");
+    const repliesSec = document.getElementById("replies-section");
+    const placementSec = document.getElementById("placement-section");
+    const historySec = document.getElementById("history-section");
+    const allSubTabs = document.querySelectorAll("[data-section]");
+
+    allSubTabs.forEach(tab => {
       if (tab.getAttribute("data-section") === sectionName) {
         tab.classList.add("active");
       } else {
@@ -70,26 +71,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    if (sectionName === "campaign") {
-      if (campaignSection) campaignSection.style.display = "block";
-      if (repliesSection) repliesSection.style.display = "none";
-      if (historySection) historySection.style.display = "none";
-    } else if (sectionName === "replies") {
-      if (campaignSection) campaignSection.style.display = "none";
-      if (repliesSection) repliesSection.style.display = "block";
-      if (historySection) historySection.style.display = "none";
-    } else if (sectionName === "history") {
-      if (campaignSection) campaignSection.style.display = "none";
-      if (repliesSection) repliesSection.style.display = "none";
-      if (historySection) historySection.style.display = "block";
+    if (campaignSec) campaignSec.style.display = sectionName === "campaign" ? "block" : "none";
+    if (repliesSec) repliesSec.style.display = sectionName === "replies" ? "block" : "none";
+    if (placementSec) placementSec.style.display = sectionName === "placement" ? "block" : "none";
+    if (historySec) historySec.style.display = sectionName === "history" ? "block" : "none";
+
+    if (sectionName === "placement") {
+      if (typeof window.loadDeliveryStats === "function") {
+        window.loadDeliveryStats();
+      }
     }
   };
 
-  subTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const sectionName = tab.getAttribute("data-section");
-      window.showSection(sectionName);
-    });
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-section]");
+    if (btn) {
+      const sectionName = btn.getAttribute("data-section");
+      if (sectionName && typeof window.showSection === "function") {
+        window.showSection(sectionName);
+      }
+    }
   });
 
   // --- 1. Tab Switching & AI Button State ---
@@ -1058,35 +1059,277 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Auto-monitoring is OFF by default until user clicks Start Monitoring button
+  if (monitorStatus) {
+    monitorStatus.textContent = "OFF · Not monitoring";
+    monitorStatus.classList.remove("active");
+  }
   if (monitorBtn) {
-    monitorBtn.addEventListener("click", () => {
-      if (replyMonitoring) {
-        clearInterval(replyMonitorTimer);
-        replyMonitorTimer = null;
-        replyMonitoring = false;
-        monitorBtn.textContent = "Start Monitoring";
-        monitorBtn.classList.remove("active");
-        if (monitorStatus) {
-          monitorStatus.textContent = "OFF · Not monitoring";
-          monitorStatus.classList.remove("active");
-        }
-      } else {
-        replyMonitoring = true;
-        monitorBtn.textContent = "Stop Monitoring";
-        monitorBtn.classList.add("active");
-        if (monitorStatus) {
-          monitorStatus.textContent = "Active · Checking every 10m";
-          monitorStatus.classList.add("active");
-        }
+    monitorBtn.textContent = "Start Monitoring";
+    monitorBtn.classList.remove("active");
+    monitorBtn.style.opacity = "1";
+    monitorBtn.style.cursor = "pointer";
+  }
 
-        checkReplies(false);
+  // --- Notification Bell & Dropdown Logic ---
+  const bellBtn = document.getElementById("bell-btn");
+  const bellBadge = document.getElementById("bell-badge");
+  const bellDropdown = document.getElementById("bell-dropdown");
+  const bellList = document.getElementById("bell-list");
+  const clearBellBtn = document.getElementById("clear-bell-btn");
+  const toastContainer = document.getElementById("toast-container");
 
-        replyMonitorTimer = setInterval(() => {
-          checkReplies(false);
-        }, 10 * 60 * 1000);
+  let knownUnreadCount = 0;
+
+  function showToast(message, replyId = null) {
+    if (!toastContainer) return;
+    const toast = document.createElement("div");
+    toast.className = "toast-alert";
+    toast.innerHTML = `
+      <span style="font-size: 18px;">📩</span>
+      <div style="flex: 1;">
+        <div style="font-size: 12px; font-weight: 600;">New Email Reply!</div>
+        <div style="font-size: 11px; color: var(--muted);">${escapeHtml(message)}</div>
+      </div>
+    `;
+    toast.style.cursor = "pointer";
+    toast.addEventListener("click", () => {
+      if (typeof window.showSection === "function") {
+        window.showSection("replies");
+      }
+      if (replyId) {
+        window.openReply(replyId);
+      }
+      toast.remove();
+    });
+
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(100%)";
+      setTimeout(() => toast.remove(), 400);
+    }, 6000);
+  }
+
+  if (bellBtn && bellDropdown) {
+    bellBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      bellDropdown.style.display = bellDropdown.style.display === "none" ? "block" : "none";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!bellDropdown.contains(e.target) && e.target !== bellBtn) {
+        bellDropdown.style.display = "none";
       }
     });
   }
+
+  if (clearBellBtn) {
+    clearBellBtn.addEventListener("click", async () => {
+      try {
+        const unreadItems = bellList ? bellList.querySelectorAll("[data-reply-id]") : [];
+        for (const item of unreadItems) {
+          const rId = item.getAttribute("data-reply-id");
+          if (rId) {
+            await fetch(`/email-agent/replies/${rId}/mark-read`, { method: "POST" });
+          }
+        }
+        if (bellBadge) bellBadge.style.display = "none";
+        if (bellList) bellList.innerHTML = `<div class="bell-empty">No unread notifications</div>`;
+        knownUnreadCount = 0;
+        await loadReplies();
+      } catch (err) {
+        console.error("Clear notifications error:", err);
+      }
+    });
+  }
+
+  async function pollNotifications() {
+    try {
+      const res = await fetch("/email-agent/notifications");
+      if (!res.ok) return;
+      const data = await res.json();
+      const count = data.unread_count || 0;
+      const unreadList = data.unread_replies || [];
+
+      if (bellBadge) {
+        if (count > 0) {
+          bellBadge.textContent = count;
+          bellBadge.style.display = "inline-block";
+        } else {
+          bellBadge.style.display = "none";
+        }
+      }
+
+      if (count > knownUnreadCount) {
+        const newItems = unreadList.slice(0, count - knownUnreadCount);
+        newItems.forEach(r => {
+          showToast(`From: ${r.sender_email || r.sender_name} (${r.business_name || 'Business'})`, r.id);
+        });
+        loadReplies();
+      }
+      knownUnreadCount = count;
+
+      if (bellList) {
+        if (!unreadList.length) {
+          bellList.innerHTML = `<div class="bell-empty">No unread notifications</div>`;
+        } else {
+          bellList.innerHTML = unreadList.map(r => `
+            <div class="bell-item" data-reply-id="${escapeHtml(r.id)}" onclick="window.openReply('${escapeHtml(r.id)}')">
+              <div class="bell-item-title">📩 ${escapeHtml(r.business_name || r.sender_email)}</div>
+              <div class="bell-item-sub">${escapeHtml((r.reply_body || '').slice(0, 70))}...</div>
+            </div>
+          `).join("");
+        }
+      }
+    } catch (e) {
+      console.error("Notification polling error:", e);
+    }
+  }
+
+  // --- Auto-Scanning & Polling (User Click Controlled) ---
+  let monitoringIntervalId = null;
+  const replyMonitorBtn = document.getElementById("reply-monitor-btn");
+  const monitorStatusEl = document.getElementById("monitor-status");
+
+  if (replyMonitorBtn) {
+    replyMonitorBtn.addEventListener("click", () => {
+      if (monitoringIntervalId) {
+        // Turn OFF
+        clearInterval(monitoringIntervalId);
+        monitoringIntervalId = null;
+        replyMonitorBtn.textContent = "Start Monitoring";
+        if (monitorStatusEl) monitorStatusEl.textContent = "OFF · Not monitoring";
+      } else {
+        // Turn ON
+        replyMonitorBtn.textContent = "Stop Monitoring";
+        if (monitorStatusEl) monitorStatusEl.textContent = "ON · Scanning active";
+        pollNotifications();
+        checkReplies(true);
+        monitoringIntervalId = setInterval(pollNotifications, 10000);
+      }
+    });
+  }
+
+  // --- Delivery Tracker Logic ---
+  let deliveryStatsData = null;
+  let activePlacementTab = "all";
+
+  window.loadDeliveryStats = async function() {
+    try {
+      const res = await fetch("/email-agent/delivery-stats");
+      if (!res.ok) throw new Error("Failed to load delivery stats.");
+      deliveryStatsData = await res.json();
+      renderPlacementStats();
+    } catch (err) {
+      console.error("loadDeliveryStats error:", err);
+    }
+  };
+
+  function renderPlacementStats() {
+    if (!deliveryStatsData) return;
+    const { total_sent, inbox_count, failed_count } = deliveryStatsData;
+
+    const totalEl = document.getElementById("placement-total-count");
+    const inboxEl = document.getElementById("placement-inbox-count");
+    const failedEl = document.getElementById("placement-failed-count");
+
+    if (totalEl) totalEl.textContent = total_sent || 0;
+    if (inboxEl) inboxEl.textContent = inbox_count || 0;
+    if (failedEl) failedEl.textContent = failed_count || 0;
+
+    const tabAll = document.getElementById("tab-count-all");
+    const tabInbox = document.getElementById("tab-count-inbox");
+    const tabFailed = document.getElementById("tab-count-failed");
+
+    if (tabAll) tabAll.textContent = total_sent || 0;
+    if (tabInbox) tabInbox.textContent = inbox_count || 0;
+    if (tabFailed) tabFailed.textContent = failed_count || 0;
+
+    renderPlacementTable();
+  }
+
+  function renderPlacementTable() {
+    const tableBody = document.getElementById("placement-table-body");
+    if (!tableBody || !deliveryStatsData) return;
+
+    let items = [];
+    const { inbox_emails = [], failed_emails = [] } = deliveryStatsData;
+
+    if (activePlacementTab === "all") {
+      items = [...inbox_emails, ...failed_emails];
+    } else if (activePlacementTab === "inbox") {
+      items = inbox_emails;
+    } else if (activePlacementTab === "failed") {
+      items = failed_emails;
+    }
+
+    if (!items.length) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; color: var(--muted); padding: 24px;">No emails found in this category.</td>
+        </tr>
+      `;
+      return;
+    }
+
+    tableBody.innerHTML = items.map(item => {
+      const placement = item.placement || (item.status === 'failed' ? 'failed' : 'inbox');
+      const badgeClass = placement === 'failed' ? 'failed' : 'inbox';
+      const badgeText = placement === 'failed' ? '❌ Failed' : '📥 Inbox';
+
+      const dateStr = item.timestamp ? new Date(item.timestamp).toLocaleString() : 'N/A';
+
+      let actionHtml = '';
+      if (placement === 'failed') {
+        actionHtml = `<span style="color: var(--muted); font-size: 11px;">${escapeHtml(item.error || 'Bounce')}</span>`;
+      } else {
+        actionHtml = `<span style="color: var(--accent-email); font-size: 11px;">Delivered</span>`;
+      }
+
+      return `
+        <tr>
+          <td style="font-weight: 600;">${escapeHtml(item.email)}</td>
+          <td>${escapeHtml(item.business_name)}</td>
+          <td style="color: var(--muted);">${escapeHtml(item.subject || 'N/A')}</td>
+          <td style="font-family: var(--font-mono); font-size: 11px;">${dateStr}</td>
+          <td><span class="placement-badge ${badgeClass}">${badgeText}</span></td>
+          <td>${actionHtml}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  const imapCheckBtn = document.getElementById("imap-check-spam-btn");
+  if (imapCheckBtn) {
+    imapCheckBtn.addEventListener("click", async () => {
+      imapCheckBtn.disabled = true;
+      imapCheckBtn.innerHTML = "<span>Checking IMAP Bounces...</span>";
+      try {
+        const res = await fetch("/email-agent/check-spam", { method: "POST" });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || "IMAP check failed.");
+        alert(`IMAP Check complete! Detected ${data.detected_bounces || 0} bounced emails.`);
+        await window.loadDeliveryStats();
+      } catch (err) {
+        alert("IMAP Check Error: " + err.message);
+      } finally {
+        imapCheckBtn.disabled = false;
+        imapCheckBtn.innerHTML = "<span>⚡ Run IMAP Bounce Inspector</span>";
+      }
+    });
+  }
+
+  const placementTabs = document.querySelectorAll("[data-placement-tab]");
+  placementTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      placementTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activePlacementTab = tab.getAttribute("data-placement-tab");
+      renderPlacementTable();
+    });
+  });
 
   if (replyNotification) {
     replyNotification.addEventListener("click", () => {
@@ -1117,6 +1360,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial load
+  // Initial loads
   loadReplies();
+  window.loadDeliveryStats();
 });
+

@@ -53,9 +53,48 @@ with app.app_context():
         except Exception as migrate_err:
             print(f"Migration error: {migrate_err}")
 
+# Automated Background Reply Monitor Thread
+_bg_monitor_started = False
+
+def bg_reply_monitor_loop(app_instance):
+    with app_instance.app_context():
+        print("⚡ Automated Background Reply Monitor thread started.")
+        while True:
+            try:
+                accounts = GmailAccount.query.all()
+                for acc in accounts:
+                    try:
+                        email_addr = acc.email
+                        password = decrypt_value(acc.encrypted_app_password)
+                        u_id = acc.user_id
+                        
+                        res = reply_agent.check_for_replies(
+                            email_address=email_addr,
+                            password=password,
+                            user_id=u_id
+                        )
+                        
+                        if res.get("success") and res.get("replies"):
+                            for reply in res.get("replies", []):
+                                try:
+                                    reply_agent.analyze_reply_with_gemini(reply)
+                                except Exception as ai_err:
+                                    print(f"AI Analysis error in bg monitor: {ai_err}")
+                    except Exception as acc_err:
+                        print(f"Bg monitor account error ({acc.email}): {acc_err}")
+            except Exception as e:
+                print(f"Bg reply monitor exception: {e}")
+            
+            import time
+            time.sleep(60)
+
+# Automatic background reply monitoring on startup disabled. Starts only when user explicitly clicks button.
+# start_bg_monitor_if_needed(app)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 
 # ---------- Verification Helpers ----------
@@ -963,5 +1002,91 @@ def email_agent_send_reply(reply_id):
         return jsonify({"success": False, "error": str(e)}), 500
 
 
+@app.route("/email-agent/delivery-stats")
+@login_required
+def email_agent_delivery_stats():
+    try:
+        stats = email_agent.get_delivery_stats(user_id=current_user.id)
+        return jsonify(stats)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/email-agent/update-placement", methods=["POST"])
+@login_required
+def email_agent_update_placement():
+    try:
+        data = request.get_json() or {}
+        email = data.get("email", "").strip()
+        placement = data.get("placement", "").strip()  # "inbox", "spam", "failed"
+
+        if not email or placement not in ["inbox", "spam", "failed"]:
+            return jsonify({"success": False, "error": "Invalid email or placement."}), 400
+
+        ok = email_agent.update_email_placement(email, placement, user_id=current_user.id)
+        return jsonify({"success": ok})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/email-agent/check-spam", methods=["POST"])
+@login_required
+def email_agent_check_spam():
+    try:
+        default_gmail = GmailAccount.query.filter_by(user_id=current_user.id, is_default=True).first()
+        if not default_gmail:
+            return jsonify({"success": False, "error": "No default Gmail account configured."}), 400
+
+        email_addr = default_gmail.email
+        password = decrypt_value(default_gmail.encrypted_app_password)
+
+        res = email_agent.check_spam_and_bounces_via_imap(email_addr, password, user_id=current_user.id)
+        return jsonify(res)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/email-agent/notifications")
+@login_required
+def email_agent_notifications():
+    try:
+        replies = reply_agent.get_replies(user_id=current_user.id)
+        unread_replies = [r for r in replies if not r.get("is_read", False)]
+        delivery_stats = email_agent.get_delivery_stats(user_id=current_user.id)
+
+        return jsonify({
+            "unread_count": len(unread_replies),
+            "unread_replies": unread_replies[:10],
+            "delivery_stats": {
+                "total_sent": delivery_stats.get("total_sent", 0),
+                "inbox_count": delivery_stats.get("inbox_count", 0),
+                "spam_count": delivery_stats.get("spam_count", 0),
+                "failed_count": delivery_stats.get("failed_count", 0)
+            }
+        })
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/email-agent/replies/<reply_id>/mark-read", methods=["POST"])
+@login_required
+def email_agent_mark_reply_read(reply_id):
+    try:
+        reply = reply_agent.find_reply(reply_id)
+        if not reply or reply.get("user_id") != current_user.id:
+            return jsonify({"success": False, "error": "Unauthorized or not found."}), 403
+
+        reply_agent.mark_reply_read(reply_id)
+        return jsonify({"success": True})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
+

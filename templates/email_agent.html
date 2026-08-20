@@ -1037,6 +1037,213 @@
       color: var(--text-faint);
       cursor: not-allowed;
       pointer-events: none;
+    /* Bell Notification Styling */
+    .bell-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .bell-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 16px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .bell-btn:hover {
+      border-color: var(--accent-email);
+      background: var(--surface);
+    }
+    .bell-badge {
+      background: var(--danger);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+    .bell-dropdown {
+      position: absolute;
+      top: 120%;
+      right: 0;
+      width: 320px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .bell-dropdown-header {
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .clear-bell-btn {
+      background: none;
+      border: none;
+      color: var(--accent-email);
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .bell-list {
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .bell-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .bell-item:hover {
+      background: var(--surface-2);
+    }
+    .bell-item-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .bell-item-sub {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .bell-empty {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Floating Toast Alerts */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-alert {
+      background: var(--surface);
+      border: 1px solid var(--accent-email);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideInRight 0.3s ease;
+      max-width: 380px;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Placement Card Styling */
+    .placement-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .placement-stat-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .placement-stat-title {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .placement-stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--text);
+    }
+    .placement-stat-card.inbox .placement-stat-value { color: var(--accent-email); }
+    .placement-stat-card.spam .placement-stat-value { color: var(--accent-lead); }
+    .placement-stat-card.failed .placement-stat-value { color: var(--danger); }
+
+    .placement-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+    .placement-table th, .placement-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+    .placement-table th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: var(--font-mono);
+      background: var(--surface-2);
+    }
+    .placement-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .placement-badge.inbox {
+      background: var(--accent-email-soft);
+      color: var(--accent-email);
+      border: 1px solid rgba(94,234,212,0.3);
+    }
+    .placement-badge.spam {
+      background: var(--accent-lead-soft);
+      color: var(--accent-lead);
+      border: 1px solid rgba(245,166,35,0.3);
+    }
+    .placement-badge.failed {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border: 1px solid rgba(239,68,68,0.3);
+    }
+    .placement-action-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .placement-action-btn:hover {
+      border-color: var(--accent-email);
+      color: var(--accent-email);
     }
   </style>
 </head>
@@ -1046,8 +1253,24 @@
   <div style="max-width: 1080px; margin: 0 auto; padding: 28px 24px 0; width: 100%;">
     <div class="brand-row">
       <div class="brand"><span class="dot"></span>MU AGENTS</div>
-      <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 14px;">
         {% if current_user.is_authenticated %}
+          <!-- Bell Notification Dropdown -->
+          <div class="bell-wrapper">
+            <button type="button" id="bell-btn" class="bell-btn" title="Notifications">
+              🔔 <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+            </button>
+            <div id="bell-dropdown" class="bell-dropdown" style="display: none;">
+              <div class="bell-dropdown-header">
+                <span>Notifications & Replies</span>
+                <button type="button" id="clear-bell-btn" class="clear-bell-btn">Clear All</button>
+              </div>
+              <div id="bell-list" class="bell-list">
+                <div class="bell-empty">No unread notifications</div>
+              </div>
+            </div>
+          </div>
+
           <span class="eyebrow" style="text-transform: none; font-size: 12.5px; color: var(--muted); font-family: var(--font-mono);">{{ current_user.email }}</span>
           <a href="/settings" class="open-link-btn" style="border-radius: 6px; padding: 6px 12px; font-size: 11px; text-decoration: none;">Settings</a>
           <a href="/logout" class="open-link-btn" style="border-radius: 6px; padding: 6px 12px; font-size: 11px; text-decoration: none; border-color: var(--danger); color: var(--danger); background: transparent;">Logout</a>
@@ -1056,6 +1279,9 @@
         {% endif %}
       </div>
     </div>
+
+    <!-- Floating Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <div class="switcher">
       <a href="/" class="switch-tab" data-agent="lead"><span class="ic"></span>Lead Finder</a>
@@ -1066,9 +1292,10 @@
     <!-- Sub-switcher for Email Agent sections -->
     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 26px;">
       <div class="sub-switcher" style="margin-bottom: 0;">
-        <button type="button" class="sub-tab active" data-section="campaign">📧 Send Campaign</button>
-        <button type="button" class="sub-tab" data-section="replies">🤖 Reply Intelligence</button>
-        <button type="button" class="sub-tab" data-section="history">📜 Sent History</button>
+        <button type="button" class="sub-tab active" data-section="campaign" onclick="showSection('campaign')">📧 Send Campaign</button>
+        <button type="button" class="sub-tab" data-section="replies" onclick="showSection('replies')">🤖 Reply Intelligence</button>
+        <button type="button" class="sub-tab" data-section="placement" onclick="showSection('placement')">📊 Delivery Records</button>
+        <button type="button" class="sub-tab" data-section="history" onclick="showSection('history')">📜 Sent History</button>
       </div>
 
       <button
@@ -1398,9 +1625,75 @@
             </div>
           </div>
         </div>
+      </div> <!-- /history-container -->
+    </div> <!-- /panel -->
+  </div> <!-- /history-section -->
+
+    <!-- Placement & Delivery Tracker Section -->
+    <div id="placement-section" style="display: none; width: 100%;">
+      <div class="panel" style="margin-top: 24px;">
+        <div class="panel-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <div class="eyebrow">Delivery Tracker</div>
+            <h2 class="panel-title" style="font-size: 22px;">Email Dispatch & Placement Records</h2>
+            <p class="panel-sub" style="font-size: 13.5px;">Detailed breakdown of sent email placement (Inbox vs Failed).</p>
+          </div>
+          <button type="button" id="imap-check-spam-btn" class="export-btn" style="background: var(--surface-2); border-color: var(--border); color: var(--text);">
+            <span>⚡ Run IMAP Bounce Inspector</span>
+          </button>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="placement-stats-grid">
+          <div class="placement-stat-card">
+            <span class="placement-stat-title">Total Emails Sent</span>
+            <span class="placement-stat-value" id="placement-total-count">0</span>
+          </div>
+          <div class="placement-stat-card inbox">
+            <span class="placement-stat-title">📥 Inbox / Delivered</span>
+            <span class="placement-stat-value" id="placement-inbox-count">0</span>
+          </div>
+          <div class="placement-stat-card failed">
+            <span class="placement-stat-title">❌ Delivery Failed / Bounced</span>
+            <span class="placement-stat-value" id="placement-failed-count">0</span>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="reply-tabs" style="margin-bottom: 16px;">
+          <button type="button" class="reply-tab active" data-placement-tab="all">
+            All Sent Emails (<span id="tab-count-all">0</span>)
+          </button>
+          <button type="button" class="reply-tab" data-placement-tab="inbox">
+            📥 Inbox (<span id="tab-count-inbox">0</span>)
+          </button>
+          <button type="button" class="reply-tab" data-placement-tab="failed">
+            ❌ Failed (<span id="tab-count-failed">0</span>)
+          </button>
+        </div>
+
+        <!-- Placement Table Container -->
+        <div id="placement-table-wrapper" style="overflow-x: auto;">
+          <table class="placement-table">
+            <thead>
+              <tr>
+                <th>Recipient Email</th>
+                <th>Business Name</th>
+                <th>Subject</th>
+                <th>Date Sent</th>
+                <th>Placement Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="placement-table-body">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--muted); padding: 24px;">Loading delivery records...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    </div> <!-- /history-section -->
+    </div> <!-- /placement-section -->
 
     <!-- ============================================================
          REPLY DETAIL MODAL
@@ -1513,7 +1806,7 @@
 
   </main>
 
-  <script src="/static/email_agent.js?v=2"></script>
+  <script src="/static/email_agent.js?v=8"></script>
   <div class="signature"><span class="spark">✦</span> crafted by US</div>
 </body>
 </html>
